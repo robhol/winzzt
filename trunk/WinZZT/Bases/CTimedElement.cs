@@ -11,7 +11,7 @@ namespace WinZZT
         private Timer tmr;
         private double _cycle = 500;
 
-        public void Init(double cycle)
+        public void InitTimer(double cycle)
         {
             _cycle = cycle;
             tmr = new Timer(_cycle);
@@ -22,7 +22,7 @@ namespace WinZZT
         public void InitProps(int x, int y, string c, System.Drawing.Color foreground, System.Drawing.Color background, bool block, int ordering, double cycle)
         {
             base.InitProps(x, y, c, foreground, background, block, ordering);
-            Init(cycle);
+            InitTimer(cycle);
         }
 
         public int Cycle

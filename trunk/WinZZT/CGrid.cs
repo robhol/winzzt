@@ -65,6 +65,21 @@ namespace WinZZT
 
         }
 
+        public static EDirection GetOppositeDirection(EDirection d)
+        {
+
+            switch (d)
+            {
+                case EDirection.North:  return EDirection.South;
+                case EDirection.East:   return EDirection.West;
+                case EDirection.South:  return EDirection.North;
+                case EDirection.West:   return EDirection.East;
+            }
+
+            return EDirection.East; // purely to avoid whining from the idiot compiler
+
+        }
+
         static public bool IsValid(Point p)
         {
             return (p.X >= 0 && p.X < GridSize.Width) && (p.Y >= 0 && p.Y < GridSize.Height);

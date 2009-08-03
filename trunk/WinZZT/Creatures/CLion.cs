@@ -20,7 +20,7 @@ namespace WinZZT
             Seek(CGame.Player);
         }
 
-        public override void Shot(CElement responsible)
+        public override void Shot(CElement responsible, CBullet bullet)
         {
             CDrawing.DisplayText("Lion shot", 500);
             if (responsible == CGame.Player)

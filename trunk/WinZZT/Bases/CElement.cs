@@ -124,6 +124,7 @@ namespace WinZZT
 
         public void Shoot(EDirection d)
         {
+
             Point p = CGrid.GetInDirection(Location, d);
 
             if (CGrid.IsValid(p) && !CGrid.Get(p).IsBlocked() || (CGrid.Get(p).GetTopmost() != null && !CGrid.Get(p).GetTopmost().BlockBullets ))
@@ -131,7 +132,7 @@ namespace WinZZT
 
         }
 
-        public virtual void Shot(CElement responsible)
+        public virtual void Shot(CElement responsible, CBullet bullet)
         {
 
         }

@@ -13,7 +13,7 @@ namespace WinZZT
             InitProps(x, y, "▒", c, Color.Black, true, 0);
         }
 
-        public override void Shot(CElement responsible)
+        public override void Shot(CElement responsible, CBullet bullet)
         {
             this.Die();
         }

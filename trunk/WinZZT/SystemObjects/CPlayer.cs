@@ -34,7 +34,7 @@ namespace WinZZT
                 }   
         }
 
-        public override void Shot(CElement responsible)
+        public override void Shot(CElement responsible, CBullet bullet)
         {
             CGame.DamagePlayer(10);
             CDrawing.DisplayText("Player shot: " + CGame.PlayerHealth.ToString() + "/100",500);

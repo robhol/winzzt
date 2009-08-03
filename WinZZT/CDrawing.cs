@@ -16,11 +16,11 @@ namespace WinZZT
 
         public static Size CellSpacing = new Size(0, 0);
 
-        public static Font DrawFont = new Font("Lucida Console", 12);
+        public static Font DrawFont = new Font("Trebuchet MS", 12);
 
         public static StringFormat stringFormat = new StringFormat();
 
-        public static bool DrawDGrid = true;
+        public static bool DrawDGrid = false;
 
         public static Timer tmrDraw;
             
@@ -119,7 +119,7 @@ namespace WinZZT
                 StringFormat f = new StringFormat();
                 f.Alignment = StringAlignment.Center;
 
-                g.DrawString(textValue, DrawFont, Brushes.White, new RectangleF(0, CanvasSize.Height - CellSize.Height, CanvasSize.Width, CellSize.Height),f);
+                g.DrawString(textValue, DrawFont, Brushes.White, new RectangleF(0, CanvasSize.Height - CellSize.Height - 7, CanvasSize.Width, CellSize.Height + 7),f);
 
             }
 

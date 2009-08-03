@@ -110,7 +110,7 @@ namespace WinZZT
                 f.Alignment = StringAlignment.Center;
 
                 g.FillRectangle(new SolidBrush(Color.FromArgb(50, 255, 0, 0)), 0, 0, CanvasSize.Width, CanvasSize.Height);
-                g.DrawString("GAME OVER", new Font("Courier New", 14), Brushes.White, CanvasSize.Width / 2, CanvasSize.Height / 2,f);
+                g.DrawString("GAME OVER", new Font("Courier New", 14, FontStyle.Bold), Brushes.White, CanvasSize.Width / 2, CanvasSize.Height / 2,f);
             }
 
             if (textDisplayActive)

@@ -26,7 +26,7 @@ namespace WinZZT
             this.Cycle = cCycle;
             this.Location = new Point(x, y);
             base.InitPosition(x, y);
-            base.Init(cCycle);
+            base.InitTimer(cCycle);
         }
 
         public override void Step()

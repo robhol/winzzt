@@ -19,7 +19,7 @@ namespace WinZZT
             this.Block = true;
 
             this.InitPosition(x, y);
-            this.Init(500);
+            this.InitTimer(500);
 
         }
 

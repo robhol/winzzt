@@ -22,9 +22,7 @@ namespace WinZZT
 
         public override void Shot(CElement responsible, CBullet bullet)
         {
-            CDrawing.DisplayText("Lion shot", 500);
-            if (responsible == CGame.Player)
-                Die();
+            Die();
         }
 
     }

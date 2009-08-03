@@ -16,22 +16,36 @@ namespace WinZZT
             this.ForeColor = Color.Gray;
             this.BackColor = Color.Black;
             this.Char = "o";
-            this.Cycle = 500;
             this.Block = true;
 
             this.InitPosition(x, y);
+            this.Init(500);
 
         }
+
+        int pendingShots = 0;
+        DateTime dshoot = DateTime.MinValue;
+        EDirection shootNext = EDirection.North;
 
         public override void Step()
         {
-
+            if (pendingShots > 0 && DateTime.Now >= dshoot)
+            {
+                Shoot(shootNext);
+                pendingShots--;
+            }
         }
 
-        public override void Shot(CElement responsible)
+        public override void Shot(CElement responsible, CBullet bullet)
         {
             Random r = new Random();
-            this.ForeColor = Color.FromArgb(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255));
+            
+            ForeColor = Color.FromArgb(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255));
+
+            shootNext = CGrid.GetOppositeDirection(bullet.Direction);
+            dshoot = DateTime.Now.AddMilliseconds(1000);
+            pendingShots++;
+
             CDrawing.DisplayText("Target - Shot", 1000);
         }
 

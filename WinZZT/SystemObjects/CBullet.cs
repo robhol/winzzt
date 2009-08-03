@@ -48,7 +48,7 @@ namespace WinZZT
                     CElement target = CGrid.Get(p).GetTopmost();
                     if (target != null && target.BlockBullets)
                     {
-                        target.Shot(Source);
+                        target.Shot(Source, this);
                         Die();
                     }
                     else

@@ -31,7 +31,7 @@ namespace WinZZT
 
         }
 
-        public override void Shot(CElement responsible)
+        public override void Shot(CElement responsible, CBullet bullet)
         {
             if (responsible == CGame.Player)
                 Die();

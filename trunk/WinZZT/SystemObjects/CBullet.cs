@@ -34,7 +34,7 @@ namespace WinZZT
 
             Point p = CGrid.GetInDirection(Location, Direction);
 
-            if (!Try(Direction,false))
+            if (!Try(Direction,false,false))
             {
                 
 

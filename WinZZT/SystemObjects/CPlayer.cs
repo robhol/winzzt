@@ -30,7 +30,7 @@ namespace WinZZT
                 }
                 else
                 {
-                    Try(d,true);
+                    Try(d,true,true);
                 }   
         }
 

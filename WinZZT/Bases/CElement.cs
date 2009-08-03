@@ -18,6 +18,7 @@ namespace WinZZT
         public bool BlockBullets = true;
         public int Ordering;
         public bool CanBeSteppedOn = false;
+        public bool Pushable = false;
 
         public void InitPosition(int x, int y)
         {
@@ -77,7 +78,7 @@ namespace WinZZT
             this.Location = to;
         }
 
-        public bool Try(EDirection d, bool move)
+        public bool Try(EDirection d, bool move, bool push)
         {
 
             Point p = CGrid.GetInDirection(Location, d);
@@ -94,6 +95,11 @@ namespace WinZZT
 
                 return true;
             }
+            else if (t.IsBlocked() && push && t.GetTopmost() != null && t.GetTopmost().Pushable)
+            {
+                if (t.GetTopmost().PushTowards(d))
+                    Move(Location,p);
+            }
             else
             {
                 CElement c = t.GetTopmost();
@@ -106,6 +112,35 @@ namespace WinZZT
 
         }
 
+        public bool PushTowards(EDirection d)
+        {
+
+            Point p = CGrid.GetInDirection(Location, d);
+
+            if (!CGrid.IsValid(p))
+                return false;
+
+            CTile t = CGrid.Get(p);
+
+            if (!t.IsBlocked())
+            {
+                Move(Location, p);
+                return true;
+            }
+            else if (t.IsBlocked() && t.GetTopmost() != null && t.GetTopmost().Pushable)
+            {
+                if (t.GetTopmost().PushTowards(d))
+                {
+                    Move(Location, p);
+                    return true;
+                }
+            }
+            
+
+            return false;
+
+        }
+
         public void Seek(Point p)
         {
 
@@ -113,7 +148,7 @@ namespace WinZZT
             if (CGrid.Get(CGrid.GetInDirection(Location,x)).IsBlocked())
                 x = CGrid.GetDirectionToPoint(Location, p, true);
 
-            Try(x,true);
+            Try(x,true,true);
 
         }
 

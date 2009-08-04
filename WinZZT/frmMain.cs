@@ -31,8 +31,8 @@ namespace WinZZT
             new CTiger(23, 7);
 
             new CBoulder(10, 10, Color.White);
-            new CBoulder(13, 10, Color.LightBlue);
-            new CBoulder(10, 13, Color.LightGreen);
+            new CSlider(13, 10, ESliderType.Horizontal, Color.LightBlue);
+            new CSlider(10, 13, ESliderType.Vertical, Color.LightGreen);
 
             for (int y = 5; y < 21; y++)
                 new CWater(22, y, Color.Blue);

@@ -13,4 +13,10 @@ namespace WinZZT
         West
     }
 
+    public enum ESliderType
+    {
+        Horizontal,
+        Vertical
+    }
+
 }

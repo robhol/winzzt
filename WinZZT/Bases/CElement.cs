@@ -112,7 +112,7 @@ namespace WinZZT
 
         }
 
-        public bool PushTowards(EDirection d)
+        public virtual bool PushTowards(EDirection d)
         {
 
             Point p = CGrid.GetInDirection(Location, d);

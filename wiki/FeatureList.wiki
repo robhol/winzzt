@@ -31,4 +31,6 @@
   * *Doors/keys* - not done. Unsure of necessity. Low priority.
   * *Bomb*      - not done.
 
+= Scripting =
 
+_Currently unsure of implementation._

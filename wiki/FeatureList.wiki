@@ -4,12 +4,12 @@
 = Environment =
 
   * *Solid*      - done. (Wall.)
-  * *Normal*     - not done. Completely trivial.
+  * *Normal*     - done.
   * *Water*      - done.
   * *Forest*     - not done. Low priority.
   * *Breakable*  - done.
   * *Fake wall*  - not done.
-  * *Invisible*  - not done.
+  * *Invisible*  - done. (InvisibleWall)
   * *Blinking*   - not done.
   * *Transport*  - not done.
   * *Ricochet*   - not done.

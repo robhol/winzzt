@@ -35,7 +35,7 @@ namespace WinZZT
             new CSlider(10, 13, ESliderType.Vertical, Color.LightGreen);
 
             for (int y = 5; y < 21; y++)
-                new CWater(22, y, Color.Blue);
+                new CInvisibleWall(22, y);
 
         }
 

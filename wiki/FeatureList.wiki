@@ -1,0 +1,34 @@
+#summary List of ZZT features that's implemented, in progress, etc.
+#labels Featured,Phase-Design
+
+= Environment =
+
+  * *Solid*      - done. (Wall.)
+  * *Normal*     - not done. Completely trivial.
+  * *Water*      - done.
+  * *Forest*     - not done. Low priority.
+  * *Breakable*  - done.
+  * *Fake wall*  - not done.
+  * *Invisible*  - not done.
+  * *Blinking*   - not done.
+  * *Transport*  - not done.
+  * *Ricochet*   - not done.
+  * *Conveyor*   - not done.
+
+= Creatures =
+
+  * *Lion*      - done.
+  * *Tiger*     - done.
+  * *Ruffian*   - not done.
+  * *Slime*     - not done.
+  * *Shark*     - not done.
+  * *Centipede* - not done. Low priority, unsure of implementation.
+
+= Items =
+
+  * _Currently no work._
+  * *Scroll*    - not done.
+  * *Doors/keys* - not done. Unsure of necessity. Low priority.
+  * *Bomb*      - not done.
+
+

@@ -16,7 +16,7 @@ namespace WinZZT
 
         public static Size CellSpacing = new Size(0, 0);
 
-        public static Font DrawFont = new Font("Trebuchet MS", 12);
+        public static Font DrawFont = new Font("Trebuchet MS", 12); //TODO: find proper font!
 
         public static StringFormat stringFormat = new StringFormat();
 

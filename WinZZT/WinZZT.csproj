@@ -63,7 +63,9 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameObjects\CSlider.cs" />
     <Compile Include="SystemObjects\CBullet.cs" />
+    <Compile Include="GameObjects\CBoulder.cs" />
     <Compile Include="SystemObjects\CPlayer.cs" />
     <Compile Include="SystemObjects\CTarget.cs" />
     <Compile Include="Program.cs" />

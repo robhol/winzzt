@@ -54,6 +54,7 @@
     <Compile Include="CGame.cs" />
     <Compile Include="CGrid.cs" />
     <Compile Include="Creatures\CLion.cs" />
+    <Compile Include="Creatures\CPusher.cs" />
     <Compile Include="Creatures\CTiger.cs" />
     <Compile Include="CTile.cs" />
     <Compile Include="Enums.cs" />

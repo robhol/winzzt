@@ -17,6 +17,7 @@ namespace WinZZT
             this.ForeColor = Color.White;
             this.CanBeSteppedOn = false;
             this.Block = true;
+            this.Pushable = true;
             this.Ordering = 10000;
             this.InitPosition(x, y);
         }

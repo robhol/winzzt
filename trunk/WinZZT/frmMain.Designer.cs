@@ -37,10 +37,9 @@
             this.pb.BackColor = System.Drawing.Color.Black;
             this.pb.Location = new System.Drawing.Point(12, 12);
             this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(746, 433);
+            this.pb.Size = new System.Drawing.Size(420, 350);
             this.pb.TabIndex = 1;
             this.pb.TabStop = false;
-            this.pb.Click += new System.EventHandler(this.pb_Click);
             this.pb.Paint += new System.Windows.Forms.PaintEventHandler(this.pb_Paint);
             // 
             // frmMain
@@ -48,7 +47,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(770, 457);
+            this.ClientSize = new System.Drawing.Size(441, 374);
             this.Controls.Add(this.pb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;

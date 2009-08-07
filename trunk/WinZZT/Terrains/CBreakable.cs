@@ -10,7 +10,7 @@ namespace WinZZT
     {
         public CBreakable(int x, int y, Color c)
         {
-            InitProps(x, y, "▒", c, Color.Black, true, 0);
+            InitProps(x, y, 177, c, Color.Black, true, 0);
         }
 
         public override void Shot(CElement responsible, CBullet bullet)

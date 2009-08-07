@@ -33,7 +33,7 @@ namespace WinZZT
             new CBoulder(10, 10, Color.White);
             new CBoulder(13, 10, Color.White);
             new CBoulder(15, 10, Color.White);
-            new CPusher(5, 10, EDirection.South, Color.Red);
+            new CPusher(5, 10, EDirection.East, Color.Red);
             new CBreakable(7, 10, Color.Tomato);
             new CSlider(13, 11, ESliderType.Horizontal, Color.LightBlue);
             new CSlider(10, 13, ESliderType.Vertical, Color.LightGreen);
@@ -72,11 +72,5 @@ namespace WinZZT
             }
         }
 
-        private void pb_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        
     }
 }

@@ -16,8 +16,8 @@ namespace WinZZT
         {
 
             this.ForeColor = c;
-            this.BackColor = Color.Black;
-            this.Char = new string[] { "↔", "↕" }[(int)t];
+            this.BackColor = Color.Transparent;
+            this.Char = new int[] { 29, 18 }[(int)t];
             this.Block = true;
             this.Pushable = true;
             this.Orientation = t;

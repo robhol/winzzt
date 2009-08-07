@@ -10,7 +10,7 @@ namespace WinZZT
     {
         public CNormal(int x, int y, Color c)
         {
-            InitProps(x, y, "▓", c, Color.Black, true, 0);
+            InitProps(x, y, 178, c, Color.Black, true, 0);
         }
     }
 }

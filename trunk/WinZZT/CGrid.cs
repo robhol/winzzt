@@ -10,7 +10,7 @@ namespace WinZZT
     static class CGrid
     {
         static private Dictionary<Point, CTile> DGrid = new Dictionary<Point, CTile>();
-        static public Size GridSize = new Size(47, 27);
+        static public Size GridSize = new Size(40, 25);
 
         static public void Initialize()
         {

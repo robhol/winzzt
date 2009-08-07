@@ -30,6 +30,7 @@
   * *Scroll*    - not done.
   * *Doors/keys* - not done. Unsure of necessity. Low priority.
   * *Bomb*      - not done.
+  * *Ammo*      - done.
 
 = Scripting =
 

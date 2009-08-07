@@ -8,7 +8,7 @@ namespace WinZZT
     static class CGame
     {
         static private CPlayer _player;
-        static private int _playerHealth;
+        static public int PlayerHealth;
 
         static public bool PlayerSpawned;
         static public bool PlayerDead;
@@ -21,15 +21,11 @@ namespace WinZZT
             get { return _player; }
         }
 
-        static public int PlayerHealth
-        {
-            get { return _playerHealth; }
-        }
 
         static public void DamagePlayer(int dmg)
         {
-            _playerHealth = Math.Max(_playerHealth - dmg, 0);
-            if (_playerHealth == 0)
+            PlayerHealth = Math.Max(PlayerHealth - dmg, 0);
+            if (PlayerHealth == 0)
             {
                 PlayerDead = true;
                 PlayerFrozen = true;
@@ -43,7 +39,7 @@ namespace WinZZT
 
             PlayerDead = false;
             PlayerSpawned = true;
-            _playerHealth = 100;
+            PlayerHealth = 100;
             _player = new CPlayer(x, y);
 
         }

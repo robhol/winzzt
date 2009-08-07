@@ -72,7 +72,18 @@ namespace WinZZT
                         CGame.Player.HandleInput(EDirection.South, e.Shift);   
                         break;
                     }
+                case Keys.C:
+                    {
+                        if (e.Shift && e.Alt)
+                        {
+                            frmConsole fc = new frmConsole();
 
+                            fc.Location = new Point(this.Location.X + this.Width, this.Location.Y + this.Height - fc.Height);
+
+                            fc.ShowDialog(this);
+                        }
+                        break;
+                    }
 
             }
         }

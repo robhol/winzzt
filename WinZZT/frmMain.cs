@@ -41,6 +41,11 @@ namespace WinZZT
             for (int y = 5; y < 21; y++)
                 new CWall(22, y,Color.Blue);
 
+            for (int x = 8; x < 18; x++)
+            {
+                new CAmmo(x, 6, 5);
+            }
+
         }
 
         private void frmMain_KeyDown(object sender, KeyEventArgs e)

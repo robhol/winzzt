@@ -20,6 +20,22 @@ namespace WinZZT
             this.Pushable = true;
             this.Ordering = 10000;
             this.InitPosition(x, y);
+            this.IsPlayer = true;
+        }
+
+        private void TryShoot(EDirection d)
+        {
+
+            if (CGame.PlayerAmmo > 0)
+            {
+                if (Shoot(d))
+                    CGame.PlayerAmmo--;
+            }
+            else
+            {
+                CDrawing.DisplayText("No ammo!", 1000);
+            }
+            
         }
 
         public void HandleInput(EDirection d, bool shoot)
@@ -27,7 +43,7 @@ namespace WinZZT
             if (!CGame.PlayerFrozen)
                 if (shoot)
                 {
-                    Shoot(d);
+                    TryShoot(d);
                 }
                 else
                 {

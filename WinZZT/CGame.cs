@@ -14,6 +14,8 @@ namespace WinZZT
         static public bool PlayerDead;
         static public bool PlayerFrozen;
 
+        static public int PlayerAmmo = 0;
+
         static public CPlayer Player
         {
             get { return _player; }
@@ -45,6 +47,8 @@ namespace WinZZT
             _player = new CPlayer(x, y);
 
         }
+
+
 
     }
 }

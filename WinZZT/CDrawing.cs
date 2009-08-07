@@ -14,7 +14,9 @@ namespace WinZZT
 
         public static Size CanvasSize = new Size(320, 350);
 
-        public static Font DrawFont = new Font("Fixedsys", 12); 
+        public static Font DrawFont = new Font("Trebuchet MS", 12);
+
+        public static Font BarFont = new Font("Courier New", 8); 
 
         public static StringFormat stringFormat = new StringFormat();
 
@@ -96,6 +98,25 @@ namespace WinZZT
             
         }
 
+        public static void DrawBar(Graphics g)
+        {
+
+            StringFormat sfCenter = new StringFormat();
+            sfCenter.LineAlignment = StringAlignment.Center;
+
+            g.FillRectangle(new SolidBrush(Color.FromArgb(0,0,100)), CanvasSize.Width, 0, 100, CanvasSize.Height);
+
+            g.DrawString("- WinZZT -", BarFont, Brushes.Yellow,CanvasSize.Width + 18, 30, sfCenter);
+
+            string status =
+                "Health :  " + CGame.PlayerHealth.ToString().PadLeft(3,char.Parse(" ")) + "\r\n" +
+                "Ammo   : "  + CGame.PlayerAmmo.ToString().PadLeft(4, char.Parse(" "))
+                ;
+
+            g.DrawString(status, BarFont, Brushes.White, CanvasSize.Width + 5, 50);
+
+        }
+
         public static void DrawGrid(Graphics g)
         {
             for (int y = 0; y < CGrid.GridSize.Height; y++)
@@ -119,9 +140,11 @@ namespace WinZZT
                 StringFormat f = new StringFormat();
                 f.Alignment = StringAlignment.Center;
 
-                g.DrawString(textValue, DrawFont, Brushes.White, new RectangleF(0, CanvasSize.Height - CellSize.Height - 7, CanvasSize.Width, CellSize.Height + 7),f);
+                g.DrawString(textValue, DrawFont, Brushes.White, new Rectangle(0, CanvasSize.Height - CellSize.Height - 7, CanvasSize.Width, CellSize.Height + 7),f);
 
             }
+
+            DrawBar(g);
 
         }
 

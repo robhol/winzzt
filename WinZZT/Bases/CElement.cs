@@ -20,6 +20,8 @@ namespace WinZZT
         public bool CanBeSteppedOn = false;
         public bool Pushable = false;
 
+        public bool IsPlayer = false;
+
         public void InitPosition(int x, int y)
         {
             Location = new Point(x, y);
@@ -90,6 +92,11 @@ namespace WinZZT
 
             if (!t.IsBlocked())
             {
+                CElement c = t.GetTopmost();
+
+                if (c != null && c.CanBeSteppedOn)
+                    c.SteppedOn(this);
+
                 if (move)
                     Move(Location, p);
 
@@ -103,8 +110,10 @@ namespace WinZZT
             else
             {
                 CElement c = t.GetTopmost();
+                
                 if (c != null)
                     c.Touch();
+
             }
 
             return false;
@@ -157,13 +166,18 @@ namespace WinZZT
             Seek(e.Location);
         }
 
-        public void Shoot(EDirection d)
+        public bool Shoot(EDirection d)
         {
 
             Point p = CGrid.GetInDirection(Location, d);
 
-            if (CGrid.IsValid(p) && !CGrid.Get(p).IsBlocked() || (CGrid.Get(p).GetTopmost() != null && !CGrid.Get(p).GetTopmost().BlockBullets ))
+            if (CGrid.IsValid(p) && !CGrid.Get(p).IsBlocked() || (CGrid.Get(p).GetTopmost() != null && !CGrid.Get(p).GetTopmost().BlockBullets))
+            {
                 new CBullet(p.X, p.Y, 100, d, this);
+                return true;
+            }
+            else
+                return false;
 
         }
 
@@ -173,6 +187,11 @@ namespace WinZZT
         }
 
         public virtual void Touch()
+        {
+
+        }
+
+        public virtual void SteppedOn(CElement responsible)
         {
 
         }

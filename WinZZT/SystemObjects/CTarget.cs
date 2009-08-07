@@ -14,8 +14,8 @@ namespace WinZZT
         {
 
             this.ForeColor = Color.Gray;
-            this.BackColor = Color.Black;
-            this.Char = "o";
+            this.BackColor = Color.Transparent;
+            this.Char = 111;
             this.Block = true;
 
             this.InitPosition(x, y);

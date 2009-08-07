@@ -10,17 +10,15 @@ namespace WinZZT
     static class CDrawing
     {
 
-        public static Size CellSize = new Size(12, 16);
+        public static Size CellSize = new Size(8, 14);
 
-        public static Size CanvasSize = new Size(612, 433);
+        public static Size CanvasSize = new Size(320, 350);
 
-        public static Size CellSpacing = new Size(0, 0);
-
-        public static Font DrawFont = new Font("Trebuchet MS", 12); //TODO: find proper font!
+        public static Font DrawFont = new Font("Fixedsys", 12); 
 
         public static StringFormat stringFormat = new StringFormat();
 
-        public static bool DrawDGrid = false;
+        public static bool DrawDGrid = true;
 
         public static Timer tmrDraw;
             
@@ -58,8 +56,8 @@ namespace WinZZT
 
         public static Point GetCanvasCoords(Point p)
         {
-            int x = p.X * CellSize.Width + CellSpacing.Width;
-            int y = p.Y * CellSize.Height + CellSpacing.Height;
+            int x = p.X * CellSize.Width;
+            int y = p.Y * CellSize.Height;
             return new Point(x, y);
         }
 
@@ -73,7 +71,7 @@ namespace WinZZT
 
             g.FillRectangle(new SolidBrush(o.BackColor), p.X, p.Y, CellSize.Width, CellSize.Height);
 
-            g.DrawString(o.Char, DrawFont, new SolidBrush(o.ForeColor), p.X + (CellSize.Width / 2), p.Y + (CellSize.Height / 2), stringFormat);
+            g.DrawImage(CCharManager.GetChar(o.Char, o.ForeColor), p);
 
         }
 
@@ -82,6 +80,12 @@ namespace WinZZT
             Point gp = new Point(x,y);
             Point p = GetCanvasCoords(gp);
 
+            if (DrawDGrid)
+            {
+                Pen pn = new Pen(Color.FromArgb(16, 16, 16));
+                g.DrawRectangle(pn, p.X, p.Y, CellSize.Width, CellSize.Height);
+            }
+
             CTile t = CGrid.Get(gp);
 
             if (t.Contents.Count > 0)
@@ -89,11 +93,7 @@ namespace WinZZT
                 DrawObject(t.GetTopmost(), g);
             }
 
-            if (DrawDGrid)
-            {
-                Pen pn = new Pen(Color.FromArgb(16, 16, 16));
-                g.DrawRectangle(pn, p.X, p.Y, CellSize.Width, CellSize.Height);
-            }
+            
         }
 
         public static void DrawGrid(Graphics g)

@@ -19,7 +19,7 @@ namespace WinZZT
             tmr.Start();
         }
 
-        public void InitProps(int x, int y, string c, System.Drawing.Color foreground, System.Drawing.Color background, bool block, int ordering, double cycle)
+        public void InitProps(int x, int y, int c, System.Drawing.Color foreground, System.Drawing.Color background, bool block, int ordering, double cycle)
         {
             base.InitProps(x, y, c, foreground, background, block, ordering);
             InitTimer(cycle);

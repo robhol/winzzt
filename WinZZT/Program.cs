@@ -21,6 +21,7 @@ namespace WinZZT
             Application.SetCompatibleTextRenderingDefault(false);
             
             CGrid.Initialize();
+            CCharManager.Initialize();
             CDrawing.Initialize();
             
             MainForm = new frmMain();

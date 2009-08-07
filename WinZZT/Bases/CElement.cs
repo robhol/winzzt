@@ -11,7 +11,7 @@ namespace WinZZT
     {
 
         public Point Location;
-        public string Char;
+        public int Char;
         public Color ForeColor;
         public Color BackColor;
         public bool Block;
@@ -40,7 +40,7 @@ namespace WinZZT
             InitPosition(x, y);
         }
 
-        public void InitProps(int x, int y, string c, Color foreground, Color background, bool block, int ordering)
+        public void InitProps(int x, int y, int c, Color foreground, Color background, bool block, int ordering)
         {
             InitPosition(x, y);
             Char = c;

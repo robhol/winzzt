@@ -13,9 +13,9 @@ namespace WinZZT
 
         public CBullet(int x, int y, int cCycle, EDirection direction, CElement source)
         {
-            this.BackColor = Color.FromArgb(0,0,0,0);
+            this.BackColor = Color.Transparent;
             this.ForeColor = Color.White;
-            this.Char = "∙";
+            this.Char = 249;
             this.Block = true;
 
             this.Source = source;

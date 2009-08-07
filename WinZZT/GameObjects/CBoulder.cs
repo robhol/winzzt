@@ -14,8 +14,8 @@ namespace WinZZT
         {
 
             this.ForeColor = c;
-            this.BackColor = Color.Black;
-            this.Char = "■";
+            this.BackColor = Color.Transparent;
+            this.Char = 254;
             this.Block = true;
             this.Pushable = true;
 

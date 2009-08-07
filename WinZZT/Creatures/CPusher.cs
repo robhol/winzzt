@@ -13,8 +13,8 @@ namespace WinZZT
 
         public CPusher(int x, int y, EDirection type, Color c)
         {
-            string[] pusherChars = { "▲", "►", "▼", "◄" };
-            this.InitProps(x, y, pusherChars[(int)type], c, Color.Black, true, 61, 700);
+            int[] pusherChars = { 30, 16, 31, 17 };
+            this.InitProps(x, y, pusherChars[(int)type], c, Color.Transparent, true, 61, 700);
             this.pusherType = type;
         }
 

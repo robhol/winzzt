@@ -10,7 +10,7 @@ namespace WinZZT
     {
         public CInvisibleWall(int x, int y)
         {
-            InitProps(x, y, " ", Color.White, Color.Black, true, 0);
+            InitProps(x, y, 32, Color.White, Color.Black, true, 0);
         }
 
         public override void Shot(CElement responsible, CBullet bullet)

@@ -148,6 +148,15 @@ namespace WinZZT
 
         }
 
+        public bool IsTouching(CElement e)
+        {
+            for (int dir = 0; dir < 4; dir++)
+                if (CGrid.Get(CGrid.GetInDirection(Location, (EDirection)dir)).Contents.Contains(e))
+                    return true;
+
+            return false;
+        }
+
         public void Seek(CElement e)
         {
             Seek(e.Location);

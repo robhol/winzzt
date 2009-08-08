@@ -19,7 +19,7 @@ namespace WinZZT
             this.Block = true;
             this.Pushable = true;
             this.Ordering = 10000;
-            this.InitPosition(x, y);
+            this.Initialize(x, y);
             this.IsPlayer = true;
         }
 
@@ -40,6 +40,7 @@ namespace WinZZT
 
         public void HandleInput(EDirection d, bool shoot)
         {
+
             if (!CGame.PlayerFrozen)
                 if (shoot)
                 {

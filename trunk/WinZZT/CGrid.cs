@@ -21,6 +21,14 @@ namespace WinZZT
                 }
         }
 
+        static public void ClearGrid()
+        {
+            DGrid.Clear();
+            Initialize();
+            CElementManager.DeleteAll();
+            CGame.PlayerSpawned = false;
+        }
+
         static public Point GetInDirection(Point o, EDirection d)
         {
             Point p = new Point(0, 0);

@@ -19,7 +19,8 @@ namespace WinZZT
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
+            CElementManager.Initialize();
             CGrid.Initialize();
             CCharManager.Initialize();
             CDrawing.Initialize();

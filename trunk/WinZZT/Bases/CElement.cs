@@ -22,39 +22,26 @@ namespace WinZZT
 
         public bool IsPlayer = false;
 
-        public void InitPosition(int x, int y)
+        public void Initialize(int x, int y)
         {
+            //Add to grid
             Location = new Point(x, y);
-
             CTile t = CGrid.Get(Location);
+            t.Contents.Add(this);
 
-             t.Contents.Add(this);
+            //Register in Element Manager
+            CElementManager.Register(this);
 
-        }
-
-        public CElement()
-        {
-
-        }
-
-        public CElement(int x, int y)
-        {
-            InitPosition(x, y);
         }
 
         public void InitProps(int x, int y, int c, Color foreground, Color background, bool block, int ordering)
         {
-            InitPosition(x, y);
+            Initialize(x, y);
             Char = c;
             ForeColor = foreground;
             BackColor = background;
             Block = block;
             Ordering = ordering;
-        }
-
-        public static void DeleteElement(CElement e)
-        {
-            e = null;
         }
 
         public virtual void Die()

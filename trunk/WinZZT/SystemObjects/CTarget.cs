@@ -18,7 +18,7 @@ namespace WinZZT
             this.Char = 111;
             this.Block = true;
 
-            this.InitPosition(x, y);
+            this.Initialize(x, y);
             this.InitTimer(500);
 
         }

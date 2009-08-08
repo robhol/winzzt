@@ -22,7 +22,7 @@ namespace WinZZT
             this.Pushable = true;
             this.Orientation = t;
 
-            this.InitPosition(x, y);
+            this.Initialize(x, y);
 
         }
 

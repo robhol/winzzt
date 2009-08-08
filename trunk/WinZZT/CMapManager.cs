@@ -36,6 +36,11 @@ namespace WinZZT
                         CElementManager.Register(new CNormal(x, y, CUtil.getColorFromString(e.Attribute("color").Value)));
                         break;
                     }
+                case "fake":
+                    {
+                        CElementManager.Register(new CFake(x, y, CUtil.getColorFromString(e.Attribute("color").Value)));
+                        break;
+                    }
                 case "invisible":
                     {
                         CElementManager.Register(new CInvisibleWall(x, y));

@@ -127,7 +127,6 @@ namespace WinZZT
             //Spawn player
             CGame.SpawnPlayer(int.Parse(playerTag.Attribute("x").Value), int.Parse(playerTag.Attribute("y").Value));
 
-
         }
 
     }

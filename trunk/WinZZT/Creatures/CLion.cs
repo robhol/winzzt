@@ -17,7 +17,13 @@ namespace WinZZT
 
         public override void Step()
         {
-            Seek(CGame.Player);
+            if (this.IsTouching(CGame.Player))
+            {
+                CGame.DamagePlayer(10);
+                this.Die();
+            }
+            else
+                Seek(CGame.Player);
         }
 
         public override void Shot(CElement responsible, CBullet bullet)

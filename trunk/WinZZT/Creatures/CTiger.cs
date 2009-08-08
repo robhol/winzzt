@@ -20,7 +20,16 @@ namespace WinZZT
 
         public override void Step()
         {
+
+            if (this.IsTouching(CGame.Player))
+            {
+                CGame.DamagePlayer(10);
+                this.Die();
+                return;
+            }
+            
             Seek(CGame.Player);
+
             Point pLoc = CGame.Player.Location;
 
             if (pLoc.X == Location.X || pLoc.Y == Location.Y && NextShot < DateTime.Now)

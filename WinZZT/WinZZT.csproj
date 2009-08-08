@@ -52,8 +52,11 @@
     <Compile Include="CCharManager.cs" />
     <Compile Include="CDrawing.cs" />
     <Compile Include="Bases\CElement.cs" />
+    <Compile Include="CElementManager.cs" />
     <Compile Include="CGame.cs" />
     <Compile Include="CGrid.cs" />
+    <Compile Include="CUtil.cs" />
+    <Compile Include="CMapManager.cs" />
     <Compile Include="Creatures\CLion.cs" />
     <Compile Include="Creatures\CPusher.cs" />
     <Compile Include="Creatures\CTiger.cs" />

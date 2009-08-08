@@ -13,10 +13,5 @@ namespace WinZZT
             InitProps(x, y, 32, Color.White, Color.Black, true, 0);
         }
 
-        public override void Shot(CElement responsible, CBullet bullet)
-        {
-            this.Die();
-        }
-
     }
 }

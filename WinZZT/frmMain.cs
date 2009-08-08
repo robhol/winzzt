@@ -23,7 +23,7 @@ namespace WinZZT
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            
+            /* Nasty hardcoded stuff... :P
             CGame.SpawnPlayer(20, 15);
 
             new CTarget(30, 15);
@@ -45,36 +45,53 @@ namespace WinZZT
             {
                 new CAmmo(x, 6, 5);
             }
+            */
+
+            CMapManager.LoadMap("test");
 
         }
 
         private void frmMain_KeyDown(object sender, KeyEventArgs e)
         {
+
+            bool move = true;
+
+            if (CGame.Player == null || !CGame.PlayerSpawned)  //Map probably not loaded
+                move = false;
+
             switch (e.KeyCode)
             {
                 case Keys.Left:
                     {
-                        CGame.Player.HandleInput(EDirection.West, e.Shift);   
+                        if (move)
+                            CGame.Player.HandleInput(EDirection.West, e.Shift);
+
                         break;
                     }
                 case Keys.Right:
                     {
-                        CGame.Player.HandleInput(EDirection.East, e.Shift);   
+                        if (move)
+                            CGame.Player.HandleInput(EDirection.East, e.Shift);
+                        
                         break;
                     }
                 case Keys.Up:
                     {
-                        CGame.Player.HandleInput(EDirection.North, e.Shift);   
+                        if (move)
+                            CGame.Player.HandleInput(EDirection.North, e.Shift);
+
                         break;
                     }
                 case Keys.Down:
                     {
-                        CGame.Player.HandleInput(EDirection.South, e.Shift);   
+                        if (move)
+                            CGame.Player.HandleInput(EDirection.South, e.Shift);
+
                         break;
                     }
                 case Keys.C:
                     {
-                        if (e.Shift && e.Alt)
+                        if (e.Control && e.Alt)
                         {
                             frmConsole fc = new frmConsole();
 

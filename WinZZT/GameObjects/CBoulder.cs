@@ -18,8 +18,9 @@ namespace WinZZT
             this.Char = 254;
             this.Block = true;
             this.Pushable = true;
+            this.Ordering = 500;
 
-            this.InitPosition(x, y);
+            this.Initialize(x, y);
 
         }
 

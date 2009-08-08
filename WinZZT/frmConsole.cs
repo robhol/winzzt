@@ -44,6 +44,36 @@ namespace WinZZT
                         OutputConsole("Player healed.");
                         break;
                     }
+
+                case "ammo":
+                    {
+
+                        if (args.Length == 1)
+                        {
+                            CGame.PlayerAmmo += 25;
+                        }
+                        else
+                        {
+                            CGame.PlayerAmmo += int.Parse(args[1]);
+                        }
+
+
+                        OutputConsole("Ammo given.");
+                        break;
+                    }
+
+                case "clear":
+                    {
+                        CGrid.ClearGrid();
+                        break;
+                    }
+
+                case "lm":
+                    {
+                        CMapManager.LoadMap(args[1]);
+                        break;
+                    }
+
                 case "exit":
                     {
                         this.Close();

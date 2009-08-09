@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+
+CGrid.cs
+
+Controls the entire game grid.
+Provides methods for working out directions, coordinates and checking.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -98,15 +107,6 @@ namespace WinZZT
             return DGrid[p];
         }
 
-        static public void Set(Point p, CTile t)
-        {
-            DGrid[p] = t;
-        }
-
-
     }
-
-
-
 
 }

@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+
+CMapManager.cs
+
+Handles map loading.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

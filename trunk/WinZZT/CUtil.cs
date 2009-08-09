@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+
+CUtil.cs
+
+Functions that would be useful, but not fit too well at other places.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +18,11 @@ namespace WinZZT
     static class CUtil
     {
 
+        /// <summary>
+        /// Parses a 6-/8-digit color string in the RRGGBB or RRGGBBAA format.
+        /// </summary>
+        /// <param name="s">The color string.</param>
+        /// <returns></returns>
         public static Color getColorFromString(string s)
         {
 

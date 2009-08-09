@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+
+Program.cs
+
+Where the program starts.
+Calls the initialization functions for some sub-systems.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -20,11 +29,12 @@ namespace WinZZT
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            //Initialize sub-systems
             CElementManager.Initialize();
             CGrid.Initialize();
-            CCharManager.Initialize();
             CDrawing.Initialize();
             
+            //Create and display main form.
             MainForm = new frmMain();
             Application.Run(MainForm);
         }

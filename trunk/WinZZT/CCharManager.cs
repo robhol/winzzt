@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+
+CCharManager.cs
+
+Deals with fetching chars out of the bitmap resource.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,15 +17,6 @@ namespace WinZZT
 {
     static class CCharManager
     {
-        // Final answer for proper f-ing characters, hopefully...
-
-        static Bitmap charMap;
-        public static void Initialize()
-        {
-
-            charMap = Properties.Resources.charmap;
-
-        }
 
         private static Bitmap CopyRegion(Bitmap src, Rectangle r)
         {
@@ -37,7 +36,7 @@ namespace WinZZT
         public static Bitmap GetChar(int chr, Color c)
         {
 
-            Bitmap b = CopyRegion(charMap, new Rectangle(chr * 8 + 1, 0, 8, 14));
+            Bitmap b = CopyRegion(Properties.Resources.charmap, new Rectangle(chr * 8 + 1, 0, 8, 14));
 
             Bitmap before = b;
 
@@ -49,8 +48,6 @@ namespace WinZZT
                     else
                         b.SetPixel(cx, cy, Color.Transparent);
                 }
-
-            //b.MakeTransparent(Color.FromArgb(255,255,255));
 
             return b;
         }

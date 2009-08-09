@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+
+CGame.cs
+
+Things pertaining to the global game state. 
+Includes player damage handling, health and ammo
+as well as spawned, dead, and frozen flags.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +33,6 @@ namespace WinZZT
             get { return _player; }
         }
 
-
         static public void DamagePlayer(int dmg)
         {
             PlayerHealth = Math.Max(PlayerHealth - dmg, 0);
@@ -45,8 +54,6 @@ namespace WinZZT
             _player = new CPlayer(x, y);
 
         }
-
-
 
     }
 }

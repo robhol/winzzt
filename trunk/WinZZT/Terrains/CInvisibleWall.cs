@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+
+CInvisibleWall.cs
+
+It's not a wall.
+... or is it?  
+
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

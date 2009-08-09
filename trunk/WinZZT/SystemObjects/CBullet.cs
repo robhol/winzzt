@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+
+CBullet.cs
+
+Bullets... come from somewhere, go somewhere.
+When they hit something, they also fire Shot() on it.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,28 +40,28 @@ namespace WinZZT
 
         public override void Step()
         {
-
+            // Get coords
             Point p = CGrid.GetInDirection(Location, Direction);
 
             if (!Try(Direction,false,false))
-            {
+            {   //Something's blocking us
                 
-
                 if (!CGrid.IsValid(p))
                 {
                     Die();
                     return;
                 }
 
-
-                    CElement target = CGrid.Get(p).GetTopmost();
-                    if (target != null && target.BlockBullets)
-                    {
-                        target.Shot(Source, this);
-                        Die();
-                    }
-                    else
-                        Move(Location, p);
+                CElement target = CGrid.Get(p).GetTopmost();
+                if (target != null && target.BlockBullets)
+                {   
+                    //Target is blocking bullets. fire Shot() and die.
+                    target.Shot(Source, this);
+                    Die();
+                }
+                else 
+                    //Target is NOT blocking bullets, so we'll just go right ahead.
+                    Move(Location, p);
 
             }
             else

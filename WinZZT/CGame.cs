@@ -16,6 +16,8 @@ namespace WinZZT
 
         static public int PlayerAmmo = 0;
 
+        static public Random Random = new Random();
+
         static public CPlayer Player
         {
             get { return _player; }

@@ -22,6 +22,8 @@ namespace WinZZT
 
         public bool IsPlayer = false;
 
+        public string Type = "undefined";
+
         public void Initialize(int x, int y)
         {
             //Add to grid
@@ -31,6 +33,9 @@ namespace WinZZT
 
             //Register in Element Manager
             CElementManager.Register(this);
+
+            //Update type string. Remove WinZZT.C (redundant.) Also lowercase.
+            Type = this.GetType().ToString().Replace("WinZZT.C","").ToLower();
 
         }
 
@@ -174,6 +179,17 @@ namespace WinZZT
             }
             else
                 return false;
+
+        }
+
+        public bool HasElementInDirection(string t, EDirection d)
+        {
+            Point p = CGrid.GetInDirection(Location, d);
+
+            if (CGrid.IsValid(p))
+                return CGrid.Get(p).ContainsType(t);
+
+            return false;
 
         }
 

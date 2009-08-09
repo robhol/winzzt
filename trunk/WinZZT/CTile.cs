@@ -50,6 +50,17 @@ namespace WinZZT
             return tmp;
         }
 
+        public bool ContainsType(string t)
+        {
+            CElement[] cnt = new CElement[Contents.Count];
+            Contents.CopyTo(cnt);
+            
+            foreach (CElement ie in cnt)
+                if (ie != null && ie.Type == t)
+                    return true;
+            
+            return false;
+        }
 
     }
 

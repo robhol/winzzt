@@ -88,6 +88,12 @@ namespace WinZZT
                         break;
                     }
 
+                case "shark":
+                    {
+                        CElementManager.Register(new CShark(x, y));
+                        break;
+                    }
+
                 #endregion "Creatures"
 
                 #region "Game Objects"

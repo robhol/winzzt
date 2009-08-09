@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+
+CElement.cs
+
+Base class for all elements. Contains common methods and members.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,19 +19,18 @@ namespace WinZZT
     {
 
         public Point Location;
-        public int Char;
-        public Color ForeColor;
+        public int Char;                        //Char: same IDs as in ZZT.
+        public Color ForeColor;                 //Main color of the element
         public Color BackColor;
-        public bool Block;
-        public bool BlockBullets = true;
-        public int Ordering;
-        public bool CanBeSteppedOn = false;
-        public bool Pushable = false;
+        public bool Block;                      //If true, try() returns false
+        public bool BlockBullets = true;        //If false, bullets can pass regardless of Block value.
+        public int Ordering;                    //Should be unique.
+        public bool CanBeSteppedOn = false;     
+        public bool Pushable = false;           //Boulders, sliders, etc
 
-        public bool IsPlayer = false;
+        public string Type = "undefined";       //Element type (water, wall, lion, etc.)
 
-        public string Type = "undefined";
-
+        /// <summary>Puts the element on the grid and registers it with the EM.</summary>
         public void Initialize(int x, int y)
         {
             //Add to grid
@@ -39,6 +46,7 @@ namespace WinZZT
 
         }
 
+        /// <summary>Convenience function to init. all properties. Calls Initialize().</summary>
         public void InitProps(int x, int y, int c, Color foreground, Color background, bool block, int ordering)
         {
             Initialize(x, y);
@@ -49,32 +57,47 @@ namespace WinZZT
             Ordering = ordering;
         }
 
+        /// <summary>Removes the element from the grid.</summary>
         public virtual void Die()
         {
             CTile t = CGrid.Get(Location);
 
             if (t.Contents.Contains(this))
                 t.Contents.Remove(this);          
-
         }
 
+        /// <summary>
+        /// Moves from A to B, no questions asked.
+        /// If invalid, will spawn exceptions.
+        /// </summary>
         public void Move(Point from, Point to)
         {
+            //Get old tile.
             CTile f = CGrid.Get(from);
             
+            //Remove from old tile
             if (f.Contents.Contains(this))    
                 f.Contents.Remove(this);
             
+            //Get new tile
             CTile t = CGrid.Get(to);
             
+            //Add to tile and update Location
             t.Contents.Add(this);
-            
             this.Location = to;
         }
 
+        /// <summary>
+        /// Tries to move in a direction.
+        /// </summary>
+        /// <param name="d">Direction in which to move.</param>
+        /// <param name="move">If false, it's a "theoretical move". It will return true or false, but not actually move.</param>
+        /// <param name="push">Whether or not to push pushable elements while moving.</param>
+        /// <returns></returns>
         public bool Try(EDirection d, bool move, bool push)
         {
 
+            //Get destination coords
             Point p = CGrid.GetInDirection(Location, d);
 
             if (!CGrid.IsValid(p))
@@ -86,21 +109,38 @@ namespace WinZZT
             {
                 CElement c = t.GetTopmost();
 
-                if (c != null && c.CanBeSteppedOn)
+                if (c != null && c.CanBeSteppedOn) //Trigger SteppedOn for topmost object
                     c.SteppedOn(this);
 
                 if (move)
-                    Move(Location, p);
+                    Move(Location, p); //Do the actual move unless "hypothetical"
 
                 return true;
             }
             else if (t.IsBlocked() && push && t.GetTopmost() != null && t.GetTopmost().Pushable)
-            {
+            {   //Pushable object. Attempt push and move if successful.
                 if (t.GetTopmost().PushTowards(d))
-                    Move(Location,p);
+                    Move(Location, p);
+            }
+            else if (t.IsBlocked() && t.GetTopmost() != null)
+            {   //Blocked, check for pushable or "steppable" and act accordingly..
+                CElement e = t.GetTopmost();
+
+                if (e.Pushable)
+                {   //Push. If successful, move after.
+                    if (e.PushTowards(d))
+                        Move(Location, p);
+                }
+
+                if (e.CanBeSteppedOn)
+                {   //Let whatever we're stepping on know, and move.
+                    e.SteppedOn(this);
+                    Move(Location, p);
+                }
+
             }
             else
-            {
+            {   //No go, completely blocked. Call Touch() for element, if any.
                 CElement c = t.GetTopmost();
                 
                 if (c != null)
@@ -110,14 +150,19 @@ namespace WinZZT
 
             return false;
 
-
         }
 
+        /// <summary>
+        /// Tries going in given direction, pushing objects in front.
+        /// </summary>
+        /// <param name="d">Direction in which to move.</param>
+        /// <returns>Whether move was successful.</returns>
         public virtual bool PushTowards(EDirection d)
         {
-
+            //Get coords
             Point p = CGrid.GetInDirection(Location, d);
 
+            //Cancel if invalid and return false
             if (!CGrid.IsValid(p))
                 return false;
 
@@ -129,19 +174,23 @@ namespace WinZZT
                 return true;
             }
             else if (t.IsBlocked() && t.GetTopmost() != null && t.GetTopmost().Pushable)
-            {
+            {   //Blocked, but pushable. Try to push the other object.
                 if (t.GetTopmost().PushTowards(d))
-                {
+                {   //If it went OK, we can move after.
                     Move(Location, p);
                     return true;
                 }
             }
-            
 
+            //No openings.
             return false;
 
         }
 
+        /// <summary>
+        /// Moves towards a certain point.
+        /// </summary>
+        /// <param name="p">Point to move towards</param>
         public void Seek(Point p)
         {
 
@@ -153,6 +202,20 @@ namespace WinZZT
 
         }
 
+        /// <summary>
+        /// (Overload) Moves towards a certain element.
+        /// </summary>
+        /// <param name="e">Element to move towards</param>
+        public void Seek(CElement e)
+        {
+            Seek(e.Location);
+        }
+
+        /// <summary>
+        /// Whether the element is touching/adjacent to a given element.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public bool IsTouching(CElement e)
         {
             for (int dir = 0; dir < 4; dir++)
@@ -162,11 +225,12 @@ namespace WinZZT
             return false;
         }
 
-        public void Seek(CElement e)
-        {
-            Seek(e.Location);
-        }
 
+        /// <summary>
+        /// Tries to shoot in a given direction.
+        /// </summary>
+        /// <param name="d">Direction in which to shoot</param>
+        /// <returns></returns>
         public bool Shoot(EDirection d)
         {
 
@@ -182,6 +246,12 @@ namespace WinZZT
 
         }
 
+        /// <summary>
+        /// Checks if the element is adjacent to an element with the given type, in the given direction.
+        /// </summary>
+        /// <param name="t">Type to look for</param>
+        /// <param name="d">Direction in which to look</param>
+        /// <returns></returns>
         public bool HasElementInDirection(string t, EDirection d)
         {
             Point p = CGrid.GetInDirection(Location, d);
@@ -193,16 +263,28 @@ namespace WinZZT
 
         }
 
+        /// <summary>
+        /// Function triggered when an element is shot.
+        /// </summary>
+        /// <param name="responsible">Source of the bullet</param>
+        /// <param name="bullet">The bullet object</param>
         public virtual void Shot(CElement responsible, CBullet bullet)
         {
 
         }
 
+        /// <summary>
+        /// Function triggered when an element is touched.
+        /// </summary>
         public virtual void Touch()
         {
 
         }
 
+        /// <summary>
+        /// Function triggered when an element is stepped on
+        /// </summary>
+        /// <param name="responsible">The element that stepped on this one</param>
         public virtual void SteppedOn(CElement responsible)
         {
 

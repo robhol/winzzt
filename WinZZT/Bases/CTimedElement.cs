@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+
+CTimedElement.cs
+
+Base class for all elements that use the Step() function or need timing.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +19,10 @@ namespace WinZZT
         private Timer tmr;
         private double _cycle = 500;
 
+        /// <summary>
+        /// Initializes the timer for the given element.
+        /// </summary>
+        /// <param name="cycle">Millisecond interval between ticks/steps</param>
         public void InitTimer(double cycle)
         {
             _cycle = cycle;
@@ -31,6 +43,9 @@ namespace WinZZT
             set { _cycle = (double)value; }
         }
 
+        /// <summary>
+        /// Triggered on timer ticks
+        /// </summary>
         public virtual void Step()
         {
 
@@ -39,11 +54,16 @@ namespace WinZZT
         public override void Die()
         {
             base.Die();
-            tmr.Enabled = false;
+
+            //Stop and free up the timer
+            tmr.Stop();
+            tmr.Dispose();
         }
 
         private void tmrStep(object sender, ElapsedEventArgs e)
         {
+            //This is only here so we won't have the handler arguments
+            //over our heads in the main function.
             Step();
         }
 

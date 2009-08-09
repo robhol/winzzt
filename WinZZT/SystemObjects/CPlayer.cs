@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+
+CPlayer.cs
+
+The player class...
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +28,6 @@ namespace WinZZT
             this.Pushable = true;
             this.Ordering = 10000;
             this.Initialize(x, y);
-            this.IsPlayer = true;
         }
 
         private void TryShoot(EDirection d)
@@ -42,6 +49,7 @@ namespace WinZZT
         {
 
             if (!CGame.PlayerFrozen)
+                //If frozen, we can't shoot or move...
                 if (shoot)
                 {
                     TryShoot(d);
@@ -55,7 +63,6 @@ namespace WinZZT
         public override void Shot(CElement responsible, CBullet bullet)
         {
             CGame.DamagePlayer(10);
-            CDrawing.DisplayText("Player shot: " + CGame.PlayerHealth.ToString() + "/100",500);
         }
 
     }

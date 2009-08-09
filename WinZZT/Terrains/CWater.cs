@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+
+CElement.cs
+
+Water. Natural habitat of Jaws.
+Blocks most things apart from sharks and bullets.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

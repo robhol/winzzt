@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+
+CLion.cs
+
+Rawr.
+Follows the player. Damages and dies on collision.
+  
+*/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +22,6 @@ namespace WinZZT
         public CLion(int x, int y)
         {
             this.InitProps(x, y, 234, Color.Orange, Color.Transparent, true, 61,700);
-            
         }
 
         public override void Step()

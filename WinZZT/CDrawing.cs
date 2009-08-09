@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+
+CDrawing.cs
+
+Contains members and methods relating to drawing.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,13 +22,16 @@ namespace WinZZT
 
         public static Size CanvasSize = new Size(320, 350);
 
-        public static Font DrawFont = new Font("Trebuchet MS", 12);
+        //Font for text at the bottom of the screen.
+        public static Font DrawFont = new Font("Trebuchet MS", 12); 
 
+        //Font used in the side bar/status bar
         public static Font BarFont = new Font("Courier New", 8); 
 
         public static StringFormat stringFormat = new StringFormat();
 
-        public static bool DrawDGrid = true;
+        //Whether or not to draw the grid.
+        public static bool DrawDGrid = false;
 
         public static Timer tmrDraw;
             
@@ -42,9 +53,11 @@ namespace WinZZT
 
         static void tmrDraw_Elapsed(object sender, ElapsedEventArgs e)
         {
+            //If text has expired, set text drawing flag off
             if (textExpiration < DateTime.Now)
                 textDisplayActive = false;
 
+            //Make sure to draw
             CDrawing.ProvokeDrawing(true);
 
         }
@@ -147,7 +160,6 @@ namespace WinZZT
             DrawBar(g);
 
         }
-
 
         public static void ProvokeDrawing( bool force )
         {

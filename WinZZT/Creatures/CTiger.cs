@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*
+
+CTiger.cs
+
+Rawr.
+Moves towards the player, firing bullets when lined up to him.
+Damages and dies on collision with player.
+  
+*/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

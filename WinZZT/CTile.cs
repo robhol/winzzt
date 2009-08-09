@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+
+CTile.cs
+
+Each "compartment" in the grid. Contains some basic checking functions.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +22,9 @@ namespace WinZZT
             Contents = new List<CElement>();
         }
 
+        /// <summary>
+        /// Gets the topmost element in a tile
+        /// </summary>
         public CElement GetTopmost()
         {
 
@@ -36,6 +47,10 @@ namespace WinZZT
 
         }
 
+        /// <summary>
+        /// Checks if the tile is blocked.
+        /// </summary>
+        /// <returns></returns>
         public bool IsBlocked()
         {
             bool tmp = false;
@@ -50,6 +65,11 @@ namespace WinZZT
             return tmp;
         }
 
+        /// <summary>
+        /// Checks if the tile contains an element of the given type
+        /// </summary>
+        /// <param name="t">Type to look for</param>
+        /// <returns></returns>
         public bool ContainsType(string t)
         {
             CElement[] cnt = new CElement[Contents.Count];

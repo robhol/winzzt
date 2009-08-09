@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+
+CTarget.cs
+
+More or less a dummy object.
+It fires at you if you shoot it and also shows pretty colors.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

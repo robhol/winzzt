@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+
+CWall.cs
+
+Wall. Again, really. Equivalent of Solid in ZZT.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

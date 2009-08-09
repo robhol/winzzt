@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+
+CSlider.cs
+
+Can be pushed, but only along one axis.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +25,7 @@ namespace WinZZT
 
             this.ForeColor = c;
             this.BackColor = Color.Transparent;
-            this.Char = new int[] { 29, 18 }[(int)t];
+            this.Char = new int[] { 29, 18 }[(int)t]; //Select appropriate chars.
             this.Block = true;
             this.Pushable = true;
             this.Orientation = t;
@@ -27,13 +35,16 @@ namespace WinZZT
         }
 
         public override bool PushTowards(EDirection d)
-        {
+        {   
+            //If trying to push in the wrong direction, refuse and return false.
 
             if (Orientation == ESliderType.Horizontal && (d == EDirection.North || d == EDirection.South))
                 return false;
 
             if (Orientation == ESliderType.Vertical && (d == EDirection.East || d == EDirection.West))
                 return false;
+
+            //Otherwise, go ahead and try.
             
             return base.PushTowards(d);
         }

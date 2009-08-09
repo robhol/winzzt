@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+
+Enums.cs
+
+Gathers all significant enumerations in one place.
+  
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

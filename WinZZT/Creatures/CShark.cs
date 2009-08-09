@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+
+CShark.cs
+
+Meet Jaws.
+Can only move through water. Damages player on collision.
+  
+*/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +21,7 @@ namespace WinZZT
 
         public CShark(int x, int y)
         {
-            this.InitProps(x, y, 94, Color.White, Color.Transparent, true, 61,700);
+            this.InitProps(x, y, 94, Color.White, Color.Transparent, true, 61,500);
         }
 
         public override void Step()
@@ -36,6 +46,7 @@ namespace WinZZT
             if (possible.Count == 0)
                 return; //No options
 
+            //Random direction from the available ones. Move.
             EDirection md = (EDirection)possible[CGame.Random.Next(possible.Count)];
             this.Move(Location, CGrid.GetInDirection(Location, md));
 

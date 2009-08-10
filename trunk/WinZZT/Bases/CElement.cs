@@ -141,7 +141,7 @@ namespace WinZZT
                 CElement c = t.GetTopmost();
                 
                 if (c != null)
-                    c.Touch();
+                    c.Touch(this);
 
             }
 
@@ -188,14 +188,14 @@ namespace WinZZT
         /// Moves towards a certain point.
         /// </summary>
         /// <param name="p">Point to move towards</param>
-        public void Seek(Point p)
+        public bool Seek(Point p)
         {
 
             EDirection x = CGrid.GetDirectionToPoint(Location, p, false);
             if (CGrid.Get(CGrid.GetInDirection(Location,x)).IsBlocked())
                 x = CGrid.GetDirectionToPoint(Location, p, true);
 
-            Try(x,true,true);
+            return Try(x,true,true);
 
         }
 
@@ -203,9 +203,9 @@ namespace WinZZT
         /// (Overload) Moves towards a certain element.
         /// </summary>
         /// <param name="e">Element to move towards</param>
-        public void Seek(CElement e)
+        public bool Seek(CElement e)
         {
-            Seek(e.Location);
+            return Seek(e.Location);
         }
 
         /// <summary>
@@ -271,9 +271,10 @@ namespace WinZZT
         }
 
         /// <summary>
-        /// Function triggered when an element is touched.
+        /// Triggered when an element is touching this one.
         /// </summary>
-        public virtual void Touch()
+        /// <param name="responsible">The "toucher"</param>
+        public virtual void Touch(CElement responsible)
         {
 
         }

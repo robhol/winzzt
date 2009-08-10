@@ -58,7 +58,7 @@ namespace WinZZT
             CDrawing.DisplayText("Target - Shot", 1000);
         }
 
-        public override void Touch()
+        public override void Touch(CElement responsible)
         {
             Random r = new Random();
             this.ForeColor = Color.FromArgb(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255));

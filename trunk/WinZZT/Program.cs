@@ -19,7 +19,6 @@ namespace WinZZT
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        /// 
 
         static public frmMain MainForm;
 

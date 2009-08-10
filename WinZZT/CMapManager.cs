@@ -126,6 +126,10 @@ namespace WinZZT
 
         }
 
+        /// <summary>
+        /// Loads a map, after clearing the grid of all elements.
+        /// </summary>
+        /// <param name="mapName">The name of the map file.</param>
         public static void LoadMap(string mapName)
         {
             string mapfolder = Path.GetDirectoryName(Application.ExecutablePath) + "\\maps";

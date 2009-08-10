@@ -62,6 +62,11 @@ namespace WinZZT
 
         }
 
+        /// <summary>
+        /// Shows text at the bottom of the screen.
+        /// </summary>
+        /// <param name="s">Text to show</param>
+        /// <param name="time">Duration in ms</param>
         public static void DisplayText(string s, double time)
         {
             textExpiration = DateTime.Now.AddMilliseconds(time);
@@ -69,6 +74,11 @@ namespace WinZZT
             textDisplayActive = true;
         }
 
+        /// <summary>
+        /// Gets the canvas coords from grid coords
+        /// </summary>
+        /// <param name="p">Point in the grid</param>
+        /// <returns></returns>
         public static Point GetCanvasCoords(Point p)
         {
             int x = p.X * CellSize.Width;
@@ -77,7 +87,7 @@ namespace WinZZT
         }
 
         public static void DrawObject(CElement o, Graphics g)
-        {
+        {   // Draws a certain element
 
             if (o == null)
                 return;
@@ -91,28 +101,35 @@ namespace WinZZT
         }
 
         public static void DrawTile(int x, int y, Graphics g)
-        {
+        {   //Draws a certain tile
             Point gp = new Point(x,y);
             Point p = GetCanvasCoords(gp);
 
             if (DrawDGrid)
-            {
+            {   //Drawing the background grid
+
                 Pen pn = new Pen(Color.FromArgb(16, 16, 16));
                 g.DrawRectangle(pn, p.X, p.Y, CellSize.Width, CellSize.Height);
             }
 
+            //Get tile
             CTile t = CGrid.Get(gp);
 
             if (t.Contents.Count > 0)
-            {
-                DrawObject(t.GetTopmost(), g);
+            {   //If not empty, copy to array(avoids exceptions) and iterate, drawing everything.
+
+                CElement[] ca = t.Contents.ToArray();
+
+                foreach (CElement c in ca)
+                    DrawObject(c, g);
+
             }
 
             
         }
 
         public static void DrawBar(Graphics g)
-        {
+        {   //Draws the side bar
 
             StringFormat sfCenter = new StringFormat();
             sfCenter.LineAlignment = StringAlignment.Center;
@@ -131,7 +148,8 @@ namespace WinZZT
         }
 
         public static void DrawGrid(Graphics g)
-        {
+        {   //Draws the entire grid.
+
             for (int y = 0; y < CGrid.GridSize.Height; y++)
                 for (int x = 0; x < CGrid.GridSize.Width; x++)
                 {
@@ -139,7 +157,8 @@ namespace WinZZT
                 }
 
             if (CGame.PlayerDead)
-            {
+            {   //If the player is dead, draw a Game Over overlay...
+
                 StringFormat f = new StringFormat();
                 f.Alignment = StringAlignment.Center;
 
@@ -148,7 +167,7 @@ namespace WinZZT
             }
 
             if (textDisplayActive)
-            {
+            {   //If a text string is active, draw that too...
 
                 StringFormat f = new StringFormat();
                 f.Alignment = StringAlignment.Center;
@@ -162,7 +181,8 @@ namespace WinZZT
         }
 
         public static void ProvokeDrawing( bool force )
-        {
+        {   //Forces drawing
+
             if (force && Program.MainForm != null)
             Program.MainForm.pb.Invalidate();
         }

@@ -27,4 +27,10 @@ namespace WinZZT
         Vertical
     }
 
+    public enum EConveyorType
+    {
+        Clockwise,
+        Counterclockwise
+    }
+
 }

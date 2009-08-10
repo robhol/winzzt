@@ -33,7 +33,7 @@ namespace WinZZT
 
         }
 
-        public override void Touch()
+        public override void  Touch(CElement responsible)
         {
             
         }

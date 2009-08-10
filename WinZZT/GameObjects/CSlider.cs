@@ -45,11 +45,10 @@ namespace WinZZT
                 return false;
 
             //Otherwise, go ahead and try.
-            
             return base.PushTowards(d);
         }
 
-        public override void Touch()
+        public override void Touch(CElement responsible)
         {
             
         }

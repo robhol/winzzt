@@ -108,6 +108,12 @@ namespace WinZZT
                         break;
                     }
 
+                case "bear":
+                    {
+                        CElementManager.Register(new CBear(x, y));
+                        break;
+                    }
+
                 #endregion "Creatures"
 
                 #region "Game Objects"

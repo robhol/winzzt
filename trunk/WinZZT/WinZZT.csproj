@@ -55,6 +55,7 @@
     <Compile Include="CElementManager.cs" />
     <Compile Include="CGame.cs" />
     <Compile Include="CGrid.cs" />
+    <Compile Include="Creatures\CRuffian.cs" />
     <Compile Include="Creatures\CShark.cs" />
     <Compile Include="CUtil.cs" />
     <Compile Include="CMapManager.cs" />

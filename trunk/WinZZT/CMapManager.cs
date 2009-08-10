@@ -131,6 +131,12 @@ namespace WinZZT
                         break;
                     }
 
+                case "conveyor":
+                    {
+                        CElementManager.Register(new CConveyor(x, y, (EConveyorType)int.Parse(e.Attribute("type").Value), CUtil.getColorFromString(e.Attribute("color").Value)));
+                        break;
+                    }
+
 
                 #endregion "Game Objects"
 

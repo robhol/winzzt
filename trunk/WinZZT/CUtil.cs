@@ -39,5 +39,66 @@ namespace WinZZT
 
         }
 
+        /// <summary>
+        /// Adds two points.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static Point addPoints(Point a, Point b)
+        {
+            return new Point(a.X + b.X, a.Y + b.Y);
+        }
+
+        public static double getRotationToPoint(Point a, Point b)
+        {
+            double dX = (double)(b.X - a.X);
+            double dY = (double)(b.Y - a.Y);
+
+            double ang = 90 + (Math.Atan2(dY, dX) * (180.0 / Math.PI));
+
+            if (ang < 0)
+                ang += 360.0;
+
+            return ang;
+        }
+
+        public static double getRotationFromDirection(EDirection d)
+        {
+
+            switch (d)
+            {
+                case EDirection.North: return 0;
+                case EDirection.East: return 90;
+                case EDirection.South: return 180;
+                case EDirection.West: return 270;
+            }
+
+            return -1;
+
+        }
+
+        public static EDirection getDirectionFromRotation(double angle)
+        {
+            int a = (int)angle;
+
+            if (a < 0)
+                a += 360;
+            else if (a >= 360)
+                a -= 360;
+
+            if (a >= 45 && a < 135)
+                return EDirection.East;
+
+            if (a >= 135 && a < 225)
+                return EDirection.South;
+
+            if (a >= 225 && a < 315)
+                return EDirection.West;
+
+            return EDirection.North;
+
+        }
+
     }
 }

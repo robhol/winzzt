@@ -102,6 +102,12 @@ namespace WinZZT
                         break;
                     }
 
+                case "ruffian":
+                    {
+                        CElementManager.Register(new CRuffian(x, y));
+                        break;
+                    }
+
                 #endregion "Creatures"
 
                 #region "Game Objects"

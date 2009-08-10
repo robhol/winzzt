@@ -117,16 +117,12 @@ namespace WinZZT
 
                 return true;
             }
-            else if (t.IsBlocked() && push && t.GetTopmost() != null && t.GetTopmost().Pushable)
-            {   //Pushable object. Attempt push and move if successful.
-                if (t.GetTopmost().PushTowards(d))
-                    Move(Location, p);
-            }
+
             else if (t.IsBlocked() && t.GetTopmost() != null)
             {   //Blocked, check for pushable or "steppable" and act accordingly..
                 CElement e = t.GetTopmost();
 
-                if (e.Pushable)
+                if (e.Pushable && push)
                 {   //Push. If successful, move after.
                     if (e.PushTowards(d))
                         Move(Location, p);
@@ -139,6 +135,7 @@ namespace WinZZT
                 }
 
             }
+
             else
             {   //No go, completely blocked. Call Touch() for element, if any.
                 CElement c = t.GetTopmost();

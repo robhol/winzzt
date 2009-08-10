@@ -74,24 +74,31 @@ namespace WinZZT
         /// <param name="to">Point B</param>
         /// <param name="alt">Force another direction</param>
         /// <returns></returns>
+
         public static EDirection GetDirectionToPoint(Point from, Point to, bool alt)
         {
 
-            int dX = from.X - to.X;
-            int dY = from.Y - to.Y;
+            double dX = (double)(to.X - from.X);
+            double dY = (double)(to.Y - from.Y);
 
-            if (Math.Abs(dX) > Math.Abs(dY) && !alt)
-            {
-                if (dX > 0)
-                    return EDirection.West;
+            double ang = 90 + (Math.Atan2(dY, dX) * (180.0 / Math.PI));
+            
+            if (ang < 0)
+                ang += 360.0;
+
+            if (alt)
+                ang += CGame.Random.Next(45, 180);
+
+            if (ang >= 45 && ang < 135)
                 return EDirection.East;
-            }
-            else
-            {
-                if (dY > 0)
-                    return EDirection.North;
+
+            if (ang >= 135 && ang < 225)
                 return EDirection.South;
-            }
+
+            if (ang >= 225 && ang < 315)
+                return EDirection.West;
+
+            return EDirection.North;
 
         }
 

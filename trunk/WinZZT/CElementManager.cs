@@ -44,5 +44,15 @@ namespace WinZZT
             elementList.Add(e);
         }
 
+        public static string Dump()
+        {
+            string o = "";
+
+            foreach (CElement e in elementList)
+                o += e.Location.X + "x" + e.Location.Y + " (" + e.Type + ")";
+            
+            return o;
+        }
+
     }
 }

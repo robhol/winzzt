@@ -74,6 +74,14 @@ namespace WinZZT
                         break;
                     }
 
+                case "elements":
+                    {
+
+                        OutputConsole(CElementManager.Dump());
+
+                        break;
+                    }
+
                 case "exit":
                     {
                         this.Close();

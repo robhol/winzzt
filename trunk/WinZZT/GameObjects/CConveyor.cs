@@ -64,6 +64,9 @@ namespace WinZZT
                 //Get element
                 CElement e = t.GetTopmost();
 
+                if (e.Block == true && !e.Pushable) //Assume "permanent position," skip.
+                    continue;
+
                 if (processed.Contains(e)) //Skip if already processed
                     continue;
 

@@ -65,6 +65,11 @@ namespace WinZZT
                         new CForest(x, y);
                         break;
                     }
+                case "door":
+                    {
+                        new CDoor(x, y, CUtil.getColorFromString(e.Attribute("color").Value));
+                        break;
+                    }
 
                 #endregion "Terrains"
 
@@ -76,7 +81,11 @@ namespace WinZZT
                         new CAmmo(x, y, int.Parse(e.Attribute("ammo").Value));
                         break;
                     }
-
+                case "key":
+                    {
+                        new CKey(x, y, CUtil.getColorFromString(e.Attribute("color").Value));
+                        break;
+                    }
 
 
 

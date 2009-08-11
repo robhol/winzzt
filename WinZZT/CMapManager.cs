@@ -60,6 +60,12 @@ namespace WinZZT
                         new CWater(x, y, CUtil.getColorFromString(e.Attribute("color").Value));
                         break;
                     }
+                case "forest":
+                    {
+                        new CForest(x, y);
+                        break;
+                    }
+
                 #endregion "Terrains"
 
                 #region "Items"

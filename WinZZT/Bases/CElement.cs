@@ -109,8 +109,8 @@ namespace WinZZT
             {
                 CElement c = t.GetTopmost();
 
-                if (c != null && c.CanBeSteppedOn) //Trigger SteppedOn for topmost object
-                    c.SteppedOn(this);
+                /*if (c != null && c.CanBeSteppedOn) //Trigger SteppedOn for topmost object
+                    c.SteppedOn(this);*/
 
                 if (move)
                     Move(Location, p); //Do the actual move unless "hypothetical"
@@ -129,9 +129,9 @@ namespace WinZZT
                 }
 
                 if (e.CanBeSteppedOn)
-                {   //Let whatever we're stepping on know, and move.
-                    e.SteppedOn(this);
-                    Move(Location, p);
+                {   //Let whatever we're stepping on know, and move if OK.
+                    if (e.SteppedOn(this))
+                        Move(Location, p);
                 }
 
             }
@@ -280,12 +280,13 @@ namespace WinZZT
         }
 
         /// <summary>
-        /// Function triggered when an element is stepped on
+        /// Function triggered when an element is stepped on. 
+        /// In order to block, return false in overriding function.
         /// </summary>
         /// <param name="responsible">The element that stepped on this one</param>
-        public virtual void SteppedOn(CElement responsible)
+        public virtual bool SteppedOn(CElement responsible)
         {
-
+            return true;
         }
 
     }

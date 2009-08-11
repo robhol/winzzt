@@ -79,7 +79,9 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="GameObjects\CSlider.cs" />
+    <Compile Include="GameObjects\CDoor.cs" />
     <Compile Include="Items\CAmmo.cs" />
+    <Compile Include="Items\CKey.cs" />
     <Compile Include="SystemObjects\CBullet.cs" />
     <Compile Include="GameObjects\CBoulder.cs" />
     <Compile Include="SystemObjects\CPlayer.cs" />

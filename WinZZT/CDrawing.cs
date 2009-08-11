@@ -86,6 +86,12 @@ namespace WinZZT
             return new Point(x, y);
         }
 
+        public static void DrawSymbol(int c, Point p, Color foreground, Color background, Graphics g)
+        {
+            g.FillRectangle(new SolidBrush(background), p.X, p.Y, CellSize.Width, CellSize.Height);
+            g.DrawImage(CCharManager.GetChar(c, foreground), p);
+        }
+
         public static void DrawObject(CElement o, Graphics g)
         {   // Draws a certain element
 
@@ -144,6 +150,19 @@ namespace WinZZT
                 ;
 
             g.DrawString(status, BarFont, Brushes.White, CanvasSize.Width + 5, 50);
+
+            //Keys and numbers
+            Point kdOffset = new Point(CanvasSize.Width + 12, CanvasSize.Height - 60);
+
+            int d = 0;
+            foreach (KeyValuePair<Color, int> k in CGame.KeyList)
+            {
+                Point p = CUtil.addPoints(kdOffset, new Point(40 * (int)Math.Floor((double)d / 4),13 * (d % 4)));
+                DrawSymbol(12,p,k.Key,Color.Transparent,g);
+                if (k.Value > 1)
+                    g.DrawString(k.Value.ToString(), BarFont, Brushes.White, p.X + 6, p.Y - 1);
+                d++;
+            }
 
         }
 

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace WinZZT
 {
@@ -27,6 +28,8 @@ namespace WinZZT
         static public int PlayerAmmo = 0;
 
         static public Random Random = new Random();
+
+        static public Dictionary<Color, int> KeyList = new Dictionary<Color, int>();
 
         static public CPlayer Player
         {
@@ -52,6 +55,36 @@ namespace WinZZT
             PlayerSpawned = true;
             PlayerHealth = 100;
             _player = new CPlayer(x, y);
+
+        }
+
+        static public bool AddKey(Color c)
+        {
+
+            if (KeyList.Count == 8)
+                return false;
+
+            if (!KeyList.ContainsKey(c))
+                KeyList[c] = 1;
+            else
+                KeyList[c]++;
+
+            return true;
+        }
+
+        static public bool UseKey(Color c)
+        {
+
+            if (!KeyList.ContainsKey(c))
+                return false;
+
+            if (KeyList[c] == 0)
+                return false;
+
+            if (--KeyList[c] == 0) // Decrement. If no more keys, remove entry.
+                KeyList.Remove(c);
+
+            return true;
 
         }
 

@@ -116,6 +116,7 @@
     <Compile Include="Terrains\CFake.cs" />
     <Compile Include="Terrains\CNormal.cs" />
     <Compile Include="Terrains\CInvisibleWall.cs" />
+    <Compile Include="Terrains\CForest.cs" />
     <Compile Include="Terrains\CWater.cs" />
     <Compile Include="Terrains\CWall.cs" />
   </ItemGroup>

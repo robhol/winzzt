@@ -1,8 +1,8 @@
 ﻿/*
 
-CAmmo.cs
+CForest.cs
 
-Basic ammo pickup.
+Forest. Step on once, it's gone forever.
   
 */
 
@@ -14,24 +14,18 @@ using System.Drawing;
 
 namespace WinZZT
 {
-
-    class CAmmo : CElement
+    class CForest : CElement
     {
-
-        int Ammo;
-
-        public CAmmo(int x, int y, int ammo)
+        public CForest(int x, int y)
         {
-            this.InitProps(x, y, 132, Color.DarkCyan, Color.Transparent, true, 200);
-            this.Ammo = ammo;
+            InitProps(x, y, 178, Color.ForestGreen, Color.Black, true, 5); //Forest green. Ha.
             this.CanBeSteppedOn = true;
         }
 
         public override bool SteppedOn(CElement responsible)
         {
-            if (responsible.Type == "player") //Can't be picked up by non-players...
+            if (responsible.Type == "player")
             {
-                CGame.PlayerAmmo += Ammo;
                 this.Die();
                 return true;
             }
@@ -40,5 +34,4 @@ namespace WinZZT
         }
 
     }
-
 }

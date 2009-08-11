@@ -35,8 +35,28 @@ namespace WinZZT
 
             if (CGame.PlayerAmmo > 0)
             {
+
+
                 if (Shoot(d))
                     CGame.PlayerAmmo--;
+                else
+                {
+                    //check for breakables
+                    if (this.HasElementInDirection("breakable", d))
+                    {
+                        //remove them
+                        CGrid.Get(CGrid.GetInDirection(Location, d)).Contents.RemoveAll(delegate(CElement e)
+                        {
+                            return e.Type == "breakable";
+                        }
+                        );
+
+                        //subtract ammo
+                        CGame.PlayerAmmo--;
+                    }
+                }
+
+
             }
             else
             {

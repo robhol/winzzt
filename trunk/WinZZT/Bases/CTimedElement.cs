@@ -16,8 +16,21 @@ namespace WinZZT
 {
     class CTimedElement : CElement
     {
+
+        #region "Members"
+
         private Timer tmr;
         private double _cycle = 500;
+
+        public int Cycle
+        {
+            get { return (int)_cycle; }
+            set { _cycle = (double)value; }
+        }
+
+        #endregion
+
+        #region "Creation and destruction"
 
         /// <summary>
         /// Initializes the timer for the given element.
@@ -37,10 +50,24 @@ namespace WinZZT
             InitTimer(cycle);
         }
 
-        public int Cycle
+        public override void Die()
         {
-            get { return (int)_cycle; }
-            set { _cycle = (double)value; }
+            base.Die();
+
+            //Stop and free up the timer
+            tmr.Stop();
+            tmr.Dispose();
+        }
+
+        #endregion
+
+        #region "Event handling"
+
+        private void tmrStep(object sender, ElapsedEventArgs e)
+        {
+            //This is only here so we won't have the handler arguments
+            //over our heads in the main function.
+            Step();
         }
 
         /// <summary>
@@ -51,22 +78,7 @@ namespace WinZZT
 
         }
 
-        public override void Die()
-        {
-            base.Die();
-
-            //Stop and free up the timer
-            tmr.Stop();
-            tmr.Dispose();
-        }
-
-        private void tmrStep(object sender, ElapsedEventArgs e)
-        {
-            //This is only here so we won't have the handler arguments
-            //over our heads in the main function.
-            Step();
-        }
-
+        #endregion
 
     }
 }

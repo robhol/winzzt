@@ -29,7 +29,10 @@ namespace WinZZT
         /// </summary>
         public static void DeleteAll()
         {
-            foreach (CElement c in elementList)
+            //Copy to array to avoid exception
+            CElement[] elements = elementList.ToArray();
+
+            foreach (CElement c in elements)
                 c.Die();
 
             elementList.Clear();
@@ -52,6 +55,12 @@ namespace WinZZT
                 o += e.Location.X + "x" + e.Location.Y + " (" + e.Type + ")";
             
             return o;
+        }
+
+        public static void Delete(CElement e)
+        {
+            if (elementList.Contains(e))
+                elementList.Remove(e);
         }
 
     }

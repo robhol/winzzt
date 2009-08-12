@@ -18,6 +18,8 @@ namespace WinZZT
     class CElement
     {
 
+        #region "Public members"
+
         public Point Location;
         public int Char;                        //Char: same IDs as in ZZT.
         public Color ForeColor;                 //Main color of the element
@@ -29,6 +31,10 @@ namespace WinZZT
         public bool Pushable = false;           //Boulders, sliders, etc
 
         public string Type = "undefined";       //Element type (water, wall, lion, etc.)
+
+        #endregion
+
+        #region "Creation and destruction"
 
         /// <summary>Puts the element on the grid and registers it with the EM.</summary>
         public void Initialize(int x, int y)
@@ -69,6 +75,10 @@ namespace WinZZT
             CElementManager.Delete(this);
 
         }
+
+        #endregion
+
+        #region "Movement"
 
         /// <summary>
         /// Moves from A to B, no questions asked.
@@ -212,6 +222,9 @@ namespace WinZZT
             return Seek(e.Location);
         }
 
+#endregion
+
+        #region "Checking methods"
         /// <summary>
         /// Whether the element is touching/adjacent to a given element.
         /// </summary>
@@ -224,27 +237,6 @@ namespace WinZZT
                     return true;
 
             return false;
-        }
-
-
-        /// <summary>
-        /// Tries to shoot in a given direction.
-        /// </summary>
-        /// <param name="d">Direction in which to shoot</param>
-        /// <returns></returns>
-        public bool Shoot(EDirection d)
-        {
-
-            Point p = CGrid.GetInDirection(Location, d);
-
-            if (CGrid.IsValid(p) && !CGrid.Get(p).IsBlocked() || (CGrid.Get(p).GetTopmost() != null && !CGrid.Get(p).GetTopmost().BlockBullets))
-            {
-                new CBullet(p.X, p.Y, 100, d, this);
-                return true;
-            }
-            else
-                return false;
-
         }
 
         /// <summary>
@@ -263,6 +255,10 @@ namespace WinZZT
             return false;
 
         }
+
+        #endregion
+
+        #region "Event handling and callbacks"
 
         /// <summary>
         /// Function triggered when an element is shot.
@@ -291,6 +287,28 @@ namespace WinZZT
         public virtual bool SteppedOn(CElement responsible)
         {
             return true;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Tries to shoot in a given direction.
+        /// </summary>
+        /// <param name="d">Direction in which to shoot</param>
+        /// <returns></returns>
+        public bool Shoot(EDirection d)
+        {
+
+            Point p = CGrid.GetInDirection(Location, d);
+
+            if (CGrid.IsValid(p) && !CGrid.Get(p).IsBlocked() || (CGrid.Get(p).GetTopmost() != null && !CGrid.Get(p).GetTopmost().BlockBullets))
+            {
+                new CBullet(p.X, p.Y, 100, d, this);
+                return true;
+            }
+            else
+                return false;
+
         }
 
     }

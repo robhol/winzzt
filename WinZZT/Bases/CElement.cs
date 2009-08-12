@@ -57,13 +57,17 @@ namespace WinZZT
             Ordering = ordering;
         }
 
-        /// <summary>Removes the element from the grid.</summary>
+        /// <summary>Removes the element.</summary>
         public virtual void Die()
         {
             CTile t = CGrid.Get(Location);
 
             if (t.Contents.Contains(this))
-                t.Contents.Remove(this);          
+                t.Contents.Remove(this);
+
+            //Remove reference from element manager
+            CElementManager.Delete(this);
+
         }
 
         /// <summary>

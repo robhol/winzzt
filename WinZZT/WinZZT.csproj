@@ -56,7 +56,6 @@
     <Compile Include="CGame.cs" />
     <Compile Include="CGrid.cs" />
     <Compile Include="Creatures\CBear.cs" />
-    <Compile Include="CSlime.cs" />
     <Compile Include="GameObjects\CConveyor.cs" />
     <Compile Include="Creatures\CRuffian.cs" />
     <Compile Include="Creatures\CShark.cs" />

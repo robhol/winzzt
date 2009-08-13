@@ -70,7 +70,7 @@ namespace WinZZT
 
                 case "lm":
                     {
-                        CMapManager.LoadMap(args[1]);
+                        CMapManager.LoadMapFile(args[1]);
                         break;
                     }
 

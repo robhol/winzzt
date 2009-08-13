@@ -24,7 +24,7 @@ namespace WinZZT
         private void frmMain_Load(object sender, EventArgs e)
         {
 
-            CMapManager.LoadMap("test");
+            CMapManager.LoadMapFile("test");
 
         }
 

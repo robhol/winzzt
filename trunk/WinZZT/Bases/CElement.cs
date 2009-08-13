@@ -209,7 +209,7 @@ namespace WinZZT
             if (CGrid.Get(CGrid.GetInDirection(Location,x)).IsBlocked())
                 x = CGrid.GetDirectionToPoint(Location, p, true);
 
-            return Try(x,true,true);
+            return Try(x,true,false);
 
         }
 

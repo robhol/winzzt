@@ -94,6 +94,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -119,11 +120,13 @@
     <Compile Include="Terrains\CNormal.cs" />
     <Compile Include="Terrains\CInvisibleWall.cs" />
     <Compile Include="Terrains\CForest.cs" />
+    <Compile Include="Terrains\CText.cs" />
     <Compile Include="Terrains\CWater.cs" />
     <Compile Include="Terrains\CWall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\charmap.bmp" />
+    <None Include="Resources\default.map" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

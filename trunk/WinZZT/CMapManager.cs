@@ -70,6 +70,12 @@ namespace WinZZT
                         new CDoor(x, y, CUtil.getColorFromString(e.Attribute("color").Value));
                         break;
                     }
+                case "text":
+                    {
+                        new CText(x, y, int.Parse(e.Attribute("char").Value), CUtil.getColorFromString(e.Attribute("color").Value), CUtil.getColorFromString(e.Attribute("background").Value));
+                        break;
+                    }
+
 
                 #endregion "Terrains"
 
@@ -161,14 +167,12 @@ namespace WinZZT
         }
 
         /// <summary>
-        /// Loads a map, after clearing the grid of all elements.
+        /// Loads a map from an XML node, after clearing the grid of all elements.
         /// </summary>
-        /// <param name="mapName">The name of the map file.</param>
-        public static void LoadMap(string mapName)
+        /// <param name="root">The XML root node.</param>
+        public static void ProcessXMLMap(XElement root)
         {
-            string mapfolder = Path.GetDirectoryName(Application.ExecutablePath) + "\\maps";
-            
-            XElement root = XElement.Load(mapfolder + "\\" + mapName + ".map");
+
             XElement elementRoot = root.Element("elements");
 
             CGrid.ClearGrid();
@@ -183,6 +187,45 @@ namespace WinZZT
 
             //Spawn player
             CGame.SpawnPlayer(int.Parse(playerTag.Attribute("x").Value), int.Parse(playerTag.Attribute("y").Value));
+
+            //Check for initial ammo setting and apply
+            XAttribute ammo = playerTag.Attribute("ammo");
+            if (ammo != null)
+                CGame.PlayerAmmo = int.Parse(ammo.Value);
+
+        }
+
+        /// <summary>
+        /// Loads a map with the given name, after clearing the grid of all elements.
+        /// </summary>
+        /// <param name="mapName">The name of the map file.</param>
+        public static void LoadMapFile(string mapName)
+        {
+            string mapfolder = Path.GetDirectoryName(Application.ExecutablePath) + "\\maps";
+
+            if (!Directory.Exists(mapfolder))
+            {
+                if (MessageBox.Show("Couldn't find /maps/ folder. This should be in the same directory as this executable.", "Couldn't find maps", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                    Application.Exit(); // Terminate on Cancel
+
+            }
+
+            string filepath = mapfolder + "\\" + mapName + ".map";
+
+            if (!File.Exists(filepath))
+            {
+                if (MessageBox.Show("Couldn't find map file. This should be in the /maps/ folder and have a .map extension.", "Couldn't find map", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                    Application.Exit(); // Again.. terminate on Cancel
+            }
+            else
+            {
+                ProcessXMLMap(XElement.Load(filepath));
+                return; //The map is loaded; we're done here.
+            }
+
+            //If we're here, map loading failed and our user still wants to continue.
+            //We'll load a default map.
+            ProcessXMLMap(XElement.Parse(Properties.Resources.defaultmap));
 
         }
 

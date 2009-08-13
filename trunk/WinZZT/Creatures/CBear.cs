@@ -24,6 +24,7 @@ namespace WinZZT
         public CBear(int x, int y)
         {
             this.InitProps(x, y, 148, Color.Brown, Color.Transparent, true, 61,700);
+            this.Pushable = true;
         }
 
         public override void Step()

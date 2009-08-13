@@ -23,6 +23,7 @@ namespace WinZZT
         public CTiger(int x, int y)
         {
             this.InitProps(x, y, 227, Color.Cyan, Color.Transparent, true, 65, 700);
+            this.Pushable = true;
             
         }
 

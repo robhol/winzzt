@@ -21,6 +21,7 @@ namespace WinZZT
         public CRuffian(int x, int y)
         {
             this.InitProps(x, y, 5, Color.DarkMagenta, Color.Transparent, true, 61,100);
+            this.Pushable = true;
         }
 
         EDirection moveDirection;
@@ -32,9 +33,16 @@ namespace WinZZT
         public override void Step()
         {
 
+            if (this.IsTouching(CGame.Player))
+            {
+                CGame.DamagePlayer(10);
+                this.Die();
+                return;
+            }
+
             if (moves > 0)
             {
-                moveDirection = CGrid.GetDirectionToPoint(Location, CGame.Player.Location, CGame.Random.Next(3) == 0);
+                moveDirection = CGrid.GetDirectionToPoint(Location, CGame.Player.Location, CGame.Random.Next(5) == 0);
                 
                 Try(moveDirection, true, false);
                 moves--;
@@ -44,14 +52,14 @@ namespace WinZZT
             {
                 if (moving) // if moving at the last tick
                 {
-                    restUntil = DateTime.Now.AddMilliseconds(CGame.Random.Next(1000,2000));
+                    restUntil = DateTime.Now.AddMilliseconds(CGame.Random.Next(800,1600));
                     moving = false;
                 }
             }
 
             if (restUntil < DateTime.Now && !moving)
             {
-                moves = CGame.Random.Next(3, 7);
+                moves = CGame.Random.Next(5, 12);
             }
 
         }

@@ -1,0 +1,20 @@
+<winzztmap>
+
+	<player x="19" y="12" ammo="500" />
+
+	<elements>
+		
+		<!-- Win ZZT text -->
+		<text x="15" y="12" char="87" color="DDDDDD" background="000000" />
+		<text x="16" y="12" char="105" color="DDDDDD" background="000000" />
+		<text x="17" y="12" char="110" color="DDDDDD" background="000000" />
+		<text x="21" y="12" char="90" color="FFFFFF" background="550000" />
+		<text x="22" y="12" char="90" color="FFFFFF" background="005500" />
+		<text x="23" y="12" char="84" color="FFFFFF" background="000055" />
+		
+
+
+	
+	</elements>
+
+</winzztmap>

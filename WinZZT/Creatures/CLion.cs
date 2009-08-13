@@ -22,6 +22,7 @@ namespace WinZZT
         public CLion(int x, int y)
         {
             this.InitProps(x, y, 234, Color.Orange, Color.Transparent, true, 61,700);
+            this.Pushable = true;
         }
 
         public override void Step()

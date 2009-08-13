@@ -29,6 +29,7 @@ namespace WinZZT
             Application.SetCompatibleTextRenderingDefault(false);
 
             //Initialize sub-systems
+            CCharManager.Initialize();
             CElementManager.Initialize();
             CGrid.Initialize();
             CDrawing.Initialize();

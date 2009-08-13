@@ -18,6 +18,8 @@ namespace WinZZT
     static class CCharManager
     {
 
+        private static Bitmap[] bChars = new Bitmap[256];
+
         private static Bitmap CopyRegion(Bitmap src, Rectangle r)
         {
 
@@ -33,12 +35,21 @@ namespace WinZZT
 
         }
 
+        public static void Initialize()
+        {
+
+            for (int i = 0; i < 256; i++)
+            {
+                bChars[i] = CopyRegion(Properties.Resources.charmap, new Rectangle(i * 8 + 1, 0, 8, 14));
+            }
+            
+        }
+
         public static Bitmap GetChar(int chr, Color c)
         {
 
-            Bitmap b = CopyRegion(Properties.Resources.charmap, new Rectangle(chr * 8 + 1, 0, 8, 14));
-
-            Bitmap before = b;
+            //Bitmap b = CopyRegion(Properties.Resources.charmap, new Rectangle(chr * 8 + 1, 0, 8, 14));
+            Bitmap b = (Bitmap)bChars[chr].Clone();
 
             for (int cy = 0; cy < 14; cy++)
                 for (int cx = 0; cx < 8; cx++)

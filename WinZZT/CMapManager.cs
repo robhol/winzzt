@@ -136,6 +136,12 @@ namespace WinZZT
                         break;
                     }
 
+                case "slime":
+                    {
+                        new CSlime(x, y, CUtil.getColorFromString(e.Attribute("color").Value));
+                        break;
+                    }
+
                 #endregion "Creatures"
 
                 #region "Game Objects"

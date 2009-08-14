@@ -142,7 +142,20 @@ namespace WinZZT
         public static void DrawSymbol(int c, Point p, Color foreground, Color background, Graphics g)
         {
             g.FillRectangle(new SolidBrush(background), p.X, p.Y, CellSize.Width, CellSize.Height);
-            g.DrawImage(CCharManager.GetChar(c, foreground), p);
+            //g.DrawImage(CCharManager.GetChar(c, foreground), p);
+
+            int toSearch = BitmapCharacter.CalculateSearch(background, c);
+
+            BitmapCharacter loadedBitmap;
+            if (!DrawableCharacters.ContainsKey(toSearch))
+            {
+                loadedBitmap = new BitmapCharacter(foreground, c);
+                DrawableCharacters.Add(toSearch, loadedBitmap);
+            }
+
+            g.DrawImage(DrawableCharacters[toSearch].Bitmap, p);
+
+
         }
 
         public static void DrawObject(CElement o, Graphics g)
@@ -169,6 +182,7 @@ namespace WinZZT
 
         public static void DrawTile(int x, int y, Graphics g)
         {   //Draws a certain tile
+
             Point gp = new Point(x, y);
             Point p = GetCanvasCoords(gp);
 
@@ -177,6 +191,16 @@ namespace WinZZT
 
                 Pen pn = new Pen(Color.FromArgb(16, 16, 16));
                 g.DrawRectangle(pn, p.X, p.Y, CellSize.Width, CellSize.Height);
+            }
+
+            //If map is dark, prevent any drawing if outside of range
+            if (CMapManager.MapIsDark)
+            {
+                if (CUtil.getDistance(gp, CGame.Player.Location) >= 6.0)
+                {
+                    DrawSymbol(176, p, Color.Black, Color.FromArgb(64,64,64), g);
+                    return;
+                }
             }
 
             //Get tile

@@ -20,6 +20,8 @@ namespace WinZZT
     static class CMapManager
     {
 
+        public static bool MapIsDark = false;
+
         public static void HandleMapNode(XElement e)
         {
 
@@ -204,6 +206,10 @@ namespace WinZZT
             XAttribute ammo = playerTag.Attribute("ammo");
             if (ammo != null)
                 CGame.PlayerAmmo = int.Parse(ammo.Value);
+
+            //Check and apply darkness
+            XAttribute dark = root.Attribute("dark");
+            MapIsDark = (dark != null && dark.Value == "1");
 
         }
 

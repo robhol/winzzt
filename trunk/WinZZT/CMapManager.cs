@@ -95,6 +95,13 @@ namespace WinZZT
                         new CAmmo(x, y, int.Parse(e.Attribute("ammo").Value));
                         break;
                     }
+
+                case "torch":
+                    {
+                        new CTorch(x, y);
+                        break;
+                    }
+
                 case "key":
                     {
                         new CKey(x, y, CUtil.getColorFromString(e.Attribute("color").Value));

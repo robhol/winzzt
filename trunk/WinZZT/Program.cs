@@ -32,6 +32,7 @@ namespace WinZZT
             CCharManager.Initialize();
             CElementManager.Initialize();
             CGrid.Initialize();
+            CGame.Initialize();
             CDrawing.Initialize();
             
             //Create and display main form.

@@ -196,7 +196,7 @@ namespace WinZZT
             //If map is dark, prevent any drawing if outside of range
             if (CMapManager.MapIsDark)
             {
-                if (CUtil.getDistance(gp, CGame.Player.Location) >= 6.0)
+                if (CUtil.getDistance(gp,CGame.Player.Location) != 0 && (CUtil.getDistance(gp, CGame.Player.Location) >= 6.0 || !CGame.TorchActive))
                 {
                     DrawSymbol(176, p, Color.Black, Color.FromArgb(64,64,64), g);
                     return;
@@ -231,7 +231,8 @@ namespace WinZZT
 
             string status =
                 "Health :  " + CGame.PlayerHealth.ToString().PadLeft(3, char.Parse(" ")) + "\r\n" +
-                "Ammo   : " + CGame.PlayerAmmo.ToString().PadLeft(4, char.Parse(" "))
+                "Ammo   : " + CGame.PlayerAmmo.ToString().PadLeft(4, char.Parse(" "))  + "\r\n" +
+                "Torches: " + CGame.PlayerTorches.ToString().PadLeft(4, char.Parse(" "))
                 ;
 
             g.DrawString(status, BarFont, Brushes.White, CanvasSize.Width + 5, 50);
@@ -248,6 +249,14 @@ namespace WinZZT
                     g.DrawString(k.Value.ToString(), BarFont, Brushes.White, p.X + 6, p.Y - 1);
                 d++;
             }
+
+            //Torch time if active
+            if (CGame.TorchActive)
+            {
+                g.FillRectangle(new SolidBrush(Color.Black ), CanvasSize.Width + 5, 90, 90, 2);
+                g.FillRectangle(new SolidBrush(Color.Orange), CanvasSize.Width + 5, 90, (int)Math.Round(85.0 * ((double)CGame.TorchTime / 20)), 2);
+            }
+
 
         }
 

@@ -13,12 +13,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Timers;
 
 namespace WinZZT
 {
     static class CGame
     {
         static private CPlayer _player;
+        static private int _TorchTime = 0;
         static public int PlayerHealth;
 
         static public bool PlayerSpawned;
@@ -26,14 +28,39 @@ namespace WinZZT
         static public bool PlayerFrozen;
 
         static public int PlayerAmmo = 0;
+        static public int PlayerTorches = 0;
 
         static public Random Random = new Random();
+        static private Timer GameTimer = new Timer(1000);
 
         static public Dictionary<Color, int> KeyList = new Dictionary<Color, int>();
 
         static public CPlayer Player
         {
             get { return _player; }
+        }
+
+        static public bool TorchActive
+        {
+            get { return _TorchTime > 0; }
+        }
+
+        static public int TorchTime
+        {
+            get { return _TorchTime; }
+        }
+
+        static public void Initialize()
+        {
+            GameTimer.Elapsed += new ElapsedEventHandler(GameTimer_Elapsed);
+            GameTimer.Start();
+        }
+
+        static void GameTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            //Count down torch time
+            if (_TorchTime > 0)
+                _TorchTime--;
         }
 
         static public void DamagePlayer(int dmg)
@@ -85,6 +112,19 @@ namespace WinZZT
                 KeyList.Remove(c);
 
             return true;
+
+        }
+
+        static public void UseTorch()
+        {
+            if (PlayerTorches == 0)
+            {
+                CDrawing.DisplayText("No torches!", 1000);
+                return;
+            }
+
+            PlayerTorches--;
+            _TorchTime += 22;
 
         }
 

@@ -66,6 +66,16 @@ namespace WinZZT
 
                         break;
                     }
+
+                case Keys.T:
+                    {
+                        if (!CGame.TorchActive)
+                        {
+                            CGame.UseTorch();
+                        }
+                        break;
+                    }
+
                 case Keys.C:
                     {
                         if (e.Control && e.Alt)

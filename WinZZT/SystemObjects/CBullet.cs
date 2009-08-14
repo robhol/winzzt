@@ -22,20 +22,12 @@ namespace WinZZT
 
         public CBullet(int x, int y, int cCycle, EDirection direction, CElement source)
         {
-            this.BackColor = Color.Transparent;
-            this.ForeColor = Color.White;
-            this.Char = 249;
-            this.Block = true;
-
-            this.Source = source;
-
-            this.Ordering = 999;
-
+            Source = source;
             Direction = direction;
-            this.Cycle = cCycle;
-            this.Location = new Point(x, y);
-            this.Initialize(x, y);
-            this.InitTimer(cCycle);
+ 
+            InitProps(x, y, 249, Color.White, Color.Transparent, true, 999);
+
+            InitTimer(cCycle);
         }
 
         public override void Step()

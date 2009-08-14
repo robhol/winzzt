@@ -19,15 +19,10 @@ namespace WinZZT
 
         public CPlayer(int x, int y)
         {
-            this.Location = new Point(x, y);
-            this.Char = 2;
-            this.BackColor = Color.DarkBlue;
-            this.ForeColor = Color.White;
             this.CanBeSteppedOn = false;
-            this.Block = true;
             this.Pushable = true;
-            this.Ordering = 10000;
-            this.Initialize(x, y);
+
+            this.InitProps(x, y, 2, Color.White, Color.DarkBlue, true, 10000);
         }
 
         private void TryShoot(EDirection d)

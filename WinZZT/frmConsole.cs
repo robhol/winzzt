@@ -62,6 +62,23 @@ namespace WinZZT
                         break;
                     }
 
+                case "torches":
+                    {
+
+                        if (args.Length == 1)
+                        {
+                            CGame.PlayerTorches += 3;
+                        }
+                        else
+                        {
+                            CGame.PlayerTorches += int.Parse(args[1]);
+                        }
+
+
+                        OutputConsole("Torches given.");
+                        break;
+                    }
+
                 case "clear":
                     {
                         CGrid.ClearGrid();

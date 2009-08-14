@@ -100,5 +100,20 @@ namespace WinZZT
 
         }
 
+        public static EDirection getDirectionFromString(string s)
+        {
+            switch (s.ToUpper())
+            {
+                case "N": return EDirection.North;
+                case "E": return EDirection.East;
+                case "S": return EDirection.South;
+                case "W": return EDirection.West;
+            }
+
+            return EDirection.North;
+
+        }
+
+
     }
 }

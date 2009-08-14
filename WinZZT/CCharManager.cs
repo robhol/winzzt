@@ -40,7 +40,7 @@ namespace WinZZT
 
             for (int i = 0; i < 256; i++)
             {
-                bChars[i] = CopyRegion(Properties.Resources.charmap, new Rectangle(i * 8 + 1, 0, 8, 14));
+                bChars[i] = CopyRegion(Properties.Resources.charmap, new Rectangle(i * 8, 0, 8, 14));
             }
             
         }

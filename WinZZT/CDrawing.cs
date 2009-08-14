@@ -132,6 +132,13 @@ namespace WinZZT
             return new Point(x, y);
         }
 
+        public static Point GetTileFromCanvasCoords(Point p)
+        {
+            int x = (int)Math.Floor((double)p.X / CellSize.Width);
+            int y = (int)Math.Floor((double)p.Y / CellSize.Height);
+            return new Point(x, y);
+        }
+
         public static void DrawSymbol(int c, Point p, Color foreground, Color background, Graphics g)
         {
             g.FillRectangle(new SolidBrush(background), p.X, p.Y, CellSize.Width, CellSize.Height);

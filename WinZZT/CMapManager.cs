@@ -76,6 +76,12 @@ namespace WinZZT
                         break;
                     }
 
+                case "line":
+                    {
+                        new CLine(x, y, CUtil.getColorFromString(e.Attribute("color").Value));
+                        break;
+                    }
+
 
                 #endregion "Terrains"
 

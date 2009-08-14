@@ -256,6 +256,31 @@ namespace WinZZT
 
         }
 
+        /// <summary>
+        /// Gets an element of a given type or given direction. null if nothing suitable was found.
+        /// </summary>
+        /// <param name="t">Type</param>
+        /// <param name="d">Direction</param>
+        /// <returns></returns>
+        public CElement GetElementInDirection(string t, EDirection d)
+        {
+            CElement o = null;
+
+            Point p = CGrid.GetInDirection(Location, d);
+
+            if (CGrid.IsValid(p))
+            {
+                foreach (CElement e in CGrid.Get(p).Contents)
+                {
+                    if (e.Type == t)
+                        o = e;
+                }
+            }
+
+            return o;
+
+        }
+
         #endregion
 
         #region "Event handling and callbacks"

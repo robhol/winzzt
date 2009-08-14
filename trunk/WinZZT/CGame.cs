@@ -18,7 +18,7 @@ namespace WinZZT
 {
     static class CGame
     {
-        static public CPlayer _player;
+        static private CPlayer _player;
         static public int PlayerHealth;
 
         static public bool PlayerSpawned;

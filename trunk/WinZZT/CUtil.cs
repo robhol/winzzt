@@ -50,6 +50,16 @@ namespace WinZZT
             return new Point(a.X + b.X, a.Y + b.Y);
         }
 
+        public static double getDistance(Point a, Point b)
+        {
+
+            int dX = b.X - a.X;
+            int dY = b.Y - a.Y;
+
+            return Math.Sqrt( Math.Pow(dX, 2) + Math.Pow(dY, 2));
+
+        }
+
         public static double getRotationToPoint(Point a, Point b)
         {
             double dX = (double)(b.X - a.X);

@@ -324,6 +324,7 @@ namespace WinZZT
         /// </summary>
         /// <param name="d">Direction in which to shoot</param>
         /// <returns></returns>
+
         public bool Shoot(EDirection d)
         {
 
@@ -338,6 +339,7 @@ namespace WinZZT
                 return false;
 
         }
+
 
     }
 

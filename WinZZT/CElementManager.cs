@@ -18,10 +18,12 @@ namespace WinZZT
     {
 
         private static List<CElement> elementList;
+        private static Dictionary<string, CObject>  objectList;
 
         public static void Initialize()
         {
             elementList = new List<CElement>();
+            objectList = new Dictionary<string, CObject>();
         }
 
         /// <summary>
@@ -47,6 +49,12 @@ namespace WinZZT
             elementList.Add(e);
         }
 
+        public static void RegisterObject(CObject o)
+        {
+            if (!objectList.ContainsKey(o.Name))
+                objectList.Add(o.Name, o);
+        }
+
         public static string Dump()
         {
             string o = "";
@@ -61,6 +69,30 @@ namespace WinZZT
         {
             if (elementList.Contains(e))
                 elementList.Remove(e);
+        }
+
+        public static void DeleteObject (CObject e)
+        {
+            if (objectList.ContainsKey(e.Name))
+                objectList.Remove(e.Name);
+        }
+
+        public static CObject GetObjectFromName(string n)
+        {
+            if (objectList.ContainsKey(n))
+                return objectList[n];
+
+            return null;
+        }
+
+        public static void SendMessageToObject(string name, string msg)
+        {
+
+            CObject o = GetObjectFromName(name);
+
+            if (o != null)
+                o.Message(msg);
+
         }
 
     }

@@ -30,7 +30,6 @@ namespace WinZZT
                 Lines[i] = rawLines[i].Trim();
             }
                
-
         }
 
         private int FindLabel(string s)
@@ -64,25 +63,50 @@ namespace WinZZT
 
             switch (args[0].ToUpper())
             {
-                case "END":
+                case "END": //Stops script execution
                     Line = Lines.Length;
                     return false;
 
-                case "WALK":
+                case "WALK": //Tries moving in a direction
                     Object.Try(CUtil.getDirectionFromString(args[1]), true, true);
                     return true;
 
-                case "CHAR":
+                case "CHAR": //Changes char
                     Object.Char = int.Parse(args[1]);
                     return false;
 
-                case "LOCK":
+                case "GOTO": //Starts executing script at given label
+                    this.JumpToLabel(args[1]);
+                    return false;
+
+                case "LOCK": //Prevents object from responding to messages
                     Object.Locked = true;
                     return false;
 
-                case "UNLOCK":
+                case "UNLOCK": //Reverses LOCK effect
                     Object.Locked = false;
                     return false;
+                    
+                case "CYCLE": //Sets execution speed
+                    Object.Cycle = int.Parse(args[1]);
+                    return false;
+
+                case "DIE": //Removes object
+                    Object.Die();
+                    return false;
+
+                case "PAUSE": //Does nothing, waits for next cycle/Step
+                    return true;
+
+                case "MSG": //Sends a message to an object with the given name
+                    CElementManager.SendMessageToObject(args[1], args[2]);
+                    return false;
+
+                case "COLOR":
+                    Object.ForeColor = CUtil.getColorFromString(args[1]);
+                    if (args.Length > 2)
+                        Object.BackColor = CUtil.getColorFromString(args[2]);
+                    break;
                     
             }
 

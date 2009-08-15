@@ -32,6 +32,14 @@ namespace WinZZT
 
             Script = new CScript(this, sScript);
 
+            CElementManager.RegisterObject(this);
+
+        }
+
+        public override void Die()
+        {
+            base.Die();
+            CElementManager.DeleteObject(this);
         }
 
         public override void Step()
@@ -49,6 +57,12 @@ namespace WinZZT
         {
             if (!Locked)
                 Script.JumpToLabel("touch");
+        }
+
+        public void Message(string m)
+        {   //Sent by another object or script.
+            if (!Locked)
+                Script.JumpToLabel(m);
         }
 
     }

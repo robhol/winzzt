@@ -111,6 +111,11 @@ namespace WinZZT
                         break;
                     }
 
+                case "gem":
+                    {
+                        new CGem(x, y, int.Parse(e.Attribute("amount").Value));
+                        break;
+                    }
 
 
                 #endregion
@@ -299,7 +304,7 @@ namespace WinZZT
         public static string GetMapScript(string id)
         {
             if (!MapScripts.ContainsKey(id))
-                return "NOKEY";
+                return "";
 
             return MapScripts[id];
 

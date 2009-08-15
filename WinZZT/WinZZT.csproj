@@ -83,6 +83,7 @@
     <Compile Include="GameObjects\CDoor.cs" />
     <Compile Include="Items\CAmmo.cs" />
     <Compile Include="Items\CKey.cs" />
+    <Compile Include="Items\CGem.cs" />
     <Compile Include="Items\CTorch.cs" />
     <Compile Include="Scripting\CObject.cs" />
     <Compile Include="Scripting\CScript.cs" />

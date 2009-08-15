@@ -132,6 +132,93 @@ namespace WinZZT
                     Object.Put(CUtil.getDirectionFromString(args[1]),args[2], arg4, c);
 
                     return false;
+
+                case "GIVE":
+                    int amt = int.Parse(args[2]);
+
+                    switch (args[1].ToUpper())
+                    {
+                        case "AMMO":
+                            CGame.PlayerAmmo += amt;
+                            break;
+
+                        case "TORCHES":
+                            CGame.PlayerTorches += amt;
+                            break;
+
+                        case "HEALTH":
+                            CGame.PlayerHealth += amt;
+                            break;
+
+                        case "GEMS":
+                            CGame.PlayerGems += amt;
+                            break;
+
+                        case "SCORE":
+                            CGame.PlayerScore += amt;
+                            break;
+                    }
+
+                    return false;
+
+                case "TAKE":
+                    {
+
+                        int takeamt = int.Parse(args[2]);
+
+                        string escapeTo = "";
+
+                        if (args.Length > 2)
+                            escapeTo = args[3];
+
+                        switch (args[1].ToUpper())
+                        {
+                            case "AMMO":
+
+                                if (CGame.PlayerAmmo >= takeamt)
+                                    CGame.PlayerAmmo -= takeamt;
+                                else if (escapeTo != "")
+                                    JumpToLabel(escapeTo);
+
+                                break;
+
+                            case "TORCHES":
+                                if (CGame.PlayerTorches >= takeamt)
+                                    CGame.PlayerTorches -= takeamt;
+                                else if (escapeTo != "")
+                                    JumpToLabel(escapeTo);
+
+                                break;
+
+                            case "HEALTH":
+                                if (CGame.PlayerHealth >= takeamt)
+                                    CGame.DamagePlayer(takeamt);
+                                else if (escapeTo != "")
+                                    JumpToLabel(escapeTo);
+
+                                break;
+
+                            case "GEMS":
+                                if (CGame.PlayerGems >= takeamt)
+                                    CGame.PlayerGems -= takeamt;
+                                else if (escapeTo != "")
+                                    JumpToLabel(escapeTo);
+
+                                break;
+
+                            case "SCORE":
+                                if (CGame.PlayerScore >= takeamt)
+                                    CGame.PlayerScore -= takeamt;
+                                else if (escapeTo != "")
+                                    JumpToLabel(escapeTo);
+
+                                break;
+                        }
+
+                        return false;
+
+                    }
+
             }
 
             return true;

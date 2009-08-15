@@ -29,6 +29,8 @@ namespace WinZZT
 
         static public int PlayerAmmo = 0;
         static public int PlayerTorches = 0;
+        static public int PlayerGems = 0;
+        static public int PlayerScore = 0;
 
         static public Random Random = new Random();
         static private Timer GameTimer = new Timer(1000);

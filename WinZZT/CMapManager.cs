@@ -62,7 +62,7 @@ namespace WinZZT
                     }
                 case "water":
                     {
-                        new CWater(x, y, CUtil.getColorFromString(e.Attribute("color").Value));
+                        new CWater(x, y);
                         break;
                     }
                 case "forest":
@@ -190,12 +190,22 @@ namespace WinZZT
 
                 case "object":
                     {
+
+                        string scriptID = "";
+
+                        XAttribute scriptAttrib = e.Attribute("script");
+
+                        if (scriptAttrib != null)
+                            scriptID = scriptAttrib.Value;
+
+                        scriptID = e.Attribute("script").Value;
+
                         new CObject(x, y,
                             int.Parse(e.Attribute("char").Value),
                             CUtil.getColorFromString(e.Attribute("color").Value),
                             CUtil.getColorFromString(e.Attribute("bgcolor").Value),
                             e.Attribute("name").Value,
-                            e.Attribute("script").Value
+                            scriptID
                             );
                            
                         break;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace WinZZT
 {
@@ -102,12 +103,35 @@ namespace WinZZT
                     CElementManager.SendMessageToObject(args[1], args[2]);
                     return false;
 
-                case "COLOR":
+                case "COLOR": //Changes colors...
                     Object.ForeColor = CUtil.getColorFromString(args[1]);
                     if (args.Length > 2)
                         Object.BackColor = CUtil.getColorFromString(args[2]);
-                    break;
-                    
+                    return false;
+
+                case "BECOME": //Changes the object into whatever
+                    string arg2 = "";
+
+                    if (args.Length > 2)
+                        arg2 = args[2];
+
+                    Object.Become(args[1], arg2);
+
+                    return false;
+
+                case "PUT": //Puts an object in whatever direction
+                    string arg4 = "";
+                    Color c = Color.Transparent;
+
+                    if (args.Length > 3)
+                        c = CUtil.getColorFromString(args[3]);
+
+                    if (args.Length > 4)
+                        arg4 = args[4];
+
+                    Object.Put(CUtil.getDirectionFromString(args[1]),args[2], arg4, c);
+
+                    return false;
             }
 
             return true;

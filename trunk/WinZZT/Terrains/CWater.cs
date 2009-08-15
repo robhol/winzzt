@@ -17,9 +17,9 @@ namespace WinZZT
 {
     class CWater : CElement
     {
-        public CWater(int x, int y, Color c)
+        public CWater(int x, int y)
         {
-            InitProps(x, y, 176, c, Color.Black, true, 0);
+            InitProps(x, y, 176, Color.DarkBlue, Color.Black, true, 0);
             this.BlockBullets = false;
         }
     }

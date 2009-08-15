@@ -340,6 +340,93 @@ namespace WinZZT
 
         }
 
+        public static void Create(int x, int y, string type, string arg, Color c)
+        {
+            switch (type)
+            {
+                #region "Creatures"
+                case "bear":
+                    new CBear(x, y);
+                    break;
+                case "lion":
+                    new CLion(x, y);
+                    break;
+                case "pusher":
+                    new CPusher(x, y, CUtil.getDirectionFromString(arg), c);
+                    break;
+                case "ruffian":
+                    new CRuffian(x, y);
+                    break;
+                case "slime":
+                    new CSlime(x, y, c);
+                    break;
+                case "tiger":
+                    new CTiger(x, y);
+                    break;
+                #endregion
+
+                #region "Game Objects, Items"
+
+                case "boulder":
+                    new CBoulder(x, y, c);
+                    break;
+                case "ammo":
+                    new CAmmo(x, y, 5);
+                    break;
+                case "key":
+                    new CKey(x, y, c);
+                    break;
+                case "torch":
+                    new CTorch(x, y);
+                    break;
+
+                #endregion
+
+                #region "Terrains"
+
+                case "breakable":
+                    new CBreakable(x, y, c);
+                    break;
+                case "fake":
+                    new CFake(x, y, c);
+                    break;
+                case "forest":
+                    new CForest(x, y);
+                    break;
+                case "invisible":
+                    new CInvisibleWall(x, y);
+                    break;
+
+                case "line":
+                    new CLine(x, y, c);
+                    break;
+                case "normal":
+                    new CNormal(x, y, c);
+                    break;
+                case "wall":
+                    new CWall(x, y, c);
+                    break;
+                case "water":
+                    new CWater(x, y);
+                    break;
+
+                #endregion
+
+            }
+        }
+
+        public void Become(string t, string arg)
+        {
+
+            int x = Location.X;
+            int y = Location.Y;
+
+            CElement.Create(x, y, t, arg, this.ForeColor);
+
+            Die();
+
+        }
+
 
     }
 

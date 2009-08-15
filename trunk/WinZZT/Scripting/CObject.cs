@@ -42,6 +42,16 @@ namespace WinZZT
             CElementManager.DeleteObject(this);
         }
 
+        public void Put(EDirection d, string t, string arg, Color c)
+        {
+
+            Point p = CGrid.GetInDirection(Location, d);
+
+            CElement.Create(p.X, p.Y, t, arg, c);
+
+        }
+
+
         public override void Step()
         {
             Script.Step();

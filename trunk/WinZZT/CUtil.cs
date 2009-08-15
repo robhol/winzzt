@@ -26,6 +26,9 @@ namespace WinZZT
         public static Color getColorFromString(string s)
         {
 
+            if (s == String.Empty)
+                return Color.Transparent;
+
             int r = int.Parse(s.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
             int g = int.Parse(s.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
             int b = int.Parse(s.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);

@@ -199,6 +199,7 @@ namespace WinZZT
             sfCenter.LineAlignment = StringAlignment.Center;
 
             g.FillRectangle(new SolidBrush(Color.FromArgb(0, 0, 100)), CanvasSize.Width, 0, 175, CanvasSize.Height);
+            g.DrawLine(new Pen(Color.FromArgb(0, 0, 60), 2), CanvasSize.Width, 0, CanvasSize.Width, CanvasSize.Height);
 
             //WinZZT Line
             g.DrawString("- WinZZT -", BarFont, Brushes.Yellow, CanvasSize.Width + 53, + 30, sfCenter);
@@ -209,7 +210,7 @@ namespace WinZZT
             g.DrawString("Torches: " + CGame.PlayerTorches.ToString().PadLeft(4, char.Parse(" ")), BarFont, Brushes.White, CanvasSize.Width + 30, 80);
 
             //Icons for health, ammo and torches.
-            DrawSymbol(3, new Point(CanvasSize.Width + 20, 51), Color.FromArgb(255, 128, 128), Color.Transparent, g);
+            DrawSymbol(3, new Point(CanvasSize.Width + 20, 51), Color.FromArgb(255, 64, 72), Color.Transparent, g);
             DrawSymbol(132, new Point(CanvasSize.Width + 20, 66), Color.DarkCyan, Color.Transparent, g);
             DrawSymbol(157, new Point(CanvasSize.Width + 20, 81), Color.Brown, Color.Transparent, g);
 

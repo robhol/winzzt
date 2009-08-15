@@ -33,4 +33,11 @@ namespace WinZZT
         Counterclockwise
     }
 
+    public enum EScriptState
+    {
+        Idle,
+        Processing,
+        Finished
+    }
+
 }

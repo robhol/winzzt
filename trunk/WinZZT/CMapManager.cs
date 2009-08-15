@@ -21,6 +21,9 @@ namespace WinZZT
     {
 
         public static bool MapIsDark = false;
+        private static Dictionary<string, string> MapScripts = new Dictionary<string,string>();
+
+        private static char[] whitespaceChars = new char[] { '\t', ' ' };
 
         public static void HandleMapNode(XElement e)
         {
@@ -85,7 +88,7 @@ namespace WinZZT
                     }
 
 
-                #endregion "Terrains"
+                #endregion
 
                 #region "Items"
 
@@ -110,7 +113,7 @@ namespace WinZZT
 
 
 
-                #endregion "Items"
+                #endregion
 
                 #region "Creatures"
 
@@ -157,7 +160,7 @@ namespace WinZZT
                         break;
                     }
 
-                #endregion "Creatures"
+                #endregion
 
                 #region "Game Objects"
 
@@ -181,7 +184,24 @@ namespace WinZZT
                     }
 
 
-                #endregion "Game Objects"
+                #endregion
+
+                #region "Scripting"
+
+                case "object":
+                    {
+                        new CObject(x, y,
+                            int.Parse(e.Attribute("char").Value),
+                            CUtil.getColorFromString(e.Attribute("color").Value),
+                            CUtil.getColorFromString(e.Attribute("bgcolor").Value),
+                            e.Attribute("name").Value,
+                            e.Attribute("script").Value
+                            );
+                           
+                        break;
+                    }
+
+                #endregion
 
             }
 
@@ -197,10 +217,22 @@ namespace WinZZT
             XElement elementRoot = root.Element("elements");
 
             CGrid.ClearGrid();
+            MapScripts.Clear();
 
             XElement playerTag = root.Element("player");
 
-            //Load and create all objects
+            //Load all scripts associated with the board
+            XElement scriptRoot = root.Element("scripts");
+
+            if (scriptRoot != null)
+            {
+                foreach (XElement s in scriptRoot.Elements("script"))
+                {
+                    MapScripts.Add(s.Attribute("id").Value, s.Value.Trim());
+                }
+            }
+
+            //Load and create all elements
             foreach (XElement e in elementRoot.Elements())
             {
                 HandleMapNode(e);
@@ -251,6 +283,15 @@ namespace WinZZT
             //If we're here, map loading failed and our user still wants to continue.
             //We'll load a default map.
             ProcessXMLMap(XElement.Parse(Properties.Resources.defaultmap));
+
+        }
+
+        public static string GetMapScript(string id)
+        {
+            if (!MapScripts.ContainsKey(id))
+                return "NOKEY";
+
+            return MapScripts[id];
 
         }
 

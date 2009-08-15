@@ -17,33 +17,6 @@ using System.Collections;
 
 namespace WinZZT
 {
-    /* Wrapper for the image */
-    class BitmapCharacter
-    {
-        public BitmapCharacter(Color color, int character)
-        {
-            this.Bitmap = CCharManager.GetChar(character, color) as Bitmap;
-            this.Color = color;
-            this.Char = character;
-        }
-
-        public Bitmap Bitmap { get; set; }
-        public Color Color { get; set; }
-        public int Char { get; set; }
-
-        public int SearchValue /* Unique search value for Dictionary */
-        {
-            get
-            {
-                return CalculateSearch(this.Color, this.Char);
-            }
-        }
-
-        public static int CalculateSearch(Color color, int character)
-        {
-            return (color.R + color.G + color.B) + character;
-        }
-    }
 
     static class CDrawing
     {
@@ -55,7 +28,7 @@ namespace WinZZT
         public static Font DrawFont = new Font("Trebuchet MS", 12);
 
         //Font used in the side bar/status bar
-        public static Font BarFont = new Font("Courier New", 8);
+        public static Font BarFont = new Font("Courier New", 8, FontStyle.Bold);
 
         public static StringFormat stringFormat = new StringFormat();
 
@@ -140,11 +113,12 @@ namespace WinZZT
         }
 
         public static void DrawSymbol(int c, Point p, Color foreground, Color background, Graphics g)
-        {
-            g.FillRectangle(new SolidBrush(background), p.X, p.Y, CellSize.Width, CellSize.Height);
-            //g.DrawImage(CCharManager.GetChar(c, foreground), p);
+        {   //Draws the resemblance of an element. Mostly intended for sidebar use, etc.
 
-            int toSearch = BitmapCharacter.CalculateSearch(background, c);
+
+            g.FillRectangle(new SolidBrush(background), p.X, p.Y, CellSize.Width, CellSize.Height);
+
+            int toSearch = BitmapCharacter.CalculateSearch(foreground, c);
 
             BitmapCharacter loadedBitmap;
             if (!DrawableCharacters.ContainsKey(toSearch))
@@ -154,7 +128,6 @@ namespace WinZZT
             }
 
             g.DrawImage(DrawableCharacters[toSearch].Bitmap, p);
-
 
         }
 
@@ -168,7 +141,7 @@ namespace WinZZT
 
             g.FillRectangle(new SolidBrush(o.BackColor), p.X, p.Y, CellSize.Width, CellSize.Height);
 
-            int toSearch = BitmapCharacter.CalculateSearch(o.BackColor, o.Char);
+            int toSearch = BitmapCharacter.CalculateSearch(o.ForeColor, o.Char);
 
             BitmapCharacter loadedBitmap;
             if (!DrawableCharacters.ContainsKey(toSearch))
@@ -225,17 +198,21 @@ namespace WinZZT
             StringFormat sfCenter = new StringFormat();
             sfCenter.LineAlignment = StringAlignment.Center;
 
-            g.FillRectangle(new SolidBrush(Color.FromArgb(0, 0, 100)), CanvasSize.Width, 0, 100, CanvasSize.Height);
+            g.FillRectangle(new SolidBrush(Color.FromArgb(0, 0, 100)), CanvasSize.Width, 0, 175, CanvasSize.Height);
 
-            g.DrawString("- WinZZT -", BarFont, Brushes.Yellow, CanvasSize.Width + 18, 30, sfCenter);
+            //WinZZT Line
+            g.DrawString("- WinZZT -", BarFont, Brushes.Yellow, CanvasSize.Width + 53, + 30, sfCenter);
 
-            string status =
-                "Health :  " + CGame.PlayerHealth.ToString().PadLeft(3, char.Parse(" ")) + "\r\n" +
-                "Ammo   : " + CGame.PlayerAmmo.ToString().PadLeft(4, char.Parse(" "))  + "\r\n" +
-                "Torches: " + CGame.PlayerTorches.ToString().PadLeft(4, char.Parse(" "))
-                ;
+            //Actual values
+            g.DrawString("Health :  " + CGame.PlayerHealth.ToString().PadLeft(3, char.Parse(" ")), BarFont, Brushes.White, CanvasSize.Width + 30, 50);
+            g.DrawString("Ammo   : " + CGame.PlayerAmmo.ToString().PadLeft(4, char.Parse(" ")), BarFont, Brushes.White, CanvasSize.Width + 30, 65);
+            g.DrawString("Torches: " + CGame.PlayerTorches.ToString().PadLeft(4, char.Parse(" ")), BarFont, Brushes.White, CanvasSize.Width + 30, 80);
 
-            g.DrawString(status, BarFont, Brushes.White, CanvasSize.Width + 5, 50);
+            //Icons for health, ammo and torches.
+            DrawSymbol(3, new Point(CanvasSize.Width + 20, 51), Color.FromArgb(255, 128, 128), Color.Transparent, g);
+            DrawSymbol(132, new Point(CanvasSize.Width + 20, 66), Color.DarkCyan, Color.Transparent, g);
+            DrawSymbol(157, new Point(CanvasSize.Width + 20, 81), Color.Brown, Color.Transparent, g);
+
 
             //Keys and numbers
             Point kdOffset = new Point(CanvasSize.Width + 12, CanvasSize.Height - 60);
@@ -243,18 +220,21 @@ namespace WinZZT
             int d = 0;
             foreach (KeyValuePair<Color, int> k in CGame.KeyList)
             {
-                Point p = CUtil.addPoints(kdOffset, new Point(40 * (int)Math.Floor((double)d / 4), 13 * (d % 4)));
+                Point p = CUtil.addPoints(kdOffset, new Point(25 * (int)Math.Floor((double)d / 4), 13 * (d % 4)));
+                
                 DrawSymbol(12, p, k.Key, Color.Transparent, g);
+                
                 if (k.Value > 1)
                     g.DrawString(k.Value.ToString(), BarFont, Brushes.White, p.X + 6, p.Y - 1);
+                
                 d++;
             }
 
             //Torch time if active
             if (CGame.TorchActive)
             {
-                g.FillRectangle(new SolidBrush(Color.Black ), CanvasSize.Width + 5, 90, 90, 2);
-                g.FillRectangle(new SolidBrush(Color.Orange), CanvasSize.Width + 5, 90, (int)Math.Round(85.0 * ((double)CGame.TorchTime / 20)), 2);
+                g.FillRectangle(new SolidBrush(Color.Black ), CanvasSize.Width + 125, 86, 30, 3);
+                g.FillRectangle(new SolidBrush(Color.Orange), CanvasSize.Width + 125, 86, (int)Math.Round(28.0 * ((double)CGame.TorchTime / 20)), 3);
             }
 
 
@@ -301,4 +281,33 @@ namespace WinZZT
         }
 
     }
+
+    /* Wrapper for the image */
+    class BitmapCharacter
+    {
+        public BitmapCharacter(Color color, int character)
+        {
+            this.Bitmap = CCharManager.GetChar(character, color) as Bitmap;
+            this.Color = color;
+            this.Char = character;
+        }
+
+        public Bitmap Bitmap { get; set; }
+        public Color Color { get; set; }
+        public int Char { get; set; }
+
+        public int SearchValue /* Unique search value for Dictionary */
+        {
+            get
+            {
+                return CalculateSearch(this.Color, this.Char);
+            }
+        }
+
+        public static int CalculateSearch(Color color, int character)
+        {
+            return (color.R * 1000 + color.G * 100 + color.B * 10) + character;
+        }
+    }
+
 }

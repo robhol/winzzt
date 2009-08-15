@@ -208,11 +208,14 @@ namespace WinZZT
             g.DrawString("Health :  " + CGame.PlayerHealth.ToString().PadLeft(3, char.Parse(" ")), BarFont, Brushes.White, CanvasSize.Width + 30, 50);
             g.DrawString("Ammo   : " + CGame.PlayerAmmo.ToString().PadLeft(4, char.Parse(" ")), BarFont, Brushes.White, CanvasSize.Width + 30, 65);
             g.DrawString("Torches: " + CGame.PlayerTorches.ToString().PadLeft(4, char.Parse(" ")), BarFont, Brushes.White, CanvasSize.Width + 30, 80);
+            g.DrawString("Gems   : " + CGame.PlayerGems.ToString().PadLeft(4, char.Parse(" ")), BarFont, Brushes.White, CanvasSize.Width + 30, 95);
+            g.DrawString("Score  : " + CGame.PlayerScore.ToString().PadLeft(4, char.Parse(" ")), BarFont, Brushes.White, CanvasSize.Width + 30, 110);
 
             //Icons for health, ammo and torches.
             DrawSymbol(3, new Point(CanvasSize.Width + 20, 51), Color.FromArgb(255, 64, 72), Color.Transparent, g);
             DrawSymbol(132, new Point(CanvasSize.Width + 20, 66), Color.DarkCyan, Color.Transparent, g);
             DrawSymbol(157, new Point(CanvasSize.Width + 20, 81), Color.Brown, Color.Transparent, g);
+            DrawSymbol(4, new Point(CanvasSize.Width + 20, 96), Color.Cyan, Color.Transparent, g);
 
 
             //Keys and numbers

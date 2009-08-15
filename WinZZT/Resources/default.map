@@ -1,20 +1,49 @@
 <winzztmap>
 
-	<player x="19" y="12" ammo="500" />
+	<player x="15" y="15" ammo="500" />
 
 	<elements>
-		
-		<!-- Win ZZT text -->
-		<text x="15" y="12" char="87" color="DDDDDD" background="000000" />
-		<text x="16" y="12" char="105" color="DDDDDD" background="000000" />
-		<text x="17" y="12" char="110" color="DDDDDD" background="000000" />
-		<text x="21" y="12" char="90" color="FFFFFF" background="550000" />
-		<text x="22" y="12" char="90" color="FFFFFF" background="005500" />
-		<text x="23" y="12" char="84" color="FFFFFF" background="000055" />
-		
 
+		<text x="15" y="6" char="87" color="DDDDDD" background="000000" />
+		<text x="16" y="6" char="105" color="DDDDDD" background="000000" />
+		<text x="17" y="6" char="110" color="DDDDDD" background="000000" />
+		<text x="21" y="6" char="90" color="FFFFFF" background="550000" />
+		<text x="22" y="6" char="90" color="FFFFFF" background="005500" />
+		<text x="23" y="6" char="84" color="FFFFFF" background="000055" />
 
-	
-	</elements>
+    <ammo x="11" y="17" ammo="500" />
+    <object x="17" y="17" char="2" color="AAAAFF" bgcolor="" name="obj1" script="script1" />
+
+  </elements>
+
+  <scripts>
+
+<script id="script1">
+#end
+
+:shot
+#lock
+#char 1
+OOOOOWWW D:
+#walk n
+#walk e
+#walk s
+#walk w
+#char 2
+#unlock
+#end
+
+:touch
+#lock
+Watch who you're shoving, pal!
+#walk e
+#walk w
+#walk w
+#walk e
+#unlock
+#end
+</script>
+    
+  </scripts>
 
 </winzztmap>

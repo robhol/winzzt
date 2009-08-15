@@ -139,19 +139,22 @@ namespace WinZZT
                 if (e.Pushable && push)
                 {   //Push. If successful, move after.
                     if (e.PushTowards(d))
+                    {
                         Move(Location, p);
+                        return true;
+                    }
                 }
 
                 if (e.CanBeSteppedOn)
                 {   //Let whatever we're stepping on know, and move if OK.
                     if (e.SteppedOn(this))
+                    {
                         Move(Location, p);
+                        return true;
+                    }
                 }
 
-            }
-
-            else
-            {   //No go, completely blocked. Call Touch() for element, if any.
+                //No go, completely blocked. Call Touch() for element, if any.
                 CElement c = t.GetTopmost();
                 
                 if (c != null)

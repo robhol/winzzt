@@ -340,7 +340,7 @@ namespace WinZZT
 
         }
 
-        public static void Create(int x, int y, string type, string arg, Color c)
+        public static void Create(int x, int y, string type, Color c)
         {
             switch (type)
             {
@@ -350,9 +350,6 @@ namespace WinZZT
                     break;
                 case "lion":
                     new CLion(x, y);
-                    break;
-                case "pusher":
-                    new CPusher(x, y, CUtil.getDirectionFromString(arg), c);
                     break;
                 case "ruffian":
                     new CRuffian(x, y);
@@ -415,13 +412,13 @@ namespace WinZZT
             }
         }
 
-        public void Become(string t, string arg)
+        public void Become(CElementBlueprint bp)
         {
 
             int x = Location.X;
             int y = Location.Y;
 
-            CElement.Create(x, y, t, arg, this.ForeColor);
+            CElement.Create(x, y, bp.Type, bp.Color);
 
             Die();
 

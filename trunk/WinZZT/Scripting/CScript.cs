@@ -110,26 +110,18 @@ namespace WinZZT
                     return false;
 
                 case "BECOME": //Changes the object into whatever
-                    string arg2 = "";
 
-                    if (args.Length > 2)
-                        arg2 = args[2];
+                    CElementBlueprint bpBecome = new CElementBlueprint(args[1], Color.White);
 
-                    Object.Become(args[1], arg2);
+                    Object.Become(bpBecome);
 
                     return false;
 
                 case "PUT": //Puts an object in whatever direction
-                    string arg4 = "";
-                    Color c = Color.Transparent;
 
-                    if (args.Length > 3)
-                        c = CUtil.getColorFromString(args[3]);
+                    CElementBlueprint bpPut = new CElementBlueprint(args[2], Color.White);
 
-                    if (args.Length > 4)
-                        arg4 = args[4];
-
-                    Object.Put(CUtil.getDirectionFromString(args[1]),args[2], arg4, c);
+                    Object.Put(CUtil.getDirectionFromString(args[1]), bpPut);
 
                     return false;
 
@@ -213,11 +205,19 @@ namespace WinZZT
                                     JumpToLabel(escapeTo);
 
                                 break;
+
                         }
 
                         return false;
 
                     }
+
+                case "SHOOT": //Shoots in whatever direction
+
+                    Object.Shoot(CUtil.getDirectionFromString(args[1]));
+
+                    return false;
+
 
             }
 
@@ -263,6 +263,10 @@ namespace WinZZT
                 Step();
 
         }
+
+
+
+
 
 
     }

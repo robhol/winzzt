@@ -42,12 +42,12 @@ namespace WinZZT
             CElementManager.DeleteObject(this);
         }
 
-        public void Put(EDirection d, string t, string arg, Color c)
+        public void Put(EDirection d, CElementBlueprint bp)
         {
 
             Point p = CGrid.GetInDirection(Location, d);
 
-            CElement.Create(p.X, p.Y, t, arg, c);
+            CElement.Create(p.X, p.Y, bp.Type, bp.Color);
 
         }
 

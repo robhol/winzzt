@@ -247,7 +247,7 @@ namespace WinZZT
                         bool result = false;
 
                         //Get operator
-                        switch (args[3])
+                        switch (args[3].ToLower())
                         {
                             case "=":
                                 result = args[2] == args[4]; break;
@@ -259,12 +259,21 @@ namespace WinZZT
                                 result = int.Parse(args[2]) <  int.Parse(args[4]); break;
 
                             case "isdefined":
-                                result = Vars.ContainsKey(args[2]); break;
+                                result = args[2] != "(undefined)"; break;
                         }
 
                         //Act accordingly
                         if (result)
                             JumpToLabel(args[1]);
+
+                        break;
+                    }
+
+                case "UNSET": //Unsets/deletes a variable
+                    {
+
+                        if (Vars.ContainsKey(args[1]))
+                            Vars.Remove(args[1]);
 
                         break;
                     }

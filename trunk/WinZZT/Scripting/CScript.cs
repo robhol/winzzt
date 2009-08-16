@@ -109,7 +109,22 @@ namespace WinZZT
                     return true;
 
                 case "MSG": //Sends a message to an object with the given name
-                    CElementManager.SendMessageToObject(args[1], args[2]);
+                   
+                    switch (args[1].ToUpper())
+                    {
+                        case "ALL":
+                            CElementManager.SendMessageToObjects(null, args[2]);
+                            break;
+
+                        case "OTHERS":
+                            CElementManager.SendMessageToObjects(Object, args[2]);
+                            break;
+
+                        default:
+                            CElementManager.SendMessageToObject(args[1], args[2]);
+                            break;
+                    }
+                    
                     return false;
 
                 case "COLOR": //Changes colors...

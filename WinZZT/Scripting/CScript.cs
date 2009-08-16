@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace WinZZT
 {
     class CScript
     {
-        //static public Dictionary<string, object> GlobalVars;
-        //public Dictionary<string, object> Vars;
+        //Store a list of global and object/script specific variables
+        static public Dictionary<string, object> Vars;
 
         public CObject Object;
         public EScriptState State = EScriptState.Idle;
@@ -17,9 +18,17 @@ namespace WinZZT
         private int Line = 0;
         private string[] Lines;
 
+        public static void Initialize()
+        {
+            //Initialize global var dictionary
+            Vars = new Dictionary<string, object>();
+
+        }
+
         public CScript(CObject eObject, string script)
         {
 
+            //Add reference to object
             Object = eObject;
 
             //Trim all lines
@@ -218,6 +227,48 @@ namespace WinZZT
 
                     return false;
 
+                case "SET": //Sets a variable
+                    {
+
+                        if (!Vars.ContainsKey(args[1]))
+                            Vars.Add(args[1], args[2]);
+                        else
+                            Vars[args[1]] = args[2];
+
+                        break;
+                    }
+
+                case "GOTOIF": //Basic IF statement... Validates an expression.
+                    {
+                        //Input: 
+                        //ARG #     1       2     3      4
+                        //#GOTOIF label     A  operator  B
+
+                        bool result = false;
+
+                        //Get operator
+                        switch (args[3])
+                        {
+                            case "=":
+                                result = args[2] == args[4]; break;
+
+                            case ">":
+                                result = int.Parse(args[2])  > int.Parse(args[4]); break;
+
+                            case "<":
+                                result = int.Parse(args[2]) <  int.Parse(args[4]); break;
+
+                            case "isdefined":
+                                result = Vars.ContainsKey(args[2]); break;
+                        }
+
+                        //Act accordingly
+                        if (result)
+                            JumpToLabel(args[1]);
+
+                        break;
+                    }
+
 
             }
 
@@ -236,17 +287,35 @@ namespace WinZZT
 
             if (Lines[Line] != "")
             {
-                switch (Lines[Line].Substring(0, 1))
+
+                string s = Lines[Line];
+
+                //Look for any @s (variable sigils) and skip if none were found
+                if (s.IndexOf("@") != -1)
+                {
+
+                    //Replace all variables with their value
+                    foreach (KeyValuePair<string, object> p in Vars)
+                    {
+                        s = s.Replace("@" + p.Key, p.Value.ToString());
+                    }
+
+                    //Replace any other variable names
+                    s = CUtil.stripVariables(s);
+
+                }
+
+                switch (s.Substring(0,1))
                 {
                     case "#": //Command line
-                        waitAfter = Execute(Lines[Line].Substring(1));
+                        waitAfter = Execute(s.Substring(1));
                         break;
 
                     case ":": //Label (for GOTO and "events")
                         break;
 
-                    default:  //Defaulting to displaying text
-                        CDrawing.DisplayText(Lines[Line], 1000);
+                    default:  //Defaulting to displaying the text
+                        CDrawing.DisplayText(s, 2000);
                         break;
 
                 }

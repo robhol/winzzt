@@ -85,6 +85,17 @@ namespace WinZZT
             return null;
         }
 
+        public static void SendMessageToObjects(CObject except, string msg)
+        {
+
+            foreach (KeyValuePair<string,CObject> p in objectList)
+            {
+                if (p.Value != except)
+                    p.Value.Message(msg);
+            }
+
+        }
+
         public static void SendMessageToObject(string name, string msg)
         {
 

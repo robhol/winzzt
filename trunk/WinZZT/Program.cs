@@ -31,10 +31,11 @@ namespace WinZZT
             //Initialize sub-systems
             CCharManager.Initialize();
             CElementManager.Initialize();
+            CScript.Initialize();
             CGrid.Initialize();
             CGame.Initialize();
             CDrawing.Initialize();
-            
+
             //Create and display main form.
             MainForm = new frmMain();
             Application.Run(MainForm);

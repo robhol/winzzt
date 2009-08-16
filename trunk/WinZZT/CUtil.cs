@@ -127,6 +127,29 @@ namespace WinZZT
 
         }
 
+        public static string stripVariables(string s)
+        {
+
+            int idx = s.IndexOf("@");
+
+            while (idx != -1)
+            {
+                int spi = s.IndexOf(" ", idx);
+
+                if (spi != -1)
+                {
+                    s = s.Substring(0, idx) + "(undefined)" + s.Substring(spi);
+                }
+                else
+                    s = s.Substring(0, idx) + "(undefined)";
+
+                idx = s.IndexOf("@");
+
+            }
+
+            return s;
+        }
+
 
     }
 }

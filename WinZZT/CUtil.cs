@@ -160,6 +160,20 @@ namespace WinZZT
 
         }
 
+        public static string getDirectionString(EDirection e)
+        {
+            switch (e)
+            {
+                case EDirection.North: return "N";
+                case EDirection.East: return "E";
+                case EDirection.South: return "S";
+                case EDirection.West: return "W";
+            }
+
+            return "X";
+
+        }
+
         public static string stripVariables(string s)
         {
 
@@ -181,6 +195,14 @@ namespace WinZZT
             }
 
             return s;
+        }
+
+        public static string getAligned(Point a, Point b)
+        {
+            if (a.X - b.X == 0 || a.Y - b.Y == 0)
+                return "1";
+            else
+                return "0";
         }
 
 

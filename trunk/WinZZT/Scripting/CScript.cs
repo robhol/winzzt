@@ -88,7 +88,12 @@ namespace WinZZT
                     return false;
 
                 case "WALK": //Tries moving in a direction
-                    Object.Try(CUtil.getDirectionFromString(args[1]), true, true);
+                    if (
+                        !Object.Try(CUtil.getDirectionFromString(args[1]), true, true)
+                        && args.Length > 2
+                    )
+                        JumpToLabel(args[2]);
+
                     return true;
 
                 case "CHAR": //Changes char
@@ -336,10 +341,10 @@ namespace WinZZT
                             case "=":
                                 result = args[2] == args[4]; break;
 
-                            case ">":
+                            case "morethan":
                                 result = int.Parse(args[2])  > int.Parse(args[4]); break;
 
-                            case "<":
+                            case "lessthan":
                                 result = int.Parse(args[2]) <  int.Parse(args[4]); break;
 
                             case "isdefined":
@@ -350,7 +355,7 @@ namespace WinZZT
                         if (result)
                             JumpToLabel(args[1]);
 
-                        break;
+                        return false;
                     }
 
                 case "UNSET": //Unsets/deletes a variable
@@ -432,6 +437,11 @@ namespace WinZZT
                 //Look for any @s (variable sigils) and skip if none were found
                 if (s.IndexOf("@") != -1)
                 {
+
+                    //Replace "system variables"
+                    s = s.Replace("@seek", CUtil.getDirectionString(CGrid.GetDirectionToPoint(Object.Location, CGame.Player.Location, false)));
+                    s = s.Replace("@aligned", CUtil.getAligned(Object.Location, CGame.Player.Location));
+
 
                     //Replace all variables with their value
                     foreach (KeyValuePair<string, string> p in Vars)

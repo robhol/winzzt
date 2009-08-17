@@ -27,10 +27,20 @@ namespace WinZZT
             //Get an element string describing color and type.
             //If no color, use the default one supplied.
 
+            if (str.Length < 3)
+                return;
+
             if (str.IndexOf("-") != -1)
             {
                 string[] a = str.Split("-".ToCharArray());
-                Color = CUtil.getColorFromString(a[0]);
+
+                Color c;
+
+                if (CUtil.getColorFromString(a[0], out c))
+                    Color = c;
+                else
+                    Color = defaultColor;
+
                 Type = a[1];
             }
             else

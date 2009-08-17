@@ -82,10 +82,21 @@ namespace WinZZT
                     return true;
 
                 case "CHAR": //Changes char
-                    Object.Char = int.Parse(args[1]);
+
+                    if (args.Length < 2)
+                        return false;
+
+                    int chr;
+                    if (int.TryParse(args[1], out chr))
+                        Object.Char = chr;
+
                     return false;
 
                 case "GOTO": //Starts executing script at given label
+
+                    if (args.Length < 2)
+                        return false;
+                    
                     this.JumpToLabel(args[1]);
                     return false;
 
@@ -98,7 +109,14 @@ namespace WinZZT
                     return false;
                     
                 case "CYCLE": //Sets execution speed
-                    Object.Cycle = int.Parse(args[1]);
+
+                    if (args.Length < 2)
+                        return false;
+
+                    int cycle;
+                    if (int.TryParse(args[1], out cycle))
+                        Object.Cycle = cycle;
+
                     return false;
 
                 case "DIE": //Removes object
@@ -109,7 +127,10 @@ namespace WinZZT
                     return true;
 
                 case "MSG": //Sends a message to an object with the given name
-                   
+
+                    if (args.Length < 3)
+                        return false;
+
                     switch (args[1].ToUpper())
                     {
                         case "ALL":
@@ -128,12 +149,31 @@ namespace WinZZT
                     return false;
 
                 case "COLOR": //Changes colors...
-                    Object.ForeColor = CUtil.getColorFromString(args[1]);
+
+                    if (args.Length < 2)
+                        return false;
+
+                    Color f;
+
+                    if (CUtil.getColorFromString(args[1], out f))
+                        Object.ForeColor = f;
+
+                    Color b;
+
                     if (args.Length > 2)
-                        Object.BackColor = CUtil.getColorFromString(args[2]);
-                    return false;
+                    {
+                        if (CUtil.getColorFromString(args[2], out b))
+                            Object.BackColor = b;
+                    }
+                    else
+                        Object.BackColor = Color.Transparent;
+
+                        return false;
 
                 case "BECOME": //Changes the object into whatever
+
+                    if (args.Length < 2)
+                        return false;
 
                     CElementBlueprint bpBecome = new CElementBlueprint(args[1], Color.White);
 
@@ -143,6 +183,9 @@ namespace WinZZT
 
                 case "PUT": //Puts an object in whatever direction
 
+                    if (args.Length < 2)
+                        return false;
+
                     CElementBlueprint bpPut = new CElementBlueprint(args[2], Color.White);
 
                     Object.Put(CUtil.getDirectionFromString(args[1]), bpPut);
@@ -150,7 +193,14 @@ namespace WinZZT
                     return false;
 
                 case "GIVE":
-                    int amt = int.Parse(args[2]);
+
+                    if (args.Length < 3)
+                        return false;
+
+                    int amt;
+                    
+                    if (!int.TryParse(args[2], out amt))
+                        return false;
 
                     switch (args[1].ToUpper())
                     {
@@ -180,7 +230,12 @@ namespace WinZZT
                 case "TAKE":
                     {
 
-                        int takeamt = int.Parse(args[2]);
+                        if (args.Length < 3)
+                            return false;
+
+                        int takeamt;
+                        if (!int.TryParse(args[2], out takeamt))
+                            return false;
 
                         string escapeTo = "";
 
@@ -238,12 +293,18 @@ namespace WinZZT
 
                 case "SHOOT": //Shoots in whatever direction
 
+                    if (args.Length < 2)
+                        return false;
+
                     Object.Shoot(CUtil.getDirectionFromString(args[1]));
 
                     return false;
 
                 case "SET": //Sets a variable
                     {
+
+                        if (args.Length < 3)
+                            return false;
 
                         if (!Vars.ContainsKey(args[1]))
                             Vars.Add(args[1], args[2]);
@@ -258,6 +319,9 @@ namespace WinZZT
                         //Input: 
                         //ARG #     1       2     3      4
                         //#GOTOIF label     A  operator  B
+
+                        if (args.Length < 5)
+                            return false;
 
                         bool result = false;
 
@@ -286,6 +350,9 @@ namespace WinZZT
 
                 case "UNSET": //Unsets/deletes a variable
                     {
+
+                        if (args.Length < 2)
+                            return false;
 
                         if (Vars.ContainsKey(args[1]))
                             Vars.Remove(args[1]);

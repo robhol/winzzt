@@ -106,5 +106,19 @@ namespace WinZZT
 
         }
 
+        public static void Change(CElementBlueprint from, CElementBlueprint to)
+        {
+
+            // Copy to array. Avoids exceptions
+            CElement[] eList = elementList.ToArray();
+
+            foreach (CElement e in eList)
+            {
+                if (from.Match(e))
+                    e.Become(to);
+            }
+
+        }
+
     }
 }

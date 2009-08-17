@@ -395,6 +395,20 @@ namespace WinZZT
                         return false;
                     }
 
+                case "CHANGE": // Changes all elements of a given type to another.
+                    {
+
+                        if (args.Length < 3)
+                            return false;
+
+                        CElementBlueprint from = new CElementBlueprint(args[1], Color.Transparent);
+                        CElementBlueprint to   = new CElementBlueprint(args[2], Object.ForeColor);
+
+                        CElementManager.Change(from, to);
+
+                        break;
+                    }
+
             }
 
             return true;

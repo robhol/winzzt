@@ -25,7 +25,11 @@ namespace WinZZT
         public int Cycle
         {
             get { return (int)_cycle; }
-            set { _cycle = (double)value; }
+            set 
+            { 
+                _cycle = (double)value;
+                tmr.Interval = _cycle;
+            }
         }
 
         #endregion

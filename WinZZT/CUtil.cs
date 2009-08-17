@@ -38,9 +38,42 @@ namespace WinZZT
             if (s.Length == 8) //if getting alpha
                 a = int.Parse(s.Substring(6, 2), System.Globalization.NumberStyles.HexNumber);
 
-            return Color.FromArgb(a,r,g,b);
+            return Color.FromArgb(a, r, g, b);
 
         }
+
+        public static bool getColorFromString(string s, out Color c)
+        {
+
+            if (s == "")
+            {
+                c = Color.Transparent;
+                return true;
+            }
+
+            int r, g, b, a;
+
+            try
+            {
+                r = int.Parse(s.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+                g = int.Parse(s.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+                b = int.Parse(s.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+
+                a = 255;
+
+                if (s.Length == 8) //if getting alpha
+                    a = int.Parse(s.Substring(6, 2), System.Globalization.NumberStyles.HexNumber);
+            }
+            catch (Exception)
+            {
+                c = Color.Transparent;
+                return false;
+            }
+
+            c = Color.FromArgb(a, r, g, b);
+            return true;
+        }
+
 
         /// <summary>
         /// Adds two points.

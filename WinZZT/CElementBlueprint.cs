@@ -51,6 +51,11 @@ namespace WinZZT
 
         }
 
+        public bool Match(CElement e)
+        {
+            return (e.Type == this.Type && (e.ForeColor == this.Color || this.Color == Color.Transparent));
+        }
+
 
     }
 

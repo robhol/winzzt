@@ -10,7 +10,7 @@ namespace WinZZT
     class CScript
     {
         //Store a list of global and object/script specific variables
-        static public Dictionary<string, object> Vars;
+        static public Dictionary<string, string> Vars;
 
         public CObject Object;
         public EScriptState State = EScriptState.Idle;
@@ -21,7 +21,17 @@ namespace WinZZT
         public static void Initialize()
         {
             //Initialize global var dictionary
-            Vars = new Dictionary<string, object>();
+            Vars = new Dictionary<string, string>();
+
+        }
+
+        public static void SetVariable(string name, string value)
+        {
+
+            if (!Vars.ContainsKey(name))
+                Vars.Add(name, value);
+            else
+                Vars[name] = value;
 
         }
 
@@ -165,8 +175,6 @@ namespace WinZZT
                         if (CUtil.getColorFromString(args[2], out b))
                             Object.BackColor = b;
                     }
-                    else
-                        Object.BackColor = Color.Transparent;
 
                         return false;
 
@@ -306,10 +314,7 @@ namespace WinZZT
                         if (args.Length < 3)
                             return false;
 
-                        if (!Vars.ContainsKey(args[1]))
-                            Vars.Add(args[1], args[2]);
-                        else
-                            Vars[args[1]] = args[2];
+                        SetVariable(args[1], args[2]);
 
                         break;
                     }
@@ -360,6 +365,35 @@ namespace WinZZT
                         break;
                     }
 
+                case "MATH":
+                    {
+                        //  arg  1 2  3  4  5
+                        // #MATH x = 123 + 456
+
+                        if (args.Length != 6 || args[2] != "=")
+                            return false;
+
+                        double ma, mb;
+                        if (!double.TryParse(args[3], out ma) || !double.TryParse(args[5], out mb))
+                            return false; //Uh oh, something's wrong.
+
+                        double result = -1;
+                        switch (args[4]) //Check operator
+                        {
+                            case "+":
+                                result = ma + mb; break;
+                            case "-":
+                                result = ma - mb; break;
+                            case "*":
+                                result = ma * mb; break;
+                            case "/":
+                                result = ma / mb; break;
+                        }
+
+                        SetVariable(args[1], result.ToString());
+
+                        return false;
+                    }
 
             }
 
@@ -386,9 +420,9 @@ namespace WinZZT
                 {
 
                     //Replace all variables with their value
-                    foreach (KeyValuePair<string, object> p in Vars)
+                    foreach (KeyValuePair<string, string> p in Vars)
                     {
-                        s = s.Replace("@" + p.Key, p.Value.ToString());
+                        s = s.Replace("@" + p.Key, p.Value);
                     }
 
                     //Replace any other variable names
@@ -423,11 +457,5 @@ namespace WinZZT
                 Step();
 
         }
-
-
-
-
-
-
     }
 }

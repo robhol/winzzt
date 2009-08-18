@@ -58,8 +58,6 @@ namespace WinZZT
                     num++;
             }
 
-            CDrawing.DisplayText(Location.ToString() + " N=" + num.ToString(), 1000);
-
             if (num == 0) // Solitary...
                 return;
 

@@ -96,127 +96,241 @@ namespace WinZZT
 
             switch (args[0].ToUpper())
             {
-                case "END": //Stops script execution
-                    Line = Lines.Length;
-                    return false;
 
-                case "WALK": //Tries moving in a direction
+                #region "Control"
 
-                    bool walkresult = Object.Try(CUtil.getDirectionFromString(args[1]), true, true);
-
-                    if (!walkresult && args.Length > 2)
-                        JumpToLabel(args[2]);
-
-                    return walkresult;
-
-                case "CHAR": //Changes char
-
-                    if (args.Length < 2)
-                        return false;
-
-                    int chr;
-                    if (int.TryParse(args[1], out chr))
-                        Object.Char = chr;
-
-                    return false;
-
-                case "GOTO": //Starts executing script at given label
-
-                    if (args.Length < 2)
-                        return false;
-                    
-                    this.JumpToLabel(args[1]);
-                    return false;
-
-                case "LOCK": //Prevents object from responding to messages
-                    Object.Locked = true;
-                    return false;
-
-                case "UNLOCK": //Reverses LOCK effect
-                    Object.Locked = false;
-                    return false;
-                    
                 case "CYCLE": //Sets execution speed
+                    {
+                        if (args.Length < 2)
+                            return false;
 
-                    if (args.Length < 2)
+                        int cycle;
+                        if (int.TryParse(args[1], out cycle))
+                            Object.Cycle = cycle;
+
                         return false;
-
-                    int cycle;
-                    if (int.TryParse(args[1], out cycle))
-                        Object.Cycle = cycle;
-
-                    return false;
+                    }
 
                 case "DIE": //Removes object
-                    Object.Die();
-                    return false;
+                    {
+                        Object.Die();
+                        return false;
+                    }
+
+                case "END": //Stops script execution
+                    {
+                        Line = Lines.Length;
+                        return false;
+                    }
+
+                case "GOTO": //Starts executing script at given label
+                    {
+                        if (args.Length < 2)
+                            return false;
+
+                        this.JumpToLabel(args[1]);
+                        return false;
+                    }
+
+                case "GOTOIF": //Basic IF statement... Validates an expression.
+                    {
+                        //Input: 
+                        //ARG #     1       2     3      4
+                        //#GOTOIF label     A  operator  B
+
+                        if (args.Length < 5)
+                            return false;
+
+                        bool result = false;
+
+                        //Get operator
+                        switch (args[3].ToLower())
+                        {
+                            case "=":
+                                result = args[2] == args[4]; break;
+
+                            case "morethan":
+                                result = int.Parse(args[2]) > int.Parse(args[4]); break;
+
+                            case "lessthan":
+                                result = int.Parse(args[2]) < int.Parse(args[4]); break;
+
+                            case "isdefined":
+                                result = args[2] != "(undefined)"; break;
+                        }
+
+                        //Act accordingly
+                        if (result)
+                            JumpToLabel(args[1]);
+
+                        return false;
+                    }
+
+                case "LOCK": //Prevents object from responding to messages
+                    {
+                        Object.Locked = true;
+                        return false;
+                    }
 
                 case "PAUSE": //Does nothing, waits for next cycle/Step
-                    return true;
-
-                case "MSG": //Sends a message to an object with the given name
-
-                    if (args.Length < 3)
-                        return false;
-
-                    switch (args[1].ToUpper())
                     {
-                        case "ALL":
-                            CElementManager.SendMessageToObjects(null, args[2]);
-                            break;
-
-                        case "OTHERS":
-                            CElementManager.SendMessageToObjects(Object, args[2]);
-                            break;
-
-                        default:
-                            CElementManager.SendMessageToObject(args[1], args[2]);
-                            break;
+                        return true;
                     }
-                    
-                    return false;
+
+                case "RESTORE": // Changes the first occurence of a comment to a label
+                    {
+                        if (args.Length > 1)
+                            Replace("'" + args[1], ":" + args[1], 1);
+
+                        break;
+                    }
+
+                case "UNLOCK": //Reverses LOCK effect
+                    {
+                        Object.Locked = false;
+                        return false;
+                    }
+
+
+                case "ZAP": // Changes the first occurence of a label to a comment
+                    {
+                        if (args.Length > 1)
+                            Replace(":" + args[1], "'" + args[1], 1);
+
+                        break;
+                    }
+
+                #endregion
+
+                #region "Visual"
+
+                case "CHAR": //Changes char
+                    {
+                        if (args.Length < 2)
+                            return false;
+
+                        int chr;
+                        if (int.TryParse(args[1], out chr))
+                            Object.Char = chr;
+
+                        return false;
+                    }
 
                 case "COLOR": //Changes colors...
-
-                    if (args.Length < 2)
-                        return false;
-
-                    Color f;
-
-                    if (CUtil.getColorFromString(args[1], out f))
-                        Object.ForeColor = f;
-
-                    Color b;
-
-                    if (args.Length > 2)
                     {
-                        if (CUtil.getColorFromString(args[2], out b))
-                            Object.BackColor = b;
+                        if (args.Length < 2)
+                            return false;
+
+                        Color f;
+
+                        if (CUtil.getColorFromString(args[1], out f))
+                            Object.ForeColor = f;
+
+                        Color b;
+
+                        if (args.Length > 2)
+                        {
+                            if (CUtil.getColorFromString(args[2], out b))
+                                Object.BackColor = b;
+                        }
+
+                        return false;
                     }
 
-                        return false;
+
+
+                #endregion
+
+                #region "Actions"
 
                 case "BECOME": //Changes the object into whatever
+                    {
+                        if (args.Length < 2)
+                            return false;
 
-                    if (args.Length < 2)
+                        CElementBlueprint bpBecome = new CElementBlueprint(args[1], Color.White);
+
+                        Object.Become(bpBecome);
+
                         return false;
-
-                    CElementBlueprint bpBecome = new CElementBlueprint(args[1], Color.White);
-
-                    Object.Become(bpBecome);
-
-                    return false;
+                    }
 
                 case "PUT": //Puts an object in whatever direction
+                    {
+                        if (args.Length < 2)
+                            return false;
 
-                    if (args.Length < 2)
+                        CElementBlueprint bpPut = new CElementBlueprint(args[2], Color.White);
+
+                        Object.Put(CUtil.getDirectionFromString(args[1]), bpPut);
+
                         return false;
+                    }
 
-                    CElementBlueprint bpPut = new CElementBlueprint(args[2], Color.White);
+                case "SHOOT": //Shoots in whatever direction
+                    {
+                        if (args.Length < 2)
+                            return false;
 
-                    Object.Put(CUtil.getDirectionFromString(args[1]), bpPut);
+                        Object.Shoot(CUtil.getDirectionFromString(args[1]));
 
-                    return false;
+                        return false;
+                    }
+
+                case "WALK": //Tries moving in a direction
+                    {
+                        bool walkresult = Object.Try(CUtil.getDirectionFromString(args[1]), true, true);
+
+                        if (!walkresult && args.Length > 2)
+                            JumpToLabel(args[2]);
+
+                        return walkresult;
+                    }
+
+                #endregion
+
+                #region "Remote control"
+
+                case "CHANGE": // Changes all elements of a given type to another.
+                    {
+
+                        if (args.Length < 3)
+                            return false;
+
+                        CElementBlueprint from = new CElementBlueprint(args[1], Color.Transparent);
+                        CElementBlueprint to = new CElementBlueprint(args[2], Object.ForeColor);
+
+                        CElementManager.Change(from, to);
+
+                        break;
+                    }
+
+                case "MSG": //Sends a message to an object with the given name
+                    {
+                        if (args.Length < 3)
+                            return false;
+
+                        switch (args[1].ToUpper())
+                        {
+                            case "ALL":
+                                CElementManager.SendMessageToObjects(null, args[2]);
+                                break;
+
+                            case "OTHERS":
+                                CElementManager.SendMessageToObjects(Object, args[2]);
+                                break;
+
+                            default:
+                                CElementManager.SendMessageToObject(args[1], args[2]);
+                                break;
+                        }
+
+                        return false;
+                    }
+
+                #endregion
+
+                #region "Give and take"
 
                 case "GIVE": //Give the player * items of whatever type
 
@@ -317,71 +431,9 @@ namespace WinZZT
 
                     }
 
-                case "SHOOT": //Shoots in whatever direction
+                #endregion
 
-                    if (args.Length < 2)
-                        return false;
-
-                    Object.Shoot(CUtil.getDirectionFromString(args[1]));
-
-                    return false;
-
-                case "SET": //Sets a variable
-                    {
-
-                        if (args.Length < 3)
-                            return false;
-
-                        SetVariable(args[1], args[2]);
-
-                        break;
-                    }
-
-                case "GOTOIF": //Basic IF statement... Validates an expression.
-                    {
-                        //Input: 
-                        //ARG #     1       2     3      4
-                        //#GOTOIF label     A  operator  B
-
-                        if (args.Length < 5)
-                            return false;
-
-                        bool result = false;
-
-                        //Get operator
-                        switch (args[3].ToLower())
-                        {
-                            case "=":
-                                result = args[2] == args[4]; break;
-
-                            case "morethan":
-                                result = int.Parse(args[2])  > int.Parse(args[4]); break;
-
-                            case "lessthan":
-                                result = int.Parse(args[2]) <  int.Parse(args[4]); break;
-
-                            case "isdefined":
-                                result = args[2] != "(undefined)"; break;
-                        }
-
-                        //Act accordingly
-                        if (result)
-                            JumpToLabel(args[1]);
-
-                        return false;
-                    }
-
-                case "UNSET": //Unsets/deletes a variable
-                    {
-
-                        if (args.Length < 2)
-                            return false;
-
-                        if (Vars.ContainsKey(args[1]))
-                            Vars.Remove(args[1]);
-
-                        break;
-                    }
+                #region "Variables, math"
 
                 case "MATH": //Most basic math operations go here
                     {
@@ -413,35 +465,33 @@ namespace WinZZT
                         return false;
                     }
 
-                case "CHANGE": // Changes all elements of a given type to another.
+                case "SET": //Sets a variable
                     {
 
                         if (args.Length < 3)
                             return false;
 
-                        CElementBlueprint from = new CElementBlueprint(args[1], Color.Transparent);
-                        CElementBlueprint to   = new CElementBlueprint(args[2], Object.ForeColor);
-
-                        CElementManager.Change(from, to);
+                        SetVariable(args[1], args[2]);
 
                         break;
                     }
 
-                case "ZAP": // Changes the first occurence of a label to a comment
+
+
+                case "UNSET": //Unsets/deletes a variable
                     {
-                        if (args.Length > 1)
-                            Replace(":" + args[1], "'" + args[1], 1);
-                        
-                        break;
-                    }
 
-                case "RESTORE": // Changes the first occurence of a comment to a label
-                    {
-                        if (args.Length > 1)
-                            Replace("'" + args[1], ":" + args[1], 1);
+                        if (args.Length < 2)
+                            return false;
+
+                        if (Vars.ContainsKey(args[1]))
+                            Vars.Remove(args[1]);
 
                         break;
                     }
+
+
+                #endregion
 
             }
 

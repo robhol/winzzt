@@ -75,14 +75,17 @@ namespace WinZZT
             }
         }
 
-        static public void SpawnPlayer(int x, int y)
+        static public void SpawnPlayer(int x, int y, bool initial)
         {
-            if (PlayerSpawned && !PlayerDead)
+            if (PlayerSpawned && !PlayerDead && !initial)
                 return;
 
             PlayerDead = false;
             PlayerSpawned = true;
-            PlayerHealth = 100;
+
+            if (initial)
+                PlayerHealth = 100;
+
             _player = new CPlayer(x, y);
 
         }

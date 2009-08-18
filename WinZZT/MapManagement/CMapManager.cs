@@ -25,7 +25,7 @@ namespace WinZZT
 
         private static char[] whitespaceChars = new char[] { '\t', ' ' };
 
-        public static void HandleMapNode(XElement e)
+        public static void HandleElementNode(XElement e)
         {
 
             //Common for any element
@@ -188,6 +188,17 @@ namespace WinZZT
                         break;
                     }
 
+                case "passage":
+                    {
+                        new CPassage(
+                            x, y, CUtil.getColorFromString(e.Attribute("color").Value),
+                            e.Attribute("dest").Value,
+                            new Point( int.Parse(e.Attribute("dx").Value), int.Parse(e.Attribute("dy").Value))
+                            );
+
+                        break;
+                    }
+
 
                 #endregion
 
@@ -226,7 +237,7 @@ namespace WinZZT
         /// Loads a map from an XML node, after clearing the grid of all elements.
         /// </summary>
         /// <param name="root">The XML root node.</param>
-        public static void ProcessXMLMap(XElement root)
+        public static void ProcessXMLMap(XElement root, bool spawnPlayer, bool initial)
         {
 
             XElement elementRoot = root.Element("elements");
@@ -250,11 +261,12 @@ namespace WinZZT
             //Load and create all elements
             foreach (XElement e in elementRoot.Elements())
             {
-                HandleMapNode(e);
+                HandleElementNode(e);
             }
 
             //Spawn player
-            CGame.SpawnPlayer(int.Parse(playerTag.Attribute("x").Value), int.Parse(playerTag.Attribute("y").Value));
+            if (spawnPlayer)
+                CGame.SpawnPlayer(int.Parse(playerTag.Attribute("x").Value), int.Parse(playerTag.Attribute("y").Value), initial);
 
             //Check for initial ammo setting and apply
             XAttribute ammo = playerTag.Attribute("ammo");
@@ -291,13 +303,13 @@ namespace WinZZT
             }
             else
             {
-                ProcessXMLMap(XElement.Load(filepath));
+                ProcessXMLMap(XElement.Load(filepath), true, true);
                 return; //The map is loaded; we're done here.
             }
 
             //If we're here, map loading failed and our user still wants to continue.
             //We'll load a default map.
-            ProcessXMLMap(XElement.Parse(Properties.Resources.defaultmap));
+            ProcessXMLMap(XElement.Parse(Properties.Resources.defaultmap), true, true);
 
         }
 
@@ -309,6 +321,7 @@ namespace WinZZT
             return MapScripts[id];
 
         }
+
 
     }
 }

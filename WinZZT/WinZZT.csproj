@@ -62,7 +62,10 @@
     <Compile Include="Creatures\CRuffian.cs" />
     <Compile Include="Creatures\CShark.cs" />
     <Compile Include="CUtil.cs" />
-    <Compile Include="CMapManager.cs" />
+    <Compile Include="GameObjects\CPassage.cs" />
+    <Compile Include="MapManagement\CMap.cs" />
+    <Compile Include="MapManagement\CWorldManager.cs" />
+    <Compile Include="MapManagement\CMapManager.cs" />
     <Compile Include="Creatures\CLion.cs" />
     <Compile Include="Creatures\CPusher.cs" />
     <Compile Include="Creatures\CTiger.cs" />

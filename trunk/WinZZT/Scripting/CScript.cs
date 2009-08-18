@@ -101,13 +101,13 @@ namespace WinZZT
                     return false;
 
                 case "WALK": //Tries moving in a direction
-                    if (
-                        !Object.Try(CUtil.getDirectionFromString(args[1]), true, true)
-                        && args.Length > 2
-                    )
+
+                    bool walkresult = Object.Try(CUtil.getDirectionFromString(args[1]), true, true);
+
+                    if (!walkresult && args.Length > 2)
                         JumpToLabel(args[2]);
 
-                    return true;
+                    return walkresult;
 
                 case "CHAR": //Changes char
 
@@ -218,7 +218,7 @@ namespace WinZZT
 
                     return false;
 
-                case "GIVE":
+                case "GIVE": //Give the player * items of whatever type
 
                     if (args.Length < 3)
                         return false;
@@ -253,7 +253,7 @@ namespace WinZZT
 
                     return false;
 
-                case "TAKE":
+                case "TAKE": //Take * items of whatever type from the player.
                     {
 
                         if (args.Length < 3)
@@ -383,7 +383,7 @@ namespace WinZZT
                         break;
                     }
 
-                case "MATH":
+                case "MATH": //Most basic math operations go here
                     {
                         //  arg  1 2  3  4  5
                         // #MATH x = 123 + 456
@@ -470,6 +470,7 @@ namespace WinZZT
                     //Replace "system variables"
                     s = s.Replace("@seek", CUtil.getDirectionString(CGrid.GetDirectionToPoint(Object.Location, CGame.Player.Location, false)));
                     s = s.Replace("@aligned", CUtil.getAligned(Object.Location, CGame.Player.Location));
+                    s = s.Replace("@random_direction", CUtil.getDirectionString((EDirection)CGame.Random.Next(4)));
 
 
                     //Replace all variables with their value

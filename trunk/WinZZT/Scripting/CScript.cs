@@ -54,15 +54,14 @@ namespace WinZZT
 
         private int FindLabel(string s)
         {
-            int ret = -1;
 
             for (int i = 0; i < Lines.Length; i++)
             {
                 if (Lines[i].Length > 1 && Lines[i].Substring(0, 1) == ":" && Lines[i].Substring(1) == s)
-                    ret = i;
+                    return i;
             }
 
-            return ret;
+            return -1;
 
         }
 
@@ -72,6 +71,20 @@ namespace WinZZT
 
             if (ln != -1)
                 Line = ln;
+        }
+
+        public void Replace(string s, string r, int max)
+        {
+
+            int c = 0;
+
+            for (int i = 0; i < Lines.Length; i++)
+            {
+                if (max + 1 >= c)
+                    Lines[i] = Lines[i].Replace(s, r);
+
+                c++;
+            }
         }
 
         private bool Execute(string s)
@@ -414,6 +427,22 @@ namespace WinZZT
                         break;
                     }
 
+                case "ZAP": // Changes the first occurence of a label to a comment
+                    {
+                        if (args.Length > 1)
+                            Replace(":" + args[1], "'" + args[1], 1);
+                        
+                        break;
+                    }
+
+                case "RESTORE": // Changes the first occurence of a comment to a label
+                    {
+                        if (args.Length > 1)
+                            Replace("'" + args[1], ":" + args[1], 1);
+
+                        break;
+                    }
+
             }
 
             return true;
@@ -461,6 +490,9 @@ namespace WinZZT
                         break;
 
                     case ":": //Label (for GOTO and "events")
+                        break;
+
+                    case "'": //Comment... do nothing at all
                         break;
 
                     default:  //Defaulting to displaying the text

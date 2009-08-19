@@ -1,4 +1,4 @@
-<winzztmap>
+<winzztmap name="defaultmap">
 
 	<player x="15" y="15" ammo="500" />
 
@@ -18,31 +18,31 @@
 
   <scripts>
 
-<script id="script1">
-#end
+    <script id="script1">
+      #end
 
-:shot
-#lock
-#char 1
-OOOOOWWW D:
-#walk n
-#walk e
-#walk s
-#walk w
-#char 2
-#unlock
-#end
+      :shot
+      #lock
+      #char 1
+      OOOOOWWW D:
+      #walk n
+      #walk e
+      #walk s
+      #walk w
+      #char 2
+      #unlock
+      #end
 
-:touch
-#lock
-Watch who you're shoving, pal!
-#walk e
-#walk w
-#walk w
-#walk e
-#unlock
-#end
-</script>
+      :touch
+      #lock
+      Watch who you're shoving, pal!
+      #walk e
+      #walk w
+      #walk w
+      #walk e
+      #unlock
+      #end
+    </script>
     
   </scripts>
 

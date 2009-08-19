@@ -242,7 +242,7 @@ namespace WinZZT
 
             XElement elementRoot = root.Element("elements");
 
-            CGrid.ClearGrid();
+            //CGrid.ClearGrid();
             MapScripts.Clear();
 
             XElement playerTag = root.Element("player");

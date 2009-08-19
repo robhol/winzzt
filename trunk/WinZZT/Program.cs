@@ -30,9 +30,7 @@ namespace WinZZT
 
             //Initialize sub-systems
             CCharManager.Initialize();
-            CElementManager.Initialize();
             CScript.Initialize();
-            CGrid.Initialize();
             CGame.Initialize();
             CDrawing.Initialize();
 

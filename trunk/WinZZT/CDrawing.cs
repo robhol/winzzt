@@ -177,7 +177,7 @@ namespace WinZZT
             }
 
             //Get tile
-            CTile t = CGrid.Get(gp);
+            CTile t = CWorldManager.CurrentMap.Grid.Get(gp);
 
             if (t.Contents.Count > 0)
             {   //If not empty, copy to array(avoids exceptions) and iterate, drawing everything.

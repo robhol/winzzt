@@ -32,7 +32,7 @@ namespace WinZZT
                 EDirection d = (EDirection)di;
                 Point p = CGrid.GetInDirection(Location,d);
 
-                if (CGrid.IsValid(p) && !CGrid.Get(p).IsBlocked())
+                if (CWorldManager.CurrentMap.Grid.IsValid(p) && !CWorldManager.CurrentMap.Grid.Get(p).IsBlocked())
                 {
                     new CSlime(p.X, p.Y, this.ForeColor);
                 }

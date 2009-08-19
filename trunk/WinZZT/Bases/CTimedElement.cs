@@ -84,5 +84,19 @@ namespace WinZZT
 
         #endregion
 
+        #region "Control"
+
+        public void Start()
+        {
+            tmr.Start();
+        }
+
+        public void Stop()
+        {
+            tmr.Stop();
+        }
+
+        #endregion
+
     }
 }

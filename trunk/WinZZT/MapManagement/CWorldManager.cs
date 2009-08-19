@@ -19,6 +19,8 @@ namespace WinZZT
         public static string WorldName;
         public static string Author;
 
+        public static CMap CurrentMap;
+
         public static void LoadWorld(string filename)
         {
 
@@ -32,7 +34,7 @@ namespace WinZZT
                     Application.Exit();
                 else
                     //Load a default screen
-                    CMapManager.ProcessXMLMap(XElement.Parse(Properties.Resources.defaultmap), true, true);
+                    new CMap(XElement.Parse(Properties.Resources.defaultmap)).ChangeTo(true,true);
 
                 return;
             }
@@ -50,7 +52,7 @@ namespace WinZZT
                 MapList.Add(m.Name, m);
             }
 
-            getMap(root.Attribute("startmap").Value).ChangeTo(true);
+            getMap(root.Attribute("startmap").Value).ChangeTo(true,true);
 
         }
 
@@ -66,7 +68,7 @@ namespace WinZZT
 
         public static void ChangeMap(string name)
         {
-            getMap(name).ChangeTo(false);
+            getMap(name).ChangeTo(false, true);
         }
 
         public static void ChangeMap(string name, Point p)

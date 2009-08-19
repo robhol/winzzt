@@ -19,6 +19,8 @@ namespace WinZZT
         public CGrid Grid;
         public bool FirstRun;
 
+        public Dictionary<EDirection, string> mapLinks;
+
         public CMap(XElement mapNode)
         {
 
@@ -28,6 +30,20 @@ namespace WinZZT
 
             elementList = new List<CElement>();
             objectList = new Dictionary<string, CObject>();
+
+            mapLinks = new Dictionary<EDirection, string>();
+
+            for (int di = 0; di < 4; di++)
+            {
+                EDirection d = (EDirection)di;
+                XAttribute link = mapNode.Attribute(CUtil.getDirectionString(d).ToLower());
+
+                if (link != null)
+                    mapLinks[d] = link.Value;
+                else
+                    mapLinks[d] = null;
+
+            }
 
             Grid = new CGrid();
             Grid.Initialize();
@@ -204,6 +220,10 @@ namespace WinZZT
 
         }
 
+        public bool HasMapLinkInDirection(EDirection d)
+        {
+            return mapLinks[d] != null;
+        }
 
 
 

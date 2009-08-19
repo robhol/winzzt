@@ -71,7 +71,52 @@ namespace WinZZT
                 }
                 else
                 {
-                    Try(d,true,true);
+                    //If we're at the edge of a map, check for links
+                    if ((
+                        (d == EDirection.West && Location.X == 0) ||
+                        (d == EDirection.North && Location.Y == 0) ||
+                        (d == EDirection.East && Location.X == CGrid.GridSize.Width - 1) ||
+                        (d == EDirection.South && Location.Y == CGrid.GridSize.Height - 1)
+                        ) && CWorldManager.CurrentMap.HasMapLinkInDirection(d)
+                       )
+                    {
+
+                        Point p = Location;
+                        string mapName = CWorldManager.CurrentMap.mapLinks[d];
+
+                        //Find coords
+                        switch (d)
+                        {
+                            case EDirection.North:
+                                p.Y = CGrid.GridSize.Height - 1; break;
+
+                            case EDirection.East:
+                                p.X = 0; break;
+
+                            case EDirection.South:
+                                p.Y = 0; break;
+
+                            case EDirection.West:
+                                p.X = CGrid.GridSize.Width - 1; break;
+
+                        }
+
+                        //Check for blockages...
+                        if (!CWorldManager.getMap(mapName).Grid.Get(p).IsBlocked())
+                        {
+                            //Go!
+                            CWorldManager.ChangeMap(mapName, p);
+                        }
+
+
+
+
+                    }
+                    else
+                    {
+                        //Normal walk
+                        Try(d, true, true);
+                    }
                 }   
         }
 

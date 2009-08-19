@@ -77,8 +77,6 @@ namespace WinZZT
 
         static public void SpawnPlayer(int x, int y, bool initial)
         {
-            if (PlayerSpawned && !PlayerDead && !initial)
-                return;
 
             PlayerDead = false;
             PlayerSpawned = true;

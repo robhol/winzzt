@@ -40,7 +40,7 @@ namespace WinZZT
                     if (this.HasElementInDirection("breakable", d))
                     {
                         //remove them
-                        CGrid.Get(CGrid.GetInDirection(Location, d)).Contents.RemoveAll(delegate(CElement e)
+                        CWorldManager.CurrentMap.Grid.Get(CGrid.GetInDirection(Location, d)).Contents.RemoveAll(delegate(CElement e)
                         {
                             return e.Type == "breakable";
                         }

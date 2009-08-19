@@ -79,23 +79,9 @@ namespace WinZZT
                         break;
                     }
 
-                case "clear":
-                    {
-                        CGrid.ClearGrid();
-                        break;
-                    }
-
                 case "lm":
                     {
                         CMapManager.LoadMapFile(args[1]);
-                        break;
-                    }
-
-                case "elements":
-                    {
-
-                        OutputConsole(CElementManager.Dump());
-
                         break;
                     }
 

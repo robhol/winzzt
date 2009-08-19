@@ -32,14 +32,14 @@ namespace WinZZT
 
             Script = new CScript(this, sScript);
 
-            CElementManager.RegisterObject(this);
+            CWorldManager.CurrentMap.RegisterObject(this);
 
         }
 
         public override void Die()
         {
             base.Die();
-            CElementManager.DeleteObject(this);
+            CWorldManager.CurrentMap.DeleteObject(this);
         }
 
         public void Put(EDirection d, CElementBlueprint bp)

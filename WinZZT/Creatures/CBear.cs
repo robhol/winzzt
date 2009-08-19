@@ -46,7 +46,7 @@ namespace WinZZT
                     else //If there's a breakable here...
                     {
                         //Get the tile
-                        CTile t = CGrid.Get(CGrid.GetInDirection(Location, d));
+                        CTile t = CWorldManager.CurrentMap.Grid.Get(CGrid.GetInDirection(Location, d));
 
                         //Destroy all breakables in the tile.
                         t.Contents.RemoveAll(

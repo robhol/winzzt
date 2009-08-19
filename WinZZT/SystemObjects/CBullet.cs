@@ -38,13 +38,13 @@ namespace WinZZT
             if (!Try(Direction,false,false))
             {   //Something's blocking us
                 
-                if (!CGrid.IsValid(p))
+                if (!CWorldManager.CurrentMap.Grid.IsValid(p))
                 {
                     Die();
                     return;
                 }
 
-                CElement target = CGrid.Get(p).GetTopmost();
+                CElement target = CWorldManager.CurrentMap.Grid.Get(p).GetTopmost();
                 if (target != null && target.BlockBullets)
                 {   
                     //Target is blocking bullets. fire Shot() and die.

@@ -16,12 +16,12 @@ using System.Windows.Forms;
 
 namespace WinZZT
 {
-    static class CGrid
+    class CGrid
     {
-        static private Dictionary<Point, CTile> DGrid = new Dictionary<Point, CTile>();
+        private Dictionary<Point, CTile> DGrid = new Dictionary<Point, CTile>();
         static public Size GridSize = new Size(40, 25);
 
-        static public void Initialize()
+        public void Initialize()
         {
             for (int y=0; y<GridSize.Height; y++)
                 for (int x = 0; x < GridSize.Width; x++)
@@ -30,11 +30,15 @@ namespace WinZZT
                 }
         }
 
-        static public void ClearGrid()
+        public void ClearGrid()
         {
             DGrid.Clear();
             Initialize();
-            CElementManager.DeleteAll();
+
+            if (CWorldManager.CurrentMap != null)
+                CWorldManager.CurrentMap.DeleteAll();
+
+
             CGame.PlayerSpawned = false;
         }
 
@@ -44,7 +48,7 @@ namespace WinZZT
         /// <param name="o">Point to start from.</param>
         /// <param name="d">Direction.</param>
         /// <returns></returns>
-        static public Point GetInDirection(Point o, EDirection d)
+        public static Point GetInDirection(Point o, EDirection d)
         {
             Point p = new Point(0, 0);
             switch (d)
@@ -128,7 +132,7 @@ namespace WinZZT
         /// </summary>
         /// <param name="p">Point to check.</param>
         /// <returns></returns>
-        static public bool IsValid(Point p)
+        public bool IsValid(Point p)
         {
             return (p.X >= 0 && p.X < GridSize.Width) && (p.Y >= 0 && p.Y < GridSize.Height);
         }
@@ -138,7 +142,7 @@ namespace WinZZT
         /// </summary>
         /// <param name="p">Point.</param>
         /// <returns></returns>
-        static public CTile Get(Point p)
+        public CTile Get(Point p)
         {
             return DGrid[p];
         }

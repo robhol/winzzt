@@ -56,7 +56,7 @@ namespace WinZZT
             foreach (Point s in surroundings)
             {
                 Point p = CUtil.addPoints(Location, s);
-                CTile t = CGrid.Get(p);
+                CTile t = CWorldManager.CurrentMap.Grid.Get(p);
 
                 if (t.Contents.Count == 0) //Skip this cell if empty
                     continue;

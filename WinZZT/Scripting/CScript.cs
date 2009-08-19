@@ -300,7 +300,7 @@ namespace WinZZT
                         CElementBlueprint from = new CElementBlueprint(args[1], Color.Transparent);
                         CElementBlueprint to = new CElementBlueprint(args[2], Object.ForeColor);
 
-                        CElementManager.Change(from, to);
+                        CWorldManager.CurrentMap.Change(from, to);
 
                         break;
                     }
@@ -313,15 +313,15 @@ namespace WinZZT
                         switch (args[1].ToUpper())
                         {
                             case "ALL":
-                                CElementManager.SendMessageToObjects(null, args[2]);
+                                CWorldManager.CurrentMap.SendMessageToObjects(null, args[2]);
                                 break;
 
                             case "OTHERS":
-                                CElementManager.SendMessageToObjects(Object, args[2]);
+                                CWorldManager.CurrentMap.SendMessageToObjects(Object, args[2]);
                                 break;
 
                             default:
-                                CElementManager.SendMessageToObject(args[1], args[2]);
+                                CWorldManager.CurrentMap.SendMessageToObject(args[1], args[2]);
                                 break;
                         }
 

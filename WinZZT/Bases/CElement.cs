@@ -41,11 +41,11 @@ namespace WinZZT
         {
             //Add to grid
             Location = new Point(x, y);
-            CTile t = CGrid.Get(Location);
+            CTile t = CWorldManager.CurrentMap.Grid.Get(Location);
             t.Contents.Add(this);
 
-            //Register in Element Manager
-            CElementManager.Register(this);
+            //Register in the map's element list
+            CWorldManager.CurrentMap.Register(this);
 
             //Update type string. Remove WinZZT.C (redundant.) Also lowercase.
             Type = this.GetType().ToString().Replace("WinZZT.C","").ToLower();
@@ -66,13 +66,13 @@ namespace WinZZT
         /// <summary>Removes the element.</summary>
         public virtual void Die()
         {
-            CTile t = CGrid.Get(Location);
+            CTile t = CWorldManager.CurrentMap.Grid.Get(Location);
 
             if (t.Contents.Contains(this))
                 t.Contents.Remove(this);
 
             //Remove reference from element manager
-            CElementManager.Delete(this);
+           CWorldManager.CurrentMap.Delete(this);
 
         }
 
@@ -87,14 +87,14 @@ namespace WinZZT
         public void Move(Point from, Point to)
         {
             //Get old tile.
-            CTile f = CGrid.Get(from);
+            CTile f = CWorldManager.CurrentMap.Grid.Get(from);
             
             //Remove from old tile
             if (f.Contents.Contains(this))    
                 f.Contents.Remove(this);
             
             //Get new tile
-            CTile t = CGrid.Get(to);
+            CTile t = CWorldManager.CurrentMap.Grid.Get(to);
             
             //Add to tile and update Location
             t.Contents.Add(this);
@@ -114,17 +114,14 @@ namespace WinZZT
             //Get destination coords
             Point p = CGrid.GetInDirection(Location, d);
 
-            if (!CGrid.IsValid(p))
+            if (!CWorldManager.CurrentMap.Grid.IsValid(p))
                 return false;
-            
-            CTile t = CGrid.Get(p);
+
+            CTile t = CWorldManager.CurrentMap.Grid.Get(p);
 
             if (!t.IsBlocked())
             {
                 CElement c = t.GetTopmost();
-
-                /*if (c != null && c.CanBeSteppedOn) //Trigger SteppedOn for topmost object
-                    c.SteppedOn(this);*/
 
                 if (move)
                     Move(Location, p); //Do the actual move unless "hypothetical"
@@ -177,10 +174,10 @@ namespace WinZZT
             Point p = CGrid.GetInDirection(Location, d);
 
             //Cancel if invalid and return false
-            if (!CGrid.IsValid(p))
+            if (!CWorldManager.CurrentMap.Grid.IsValid(p))
                 return false;
 
-            CTile t = CGrid.Get(p);
+            CTile t = CWorldManager.CurrentMap.Grid.Get(p);
 
             if (!t.IsBlocked())
             {
@@ -209,7 +206,7 @@ namespace WinZZT
         {
 
             EDirection x = CGrid.GetDirectionToPoint(Location, p, false);
-            if (CGrid.Get(CGrid.GetInDirection(Location,x)).IsBlocked())
+            if (CWorldManager.CurrentMap.Grid.Get(CGrid.GetInDirection(Location, x)).IsBlocked())
                 x = CGrid.GetDirectionToPoint(Location, p, true);
 
             return Try(x,true,false);
@@ -236,7 +233,7 @@ namespace WinZZT
         public bool IsTouching(CElement e)
         {
             for (int dir = 0; dir < 4; dir++)
-                if (CGrid.Get(CGrid.GetInDirection(Location, (EDirection)dir)).Contents.Contains(e))
+                if (CWorldManager.CurrentMap.Grid.Get(CGrid.GetInDirection(Location, (EDirection)dir)).Contents.Contains(e))
                     return true;
 
             return false;
@@ -252,8 +249,8 @@ namespace WinZZT
         {
             Point p = CGrid.GetInDirection(Location, d);
 
-            if (CGrid.IsValid(p))
-                return CGrid.Get(p).ContainsType(t);
+            if (CWorldManager.CurrentMap.Grid.IsValid(p))
+                return CWorldManager.CurrentMap.Grid.Get(p).ContainsType(t);
 
             return false;
 
@@ -271,9 +268,9 @@ namespace WinZZT
 
             Point p = CGrid.GetInDirection(Location, d);
 
-            if (CGrid.IsValid(p))
+            if (CWorldManager.CurrentMap.Grid.IsValid(p))
             {
-                foreach (CElement e in CGrid.Get(p).Contents)
+                foreach (CElement e in CWorldManager.CurrentMap.Grid.Get(p).Contents)
                 {
                     if (e.Type == t)
                         o = e;
@@ -330,7 +327,12 @@ namespace WinZZT
 
             Point p = CGrid.GetInDirection(Location, d);
 
-            if (CGrid.IsValid(p) && !CGrid.Get(p).IsBlocked() || (CGrid.Get(p).GetTopmost() != null && !CGrid.Get(p).GetTopmost().BlockBullets))
+            if (
+                CWorldManager.CurrentMap.Grid.IsValid(p) &&
+                !CWorldManager.CurrentMap.Grid.Get(p).IsBlocked()
+                || (CWorldManager.CurrentMap.Grid.Get(p).GetTopmost() != null &&
+                !CWorldManager.CurrentMap.Grid.Get(p).GetTopmost().BlockBullets
+                ))
             {
                 new CBullet(p.X, p.Y, 100, d, this);
                 return true;

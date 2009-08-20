@@ -90,12 +90,6 @@ namespace WinZZT
             foreach (CElement e in el)
             {
 
-                if (e is CObject)
-                {
-                    ((CObject)e).Start();
-                    continue;
-                }
-
                 if (e is CTimedElement)
                 {
                     ((CTimedElement)e).Start();
@@ -118,12 +112,6 @@ namespace WinZZT
 
             foreach (CElement e in el)
             {
-
-                if (e is CObject)
-                {
-                    ((CObject)e).Stop();
-                    continue;
-                }
 
                 if (e is CTimedElement)
                 {

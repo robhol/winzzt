@@ -108,9 +108,6 @@ namespace WinZZT
                             CWorldManager.ChangeMap(mapName, p);
                         }
 
-
-
-
                     }
                     else
                     {

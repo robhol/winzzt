@@ -493,6 +493,15 @@ namespace WinZZT
 
                 #endregion
 
+                case "ENDGAME": // Changes all elements of a given type to another.
+                    {
+
+                        CGame.PlayerDead = true;
+                        CGame.PlayerFrozen = true;
+
+                        break;
+                    }
+
             }
 
             return true;

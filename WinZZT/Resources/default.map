@@ -4,12 +4,12 @@
 
 	<elements>
 
-		<text x="15" y="6" char="87" color="DDDDDD" background="000000" />
-		<text x="16" y="6" char="105" color="DDDDDD" background="000000" />
-		<text x="17" y="6" char="110" color="DDDDDD" background="000000" />
-		<text x="21" y="6" char="90" color="FFFFFF" background="550000" />
-		<text x="22" y="6" char="90" color="FFFFFF" background="005500" />
-		<text x="23" y="6" char="84" color="FFFFFF" background="000055" />
+		<text x="15" y="6" char="87" color="DDDDDD" bgcolor="000000" />
+		<text x="16" y="6" char="105" color="DDDDDD" bgcolor="000000" />
+		<text x="17" y="6" char="110" color="DDDDDD" bgcolor="000000" />
+		<text x="21" y="6" char="90" color="FFFFFF" bgcolor="550000" />
+		<text x="22" y="6" char="90" color="FFFFFF" bgcolor="005500" />
+		<text x="23" y="6" char="84" color="FFFFFF" bgcolor="000055" />
 
     <ammo x="11" y="17" ammo="500" />
     <object x="17" y="17" char="2" color="AAAAFF" bgcolor="" name="obj1" script="script1" />

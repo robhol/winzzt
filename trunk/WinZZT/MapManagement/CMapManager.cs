@@ -77,7 +77,7 @@ namespace WinZZT
                     }
                 case "text":
                     {
-                        new CText(x, y, int.Parse(e.Attribute("char").Value), CUtil.getColorFromString(e.Attribute("color").Value), CUtil.getColorFromString(e.Attribute("background").Value));
+                        new CText(x, y, int.Parse(e.Attribute("char").Value), CUtil.getColorFromString(e.Attribute("color").Value), CUtil.getColorFromString(e.Attribute("bgcolor").Value));
                         break;
                     }
 

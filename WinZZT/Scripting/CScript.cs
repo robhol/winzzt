@@ -493,7 +493,7 @@ namespace WinZZT
 
                 #endregion
 
-                case "ENDGAME": // Changes all elements of a given type to another.
+                case "ENDGAME": // Ends the game and shows the Game Over screen.
                     {
 
                         CGame.PlayerDead = true;

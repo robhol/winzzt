@@ -32,6 +32,8 @@ namespace WinZZT
         static public int PlayerGems = 0;
         static public int PlayerScore = 0;
 
+        static public EGamemode GameMode = EGamemode.Game;
+
         static public Random Random = new Random();
         static private Timer GameTimer = new Timer(1000);
 

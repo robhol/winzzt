@@ -43,7 +43,10 @@
             this.pb.Size = new System.Drawing.Size(493, 350);
             this.pb.TabIndex = 1;
             this.pb.TabStop = false;
+            this.pb.MouseLeave += new System.EventHandler(this.pb_MouseLeave);
+            this.pb.Click += new System.EventHandler(this.pb_Click);
             this.pb.Paint += new System.Windows.Forms.PaintEventHandler(this.pb_Paint);
+            this.pb.MouseEnter += new System.EventHandler(this.pb_MouseEnter);
             // 
             // frmMain
             // 

@@ -90,6 +90,11 @@ namespace WinZZT
                         this.Close();
                         break;
                     }
+                case "maped":
+                    {
+                        CGame.GameMode = EGamemode.MapEditor;
+                        break;
+                    }
                 default:
                     {
                         OutputConsole("Unknown command.");
@@ -118,9 +123,5 @@ namespace WinZZT
             }
         }
 
-        private void frmConsole_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

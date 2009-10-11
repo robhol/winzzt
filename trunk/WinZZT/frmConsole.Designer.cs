@@ -68,7 +68,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "WinZZT Console";
-            this.Load += new System.EventHandler(this.frmConsole_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

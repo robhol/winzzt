@@ -34,24 +34,11 @@ namespace WinZZT
 
         private static Dictionary<int, BitmapCharacter> DrawableCharacters = new Dictionary<int, BitmapCharacter>();
 
-        [Obsolete]
-        private static Dictionary<int, Bitmap> LoadBitmapCharacters()
-        {
-            Dictionary<int, Bitmap> characters = new Dictionary<int, Bitmap>();
-            Bitmap currBitmap;
-
-            for (int i = 1; i < 256; i++)
-            {
-                currBitmap = CCharManager.GetChar(i, Color.Wheat) as Bitmap;
-                characters.Add(i, currBitmap);
-            }
-
-            return characters;
-        }
-
-
         //Whether or not to draw the grid.
         public static bool DrawDGrid = false;
+
+        //Whether or not to draw a cursor (only in map editor mode, while hovering over PB)
+        public static bool DrawCursor = false;
 
         public static Timer tmrDraw;
 
@@ -261,6 +248,28 @@ namespace WinZZT
 
                 g.FillRectangle(new SolidBrush(Color.FromArgb(50, 255, 0, 0)), 0, 0, CanvasSize.Width, CanvasSize.Height);
                 g.DrawString("GAME OVER", new Font("Courier New", 14, FontStyle.Bold), Brushes.White, CanvasSize.Width / 2, CanvasSize.Height / 2, f);
+            }
+
+            if (DrawCursor)
+            {
+                //Find cell
+                Point t = GetTileFromCanvasCoords(
+                    Point.Subtract(System.Windows.Forms.Cursor.Position,
+                    new Size( 
+                        Program.MainForm.Location.X + Program.MainForm.pb.Location.X,
+                        Program.MainForm.Location.Y + Program.MainForm.pb.Location.Y        
+                            )
+                    ));
+
+                //A little correction
+                t.Y--;
+
+                //Now find the tile's canvas coords again...
+                Point p = GetCanvasCoords(t);
+
+                //Draw the rectangle
+                g.DrawRectangle(Pens.Red, p.X - 1, p.Y-1, CellSize.Width + 1, CellSize.Height + 1);
+
             }
 
             if (textDisplayActive)

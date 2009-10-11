@@ -94,5 +94,23 @@ namespace WinZZT
             }
         }
 
+        private void pb_MouseEnter(object sender, EventArgs e)
+        {
+            //If in map editor mode, show custom cursor, hide default.
+            CDrawing.DrawCursor = (CGame.GameMode == EGamemode.MapEditor);
+            Cursor.Hide();
+        }
+
+        private void pb_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pb_MouseLeave(object sender, EventArgs e)
+        {
+            CDrawing.DrawCursor = false;
+            Cursor.Show();
+        }
+
     }
 }

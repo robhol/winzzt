@@ -40,4 +40,10 @@ namespace WinZZT
         Finished
     }
 
+    public enum EGamemode
+    {
+        Game,
+        MapEditor
+    }
+
 }
